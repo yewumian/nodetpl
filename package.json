@@ -8,7 +8,8 @@
   "description": "nodetpl template lib",
   "devDependencies": {},
   "keywords": [
-    "nodetpl", "javascript template engine"
+    "nodetpl",
+    "javascript template engine"
   ],
   "main": "nodetpl.js",
   "name": "nodetpl",
@@ -22,5 +23,10 @@
   "bugs": {
     "url": "https://github.com/pillys/nodetpl/issues"
   },
-  "homepage": "https://github.com/pillys/nodetpl"
+  "homepage": "https://github.com/pillys/nodetpl",
+  "_id": "nodetpl@1.0.0",
+  "dist": {
+    "shasum": "e9a70366b2646c7ea73a666003472fe7430beb97"
+  },
+  "_from": "nodetpl"
 }
