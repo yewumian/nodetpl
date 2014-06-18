@@ -5,13 +5,13 @@
     "url": "http://ued.liepin.com"
   },
   "dependencies": {},
-  "description": "NodeTpl Template Lib",
+  "description": "nodetpl template lib",
   "devDependencies": {},
   "keywords": [
-    "NodeTpl", "Javascript Template Engine"
+    "nodetpl", "javascript template engine"
   ],
   "main": "nodetpl.js",
-  "name": "NodeTpl",
+  "name": "nodetpl",
   "repository": {
     "url": "https://github.com/pillys/nodetpl",
     "type": "git"
