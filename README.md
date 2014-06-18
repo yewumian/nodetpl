@@ -1,4 +1,1 @@
-nodetpl
-=======
-
-A Javascript Template Engine.
+# Nothing

@@ -1,0 +1,26 @@
+{
+  "author": {
+    "name": "Baolei Chen",
+    "email": "chenbl@liepin.com",
+    "url": "http://ued.liepin.com"
+  },
+  "dependencies": {},
+  "description": "NodeTpl Template Lib",
+  "devDependencies": {},
+  "keywords": [
+    "NodeTpl", "Javascript Template Engine"
+  ],
+  "main": "nodetpl.js",
+  "name": "NodeTpl",
+  "repository": {
+    "url": "https://github.com/pillys/nodetpl",
+    "type": "git"
+  },
+  "version": "1.0.0",
+  "readme": "# Nothing",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/pillys/nodetpl/issues"
+  },
+  "homepage": "https://github.com/pillys/nodetpl"
+}
