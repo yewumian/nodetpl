@@ -16,6 +16,32 @@ console.log(nodetpl.templete('/hello-world.js', output);
 
     $ npm install nodetpl
 
+## method
+
+  * precompile(tpl)
+  * templete(path, tpl)
+  * tplcompile(html, data)
+
+## Quick start
+
+```js
+var nodetpl = require('nodetpl');
+
+var output, input;
+input = '<?if(@username){?>' +
+          '<p>Hello <?=@username?>, now is <?=new Date()?>.</p>' +
+        '<?}?>';
+output = nodetpl.tplcompile(input, {
+  username: "Tom"
+});
+console.log(output);
+```
+
+It will output this log:
+```
+<p>Hello Tom, now is Wed Jun 18 2014 11:57:23.</p>
+```
+
 ## Local compile demo
 ### Write a nodetpl template file
 ```html
