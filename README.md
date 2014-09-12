@@ -1,6 +1,6 @@
 # Read me
 
-  Fast, easy use javascript template engine based on [node](http://nodejs.org).
+  Fast, easy use javascript template engine based on [node.js](http://nodejs.org).
 
 ```js
 var nodetpl = require('nodetpl');
@@ -20,7 +20,7 @@ console.log(nodetpl.templete('/hello-world.js', output);
 
   * precompile(tpl)
   * templete(path, tpl)
-  * tplcompile(html, data)
+  * tplcompile(html[, data])
 
 ## Quick start
 
@@ -41,6 +41,47 @@ It will output this log:
 ```
 <p>Hello Tom, now is Wed Jun 18 2014 11:57:23.</p>
 ```
+
+## In Browser
+```
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript" src="../nodetpl.client.js"></script>
+</head>
+<body>
+<script id="clientcode" type="text/nodetpl">
+<p>Hello, <?=@user?>.</p>
+<ul>
+  <?for(var i=0; i<@favor.length; i++){?>
+    <li><?=@favor[i]?></li>
+  <?}?>
+</ul>
+</script>
+<div id="clienthtml">
+
+</div>
+<script type="text/javascript">
+var code = document.getElementById('clientcode');
+var html = document.getElementById('clienthtml');
+var data = {
+  "user": "Tom",
+  "favor": [ "Apple", "Orange", "Bananer" ]
+};
+NodeTpl.render(code.innerHTML, data, function(d){
+  html.innerHTML = d;
+});
+</script>
+</body>
+</html>
+```
+The result is:
+Hello, Tom.
+  * Apple
+  * Orange
+  * Bananer
 
 ## Local compile demo
 ### Write a nodetpl template file
@@ -79,7 +120,7 @@ fs.readFile(tplpath, "utf-8", function (err, text) {
 });
 ```
 
-Save it as server.js, then run it with node, it will auto create a hello-wold.js in dir tpls/:
+Save it as test.js, then run it with node, it will auto create a hello-wold.js in dir tpls/:
 
 ```js
 (function(N, undefined){
@@ -129,4 +170,22 @@ Save it as server.js, then run it with node, it will auto create a hello-wold.js
   }
 };
 })(window.NodeTpl);
+```
+
+### Used for Express.js
+```js
+app.set('view engine', 'tpl');
+app.set('views', __dirname + '/static/views');
+app.engine('tpl', require('nodetpl').express.render);
+
+app.get('/', function(req, res){
+  res.render('index', {
+    "user": "Tom",
+    "favor": [ "Apple", "Orange", "Bananer" ]
+  }, function(err, html){
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.end(html);
+  });
+});
+
 ```
