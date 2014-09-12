@@ -17,8 +17,7 @@
     "url": "https://github.com/pillys/nodetpl",
     "type": "git"
   },
-  "version": "1.0.1",
-  "readme": "# Nothing",
+  "version": "1.0.2",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/pillys/nodetpl/issues"
