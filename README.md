@@ -78,6 +78,7 @@ NodeTpl.render(code.innerHTML, data, function(d){
 </html>
 ```
 The result is:
+
 Hello, Tom.
   * Apple
   * Orange
