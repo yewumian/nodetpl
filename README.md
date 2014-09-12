@@ -176,7 +176,7 @@ Save it as test.js, then run it with node, it will auto create a hello-wold.js i
 ### Used for Express.js
 ```js
 app.set('view engine', 'tpl');
-app.set('views', __dirname + '/static/views');
+app.set('views', __dirname + '/views');
 app.engine('tpl', require('nodetpl').express.render);
 
 app.get('/', function(req, res){
