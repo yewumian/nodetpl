@@ -50,14 +50,20 @@ var renderTools = {
           .replace(/\/\*(.|\n)*?\*\//ig, '')
           .replace(/\r?\n/ig, '')
           .replace(/([a-zA-Z0-9_\-#*\.:\s,\(\)'"<>=]*)(\{)/ig, function (a, b, c) {
+            var sguid;
+            if (tplname === 'main') {
+              sguid = 'guid';
+            } else {
+              sguid = 'guid + dguid';
+            }
             b = that.trim(b);
             if (b === '') {
-              return '#\' + guid + \'' + c;
+              return '#\' + ' + sguid + ' + \'' + c;
             } else {
               var _b = b.split(',');
               for (var i = 0; i < _b.length; i++) {
                 _b[i] = that.trim(_b[i]);
-                _b[i] = '\';\r\n    css += \'#\' + guid + \'' + (_b[i].indexOf(':') === 0 ? '' : ' ') + _b[i];
+                _b[i] = '\';\r\n    css += \'#\' + ' + sguid + ' + \'' + (_b[i].indexOf(':') === 0 ? '' : ' ') + _b[i];
               }
               return _b.join(',') + c;
             }

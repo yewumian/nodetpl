@@ -17,31 +17,9 @@
     "url": "https://github.com/pillys/nodetpl",
     "type": "git"
   },
-  "version": "1.1.0",
+  "version": "1.2.0",
   "bugs": {
     "url": "https://github.com/pillys/nodetpl/issues"
   },
-  "homepage": "https://github.com/pillys/nodetpl",
-  "_id": "nodetpl@1.1.0",
-  "dist": {
-    "shasum": "24a52e71763ae7b1da76375e74492a334ab664bd",
-    "tarball": "http://registry.npmjs.org/nodetpl/-/nodetpl-1.1.0.tgz"
-  },
-  "_from": "nodetpl@*",
-  "gitHead": "48d93a18221b664071f0933f69e04cbfcd0b1ba3",
-  "scripts": {},
-  "_shasum": "6f8a3d19d26f93c2fa8098f10555cc2709a73491",
-  "_npmVersion": "1.4.3",
-  "_npmUser": {
-    "name": "pillys",
-    "email": "chenbl@liepin.com"
-  },
-  "maintainers": [
-    {
-      "name": "pillys",
-      "email": "chenbl@liepin.com"
-    }
-  ],
-  "directories": {},
-  "_resolved": "https://registry.npmjs.org/nodetpl/-/nodetpl-1.1.0.tgz"
+  "homepage": "https://github.com/pillys/nodetpl"
 }
