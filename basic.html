@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>NodeTpl - 高效javascript模板引擎</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+<link rel="stylesheet" type="text/css" href="/static/css/highlight/prism.css">
+<script type="text/javascript" src="/static/js/highlight/prism.js"></script>
+<script src="/static/js/nodetpl.client.js"></script>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1 class="project-name">NodeTpl</h1>
+    <h2 class="project-tagline">一款强大、高效、易用的 JavaScript 模板引擎</h2>
+    <a rel="nofollow" href="https://github.com/pillys/nodetpl" class="btn">View on GitHub</a>
+    <a rel="nofollow" href="https://github.com/pillys/nodetpl/zipball/master" class="btn">Download .zip</a>
+    <a rel="nofollow" href="https://github.com/pillys/nodetpl/tarball/master" class="btn">Download .tar.gz</a>
+    <nav>
+      <a href="/index.html">首页</a>
+      <a class="active" href="/basic.html">基本语法</a>
+      <a href="/precompile.html">预编译</a>
+    </nav>
+  </div>
+</header>
+<section class="wrap">
+  <h2>基本语法</h2>
+  <h4>HTML部分</h4>
+  <p>在模板中得HTML部分，使用定界符“<code>&lt;?</code>”和“<code>?&gt;</code>”作为语法的开始和结束。</p>
+  <p>在定界符内，可以书写<strong>任意</strong><code>JavaScript</code>语句，如：</p>
+  <pre><code class="language-html">&lt;?for(var i=0; i<10; i++){?&gt;
+  &lt;p&gt;hello, world&lt;/p&gt;
+&lt;?}?&gt;</code></pre>
+  <p>使用等于号“<code>=</code>”来输出对应的值：</p>
+  <pre><code class="language-html">&lt;?for(var i=0; i<10; i++){?&gt;
+  &lt;p&gt;hello, world, 第 &lt;?=i?&gt; 次&lt;/p&gt;
+&lt;?}?&gt;</code></pre>
+  <p>使用“<code>@</code>”来表示传入的对象对应的属性。假如传入的对象为：</p>
+  <pre><code class="language-javascript">{
+  title: '我是传入的标题'
+}</code></pre>
+  <p>在模板中，可以通过<code>@title</code>来引用传入的<code>title</code>值：</p>
+  <pre><code class="language-html">&lt;h1&gt;&lt;?=@title?&gt;&lt;/h1&gt;
+&lt;?for(var i=0; i<10; i++){?&gt;
+  &lt;p&gt;hello, world, 第 &lt;?=i?&gt; 次&lt;/p&gt;
+&lt;?}?&gt;</code></pre>
+  <h4>CSS部分</h4>
+  <p><code>nodetpl</code> 允许模板定义自身的 <code>CSS</code> 样式，并且你大可不必为命名冲突而担忧，因为 <code>nodetpl</code> 有一套解决样式继承冲突的机制。</p>
+  <p>若要书写模板样式，你需要为模板的 <code>HTML</code> 部分定义一个 <code>id</code> 为 “<code>$ROOT</code>” 的根元素，之后直接在模板中书写样式即可：</p>
+  <pre><code class="language-html">&lt;style&gt;
+  h1 {
+    font-size: 20px;
+    color: #f00;
+  }
+  p {
+    text-indent: 2em;
+  }
+&lt;/style&gt;
+&lt;div id="$ROOT"&gt;
+  &lt;h1&gt;&lt;?=@title?&gt;&lt;/h1&gt;
+  &lt;?for(var i=0; i<10; i++){?&gt;
+    &lt;p&gt;hello, world, 第 &lt;?=i?&gt; 次&lt;/p&gt;
+  &lt;?}?&gt;
+&lt;/div&gt;</code></pre>
+  <p>诶？逆天了，这样写岂不把整个页面的样式都要覆盖掉？</p>
+  <p>没关系，<code>nodetpl</code> 不会容忍这样低级错误的发生，最终，<code>nodetpl</code> 会在输出之前，将每一行样式前面都添加“<code>#ID</code>”限定，这样就不会引发样式继承冲突了。</p>
+  <h4>JavaScript部分</h4>
+  <p><code>nodetpl</code> 允许模板调用自身的 <code>JavaScript</code> 脚本，同样，你也不需要为命名冲突而担忧，因为 <code>nodetpl</code> 会让你的脚本在一个匿名函数中执行。</p>
+  <p>在 <code>JavaScript</code> 代码中，<code>nodetpl</code> 提供了关键字 <code>$ROOT</code> 来选中根节点。</p>
+  <pre><code class="language-html">&lt;div id="$ROOT"&gt;
+  &lt;h1&gt;&lt;?=@title?&gt;&lt;/h1&gt;
+  &lt;?for(var i=0; i<10; i++){?&gt;
+    &lt;p&gt;hello, world, 第 &lt;?=i?&gt; 次&lt;/p&gt;
+  &lt;?}?&gt;
+&lt;/div&gt;
+&lt;script&gt;
+var padding = '20';
+$ROOT.style.padding = padding + 'px';
+&lt;/script&gt;</code></pre>
+  <p>没错，虽然这里你定义了一个 <code>padding</code> 变量，但是它并不是在 <code>window</code> 对象中执行的，因此不会污染到 <code>window</code></p>
+  <p>怎么样？有了 HTML / CSS / JS ，是不是就可以书写无所不能的模板了？接下来就看你发挥了！</p>
+</section>
+<footer>
+  <div class="wrap">
+    <p>&copy; 2012 - 2015 nodetpl.com by pillys</p>
+  </div>
+</footer>
+</body>
+</html>

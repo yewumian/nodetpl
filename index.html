@@ -1,233 +1,80 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Nodetpl by pillys</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">Nodetpl</h1>
-      <h2 class="project-tagline">A Javascript Template Engine.</h2>
-      <a href="https://github.com/pillys/nodetpl" class="btn">View on GitHub</a>
-      <a href="https://github.com/pillys/nodetpl/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/pillys/nodetpl/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>NodeTpl - 高效javascript模板引擎</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+<link rel="stylesheet" type="text/css" href="/static/css/highlight/prism.css">
+<script type="text/javascript" src="/static/js/highlight/prism.js"></script>
+<script src="/static/js/nodetpl.client.js"></script>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1 class="project-name">NodeTpl</h1>
+    <h2 class="project-tagline">一款强大、高效、易用的 JavaScript 模板引擎</h2>
+    <a rel="nofollow" href="https://github.com/pillys/nodetpl" class="btn">View on GitHub</a>
+    <a rel="nofollow" href="https://github.com/pillys/nodetpl/zipball/master" class="btn">Download .zip</a>
+    <a rel="nofollow" href="https://github.com/pillys/nodetpl/tarball/master" class="btn">Download .tar.gz</a>
+    <nav>
+      <a class="active" href="/index.html">首页</a>
+      <a href="/basic.html">基本语法</a>
+      <a href="/precompile.html">预编译</a>
+    </nav>
+  </div>
+</header>
+<section class="wrap">
+  <h2>为什么使用 nodetpl ？</h2>
+  <ul>
+    <li>性能超群，运行速度超快，闪电一样的解析效率</li>
+    <li>扩展性强，支持自定义 tag、root，支持 seajs 等 CMD 模块化开发</li>
+    <li>支持预编译，提前编译成 js 文件，减轻浏览器运行负担</li>
+    <li>支持原生 js 语法，不再像学一门新语言一样痛苦</li>
+    <li>支持复杂的多模板，include 一步到位</li>
+    <li>支持模板自身CSS/JS，独创CSS/JS随包机制，独立的模板可以拥有自身CSS/JS，并可以有效解决命名冲突问题</li>
+    <li>兼容所有主流浏览器</li>
+    <li>可以运行在 node 端，支持 Express.js</li>
+    <li>学习成本低，从入门到精通仅需 10 分钟</li>
+  </ul>
+</section>
 
-    <section class="main-content">
-      <h1>
-<a id="read-me" class="anchor" href="#read-me" aria-hidden="true"><span class="octicon octicon-link"></span></a>Read me</h1>
-
-<p>Fast, easy use javascript template engine based on <a href="http://nodejs.org">node.js</a>.</p>
-
-<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> nodetpl <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>nodetpl<span class="pl-pds">'</span></span>);
-
-<span class="pl-k">var</span> output, input;
-input <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;?if(true){?&gt;Now is &lt;?=new Date()?&gt;.&lt;?}?&gt;<span class="pl-pds">'</span></span>;
-output <span class="pl-k">=</span> nodetpl.precompile(input);
-
-<span class="pl-en">console</span>.<span class="pl-c1">log</span>(nodetpl.templete(<span class="pl-s"><span class="pl-pds">'</span>/hello-world.js<span class="pl-pds">'</span></span>, output);</pre></div>
-
-<h2>
-<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
-
-<pre><code>$ npm install nodetpl
-</code></pre>
-
-<h2>
-<a id="method" class="anchor" href="#method" aria-hidden="true"><span class="octicon octicon-link"></span></a>method</h2>
-
-<ul>
-<li>precompile(tpl)</li>
-<li>templete(path, tpl)</li>
-<li>tplcompile(html[, data])</li>
-</ul>
-
-<h2>
-<a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quick start</h2>
-
-<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> nodetpl <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>nodetpl<span class="pl-pds">'</span></span>);
-
-<span class="pl-k">var</span> output, input;
-input <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;?if(@username){?&gt;<span class="pl-pds">'</span></span> <span class="pl-k">+</span>
-          <span class="pl-s"><span class="pl-pds">'</span>&lt;p&gt;Hello &lt;?=@username?&gt;, now is &lt;?=new Date()?&gt;.&lt;/p&gt;<span class="pl-pds">'</span></span> <span class="pl-k">+</span>
-        <span class="pl-s"><span class="pl-pds">'</span>&lt;?}?&gt;<span class="pl-pds">'</span></span>;
-output <span class="pl-k">=</span> nodetpl.tplcompile(input, {
-  username<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Tom<span class="pl-pds">"</span></span>
-});
-<span class="pl-en">console</span>.<span class="pl-c1">log</span>(output);</pre></div>
-
-<p>It will output this log:</p>
-
-<pre><code>&lt;p&gt;Hello Tom, now is Wed Jun 18 2014 11:57:23.&lt;/p&gt;
-</code></pre>
-
-<h2>
-<a id="in-browser" class="anchor" href="#in-browser" aria-hidden="true"><span class="octicon octicon-link"></span></a>In Browser</h2>
-
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-&lt;title&gt;&lt;/title&gt;
-&lt;script type="text/javascript" src="../nodetpl.client.js"&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;script id="clientcode" type="text/nodetpl"&gt;
-&lt;p&gt;Hello, &lt;?=@user?&gt;.&lt;/p&gt;
+<section class="wrap">
+  <h2>快速上手</h2>
+  <h4>引入文件</h4>
+  <p>在页面 <code>head</code> 标签内，引入 <code>nodetpl</code> 客户端文件：</p>
+  <pre><code class="language-html">&lt;script src="./static/js/nodetpl.client.js"&gt;&lt;/script&gt;</code></pre>
+  <h4>编写模板</h4>
+  <p>最简单的，可以使用一个 <code>type="text/template"</code> 的 <code>script</code> 标签存放模板：</p>
+  <pre><code class="language-html">&lt;script id="testid" type="text/template"&gt;
+&lt;h1&gt;&lt;?=@title?&gt;&lt;/h1&gt;
 &lt;ul&gt;
-  &lt;?for(var i=0; i&lt;@favor.length; i++){?&gt;
-    &lt;li&gt;&lt;?=@favor[i]?&gt;&lt;/li&gt;
+  &lt;?for(var i=0; i&lt;@list.length; i++){?&gt;
+    &lt;li&gt;&lt;?=i?&gt;：&lt;?=@list[i]?&gt;&lt;/li&gt;
   &lt;?}?&gt;
 &lt;/ul&gt;
-&lt;/script&gt;
-&lt;div id="clienthtml"&gt;
-
-&lt;/div&gt;
-&lt;script type="text/javascript"&gt;
-var code = document.getElementById('clientcode');
-var html = document.getElementById('clienthtml');
-var data = {
-  "user": "Tom",
-  "favor": [ "Apple", "Orange", "Bananer" ]
+&lt;/script&gt;</code></pre>
+  <h4>执行渲染</h4>
+  <pre><code class="language-javascript">var data = {
+  title: '个人爱好',
+  list: ['足球', '篮球', '乒乓球', '琉璃球']
 };
-NodeTpl.render(code.innerHTML, data, function(d){
-  html.innerHTML = d;
-});
-&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-
-<p>The result is:</p>
-
-<p>Hello, Tom.</p>
-
-<ul>
-<li>Apple</li>
-<li>Orange</li>
-<li>Bananer</li>
-</ul>
-
-<h2>
-<a id="local-compile-demo" class="anchor" href="#local-compile-demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Local compile demo</h2>
-
-<h3>
-<a id="write-a-nodetpl-template-file" class="anchor" href="#write-a-nodetpl-template-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>Write a nodetpl template file</h3>
-
-<div class="highlight highlight-text-html-basic"><pre><span class="pl-s1">&lt;<span class="pl-ent">style</span>&gt;</span>
-<span class="pl-s1">{<span class="pl-c1"><span class="pl-c1">width</span></span>:<span class="pl-c1">500<span class="pl-k">px</span></span>;}</span>
-<span class="pl-s1"><span class="pl-e">.title</span>{<span class="pl-c1"><span class="pl-c1">font-size</span></span>:<span class="pl-c1">14<span class="pl-k">px</span></span>;}</span>
-<span class="pl-s1"><span class="pl-e">.content</span>{<span class="pl-c1"><span class="pl-c1">border</span></span>: <span class="pl-c1">1<span class="pl-k">px</span></span> <span class="pl-c1">solid</span> <span class="pl-c1">#ccc</span>;<span class="pl-c1"><span class="pl-c1">padding</span></span>:<span class="pl-c1">10<span class="pl-k">px</span></span>;}</span>
-<span class="pl-s1"><span class="pl-e">.content</span> <span class="pl-ent">a</span>{<span class="pl-c1"><span class="pl-c1">text-decoration</span></span>:<span class="pl-c1">underline</span>;}</span>
-<span class="pl-s1">&lt;/<span class="pl-ent">style</span>&gt;</span>
-&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>$ROOT<span class="pl-pds">"</span></span>&gt;
-  &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>&gt;This is a test.&lt;/<span class="pl-ent">div</span>&gt;
-  &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>content<span class="pl-pds">"</span></span>&gt;
-    Welcome back, this is my first &lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>https://github.com/pillys/nodetpl<span class="pl-pds">"</span></span>&gt;nodetpl&lt;/<span class="pl-ent">a</span>&gt; template
-  &lt;/<span class="pl-ent">div</span>&gt;
-&lt;/<span class="pl-ent">div</span>&gt;
-<span class="pl-s1">&lt;<span class="pl-ent">script</span>&gt;</span>
-<span class="pl-s1">$<span class="pl-c1">ROOT</span>.<span class="pl-c1">find</span>(<span class="pl-s"><span class="pl-pds">'</span>.title<span class="pl-pds">'</span></span>).css({</span>
-<span class="pl-s1">  <span class="pl-s"><span class="pl-pds">"</span>font-weight<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>bold<span class="pl-pds">"</span></span></span>
-<span class="pl-s1">});</span>
-<span class="pl-s1">&lt;/<span class="pl-ent">script</span>&gt;</span></pre></div>
-
-<p>Save it as tpls/hello-world.tpl</p>
-
-<h3>
-<a id="compile-tpl-file-with-node" class="anchor" href="#compile-tpl-file-with-node" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compile tpl file with node</h3>
-
-<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> fs <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>fs<span class="pl-pds">'</span></span>),
-    path <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>path<span class="pl-pds">'</span></span>),
-    nodetpl <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>nodetpl<span class="pl-pds">'</span></span>);
-
-<span class="pl-k">var</span> tplpath <span class="pl-k">=</span> <span class="pl-c1">__dirname</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span>/tpls/hello-world.tpl<span class="pl-pds">'</span></span>,
-    jspath <span class="pl-k">=</span> tplpath.<span class="pl-c1">replace</span>(<span class="pl-s"><span class="pl-pds">'</span>.tpl<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>.js<span class="pl-pds">'</span></span>);
-fs.readFile(tplpath, <span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">err</span>, <span class="pl-smi">text</span>) {
-  <span class="pl-k">var</span> nspath <span class="pl-k">=</span> jspath.<span class="pl-c1">replace</span>(<span class="pl-c1">__dirname</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span>/tpls<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>).<span class="pl-c1">replace</span>(<span class="pl-sr"><span class="pl-pds">/</span><span class="pl-cce">\\</span><span class="pl-pds">/</span>g</span>, <span class="pl-s"><span class="pl-pds">'</span>/<span class="pl-pds">'</span></span>);
-  <span class="pl-k">!</span>err <span class="pl-k">&amp;&amp;</span> fs.writeFile(jspath, nodetpl.templete(nspath, nodetpl.precompile(text)), <span class="pl-s"><span class="pl-pds">'</span>utf-8<span class="pl-pds">'</span></span>);
-});</pre></div>
-
-<p>Save it as test.js, then run it with node, it will auto create a hello-wold.js in dir tpls/:</p>
-
-<div class="highlight highlight-source-js"><pre>(<span class="pl-k">function</span>(<span class="pl-smi">N</span>, <span class="pl-smi">undefined</span>){
-  <span class="pl-k">var</span> <span class="pl-c1">PATH</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>/hello-world.js<span class="pl-pds">'</span></span>;
-  <span class="pl-k">if</span>(<span class="pl-k">!</span>N <span class="pl-k">||</span> <span class="pl-k">!</span>N._tpls) <span class="pl-k">return</span> <span class="pl-c1">false</span>;
-  N._tpls[<span class="pl-c1">PATH</span>] <span class="pl-k">=</span> N._tpls[<span class="pl-c1">PATH</span>] <span class="pl-k">||</span>
-{
-  <span class="pl-s"><span class="pl-pds">"</span><span class="pl-en">main</span><span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">$DATA</span>, <span class="pl-smi">guid</span>){
-    <span class="pl-k">var</span> css <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>, dguid <span class="pl-k">=</span> N.dguid();
-    <span class="pl-k">var</span> template <span class="pl-k">=</span> {
-      <span class="pl-en">init</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){
-        <span class="pl-v">this</span>.v8 <span class="pl-k">=</span> <span class="pl-k">!!</span><span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>.trim;
-        <span class="pl-v">this</span>.result <span class="pl-k">=</span> <span class="pl-v">this</span>.v8 <span class="pl-k">?</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span> <span class="pl-k">:</span> [];
-      },
-      <span class="pl-en">push</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">str</span>){
-        <span class="pl-v">this</span>.v8 <span class="pl-k">?</span> (<span class="pl-v">this</span>.result <span class="pl-k">+=</span> str) <span class="pl-k">:</span> <span class="pl-v">this</span>.result.<span class="pl-c1">push</span>(str);
-      },
-      <span class="pl-en">html</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){
-        <span class="pl-k">return</span> <span class="pl-v">this</span>.v8 <span class="pl-k">?</span> <span class="pl-v">this</span>.result <span class="pl-k">:</span> <span class="pl-v">this</span>.result.<span class="pl-c1">join</span>(<span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>);
-      }
-    };
-    guid <span class="pl-k">=</span> guid <span class="pl-k">||</span> N.guid();
-    template.init();
-    css <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">'</span>#<span class="pl-pds">'</span></span> <span class="pl-k">+</span> guid <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span>{width:500px;}<span class="pl-pds">'</span></span>;
-    css <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">'</span>#<span class="pl-pds">'</span></span> <span class="pl-k">+</span> guid <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span> .title{font-size:14px;}<span class="pl-pds">'</span></span>;
-    css <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">'</span>#<span class="pl-pds">'</span></span> <span class="pl-k">+</span> guid <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span> .content{border: 1px solid #ccc;padding:10px;}<span class="pl-pds">'</span></span>;
-    css <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">'</span>#<span class="pl-pds">'</span></span> <span class="pl-k">+</span> guid <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span> .content a{text-decoration:underline;}<span class="pl-pds">'</span></span>;
-    <span class="pl-k">if</span>(N.ie6){
-      N._fixcss(css);
-    } <span class="pl-k">else</span> {
-      template.<span class="pl-c1">push</span>(<span class="pl-s"><span class="pl-pds">'</span>&lt;style&gt;<span class="pl-pds">'</span></span> <span class="pl-k">+</span> css <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;/style&gt;<span class="pl-pds">'</span></span>);
-    }
-    template.<span class="pl-c1">push</span>(<span class="pl-s"><span class="pl-pds">'</span>&lt;div id="<span class="pl-pds">'</span></span><span class="pl-k">+</span> guid <span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">'</span>"&gt;<span class="pl-cce">\n</span>  &lt;div class="title"&gt;This is a test.&lt;/div&gt;<span class="pl-cce">\n</span>  &lt;div class="content"&gt;<span class="pl-cce">\n</span>    Welcome back, this is my first &lt;a href="https://github.com/pillys/nodetpl"&gt;nodetpl&lt;/a&gt; template<span class="pl-cce">\n</span>  &lt;/div&gt;<span class="pl-cce">\n</span>&lt;/div&gt;<span class="pl-pds">'</span></span>);
-    template.<span class="pl-c1">push</span>(<span class="pl-s"><span class="pl-pds">'</span>&lt;script&gt;<span class="pl-pds">'</span></span>);
-    template.<span class="pl-c1">push</span>(<span class="pl-s"><span class="pl-pds">'</span>(function(window, document, undefined){<span class="pl-cce">\n</span><span class="pl-pds">'</span></span>);
-    template.<span class="pl-c1">push</span>(<span class="pl-s"><span class="pl-pds">'</span>  var $ROOT = $("#<span class="pl-pds">'</span></span><span class="pl-k">+</span> guid <span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">'</span>");<span class="pl-cce">\n</span><span class="pl-pds">'</span></span>);
-    template.<span class="pl-c1">push</span>(<span class="pl-s"><span class="pl-pds">'</span>  var $TPLS = NodeTpl._tpls["<span class="pl-pds">'</span></span><span class="pl-k">+</span> <span class="pl-c1">PATH</span> <span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">'</span>"];<span class="pl-cce">\n</span><span class="pl-pds">'</span></span>);
-    template.<span class="pl-c1">push</span>(<span class="pl-s"><span class="pl-pds">'</span>  var $DATA = NodeTpl._data["<span class="pl-pds">'</span></span><span class="pl-k">+</span> dguid <span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">'</span>"];<span class="pl-cce">\n</span><span class="pl-pds">'</span></span>);
-    template.<span class="pl-c1">push</span>(<span class="pl-s"><span class="pl-pds">'</span>$ROOT.find(<span class="pl-cce">\'</span>.title<span class="pl-cce">\'</span>).css({<span class="pl-cce">\n</span><span class="pl-pds">'</span></span>);
-    template.<span class="pl-c1">push</span>(<span class="pl-s"><span class="pl-pds">'</span>  "font-weight": "bold"<span class="pl-cce">\n</span><span class="pl-pds">'</span></span>);
-    template.<span class="pl-c1">push</span>(<span class="pl-s"><span class="pl-pds">'</span>});<span class="pl-cce">\n</span><span class="pl-pds">'</span></span>);
-    template.<span class="pl-c1">push</span>(<span class="pl-s"><span class="pl-pds">'</span>})(window, document);<span class="pl-cce">\n</span><span class="pl-pds">'</span></span>);
-    template.<span class="pl-c1">push</span>(<span class="pl-s"><span class="pl-pds">'</span>delete NodeTpl._data["<span class="pl-pds">'</span></span><span class="pl-k">+</span> dguid <span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">'</span>"];<span class="pl-cce">\n</span><span class="pl-pds">'</span></span>);
-    template.<span class="pl-c1">push</span>(<span class="pl-s"><span class="pl-pds">'</span>&lt;/script&gt;<span class="pl-cce">\n</span><span class="pl-pds">'</span></span>);
-    $<span class="pl-c1">DATA</span> <span class="pl-k">&amp;&amp;</span> (N._data[dguid] <span class="pl-k">=</span> $<span class="pl-c1">DATA</span>);
-    <span class="pl-k">return</span> template.html();
-  }
-};
-})(<span class="pl-c1">window</span>.NodeTpl);</pre></div>
-
-<h3>
-<a id="used-for-expressjs" class="anchor" href="#used-for-expressjs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Used for Express.js</h3>
-
-<div class="highlight highlight-source-js"><pre>app.set(<span class="pl-s"><span class="pl-pds">'</span>view engine<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>tpl<span class="pl-pds">'</span></span>);
-app.set(<span class="pl-s"><span class="pl-pds">'</span>views<span class="pl-pds">'</span></span>, <span class="pl-c1">__dirname</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span>/views<span class="pl-pds">'</span></span>);
-app.engine(<span class="pl-s"><span class="pl-pds">'</span>tpl<span class="pl-pds">'</span></span>, <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>nodetpl<span class="pl-pds">'</span></span>).express.render);
-
-app.get(<span class="pl-s"><span class="pl-pds">'</span>/<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">req</span>, <span class="pl-smi">res</span>){
-  res.render(<span class="pl-s"><span class="pl-pds">'</span>index<span class="pl-pds">'</span></span>, {
-    <span class="pl-s"><span class="pl-pds">"</span>user<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Tom<span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>favor<span class="pl-pds">"</span></span><span class="pl-k">:</span> [ <span class="pl-s"><span class="pl-pds">"</span>Apple<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Orange<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Bananer<span class="pl-pds">"</span></span> ]
-  }, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">html</span>){
-    res.writeHead(<span class="pl-c1">200</span>, { <span class="pl-s"><span class="pl-pds">"</span>Content-Type<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>text/html<span class="pl-pds">"</span></span> });
-    res.end(html);
-  });
-});</pre></div>
-
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/pillys/nodetpl">Nodetpl</a> is maintained by <a href="https://github.com/pillys">pillys</a>.</span>
-
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
-
-    </section>
-
-  
-  </body>
+var content = document.getElementById('testid').innerHTML;
+var html = nodetpl.render(content, data);
+alert(html);</code></pre>
+  <h4>运行结果</h4>
+  <pre><code class="language-html">&lt;h1&gt;个人爱好&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;0：足球&lt;/li&gt;
+  &lt;li&gt;1：篮球&lt;/li&gt;
+  &lt;li&gt;2：乒乓球&lt;/li&gt;
+  &lt;li&gt;3：琉璃球&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+</section>
+<footer>
+  <div class="wrap">
+    <p>&copy; 2012 - 2015 nodetpl.com by pillys</p>
+  </div>
+</footer>
+</body>
 </html>
