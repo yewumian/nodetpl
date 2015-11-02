@@ -1,25 +1,36 @@
 {
   "author": {
-    "name": "Baolei Chen",
-    "email": "chenbl@liepin.com",
-    "url": "http://ued.liepin.com"
+    "name": "pillys",
+    "email": "pillys@163.com",
+    "url": "http://www.nodetpl.com"
   },
   "dependencies": {},
-  "description": "nodetpl template lib",
-  "devDependencies": {},
+  "description": "easy used javascript template engine.",
+  "dependencies": {
+    "minimist": "~1.2.0",
+    "async": "~1.5.0",
+    "fs-path": "~0.0.22"
+  },
   "keywords": [
-    "nodetpl",
-    "javascript template engine"
+    "js template",
+    "javascript template",
+    "template engine"
   ],
-  "main": "nodetpl.js",
+  "main": "index.js",
   "name": "nodetpl",
+  "bin": {
+    "nodetpl": "./bin/nodetpl"
+  },
   "repository": {
     "url": "https://github.com/pillys/nodetpl",
     "type": "git"
   },
-  "version": "1.2.1",
+  "version": "2.0.0",
+  "readmeFilename": "README.md",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/pillys/nodetpl/issues"
   },
-  "homepage": "https://github.com/pillys/nodetpl"
+  "homepage": "https://github.com/pillys/nodetpl",
+  "scripts": {}
 }
