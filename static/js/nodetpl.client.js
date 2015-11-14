@@ -481,7 +481,7 @@
           .replace(/\r\n/g, '\n')
           .replace(/\n/g, '\\n')
           .replace(/\$SUBROOT/g, '$(\\\'#\'+ guid + dguid + \'\\\')')
-          .replace(/(^|[^\.])require\(([^\)]*)\)/ig, function(a, b, c) {
+          .replace(/(^|[^\.])include\(([^\)]*)\)/ig, function(a, b, c) {
             var _c = (c || '').split(',');
             _c.map(function(value, index) {
               _c[index] = _c[index].trim();

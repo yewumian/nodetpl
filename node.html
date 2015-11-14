@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>NodeTpl - 高效javascript模板引擎</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+<link rel="stylesheet" type="text/css" href="/static/css/highlight/prism.css">
+<script type="text/javascript" src="/static/js/highlight/prism.js"></script>
+<script src="/static/js/nodetpl.client.js"></script>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1 class="project-name">NodeTpl</h1>
+    <h2 class="project-tagline">一款强大、高效、易用的 JavaScript 模板引擎</h2>
+    <a rel="nofollow" href="https://github.com/pillys/nodetpl" class="btn">View on GitHub</a>
+    <a rel="nofollow" href="https://github.com/pillys/nodetpl/zipball/master" class="btn">Download .zip</a>
+    <a rel="nofollow" href="https://github.com/pillys/nodetpl/tarball/master" class="btn">Download .tar.gz</a>
+    <nav>
+      <a href="/index.html">首页</a>
+      <a href="/basic.html">语法</a>
+      <a href="/methods.html">方法</a>
+      <a href="/multi-templates.html">多模板</a>
+      <a href="/precompile.html">预编译</a>
+      <a class="active" href="/node.html">node</a>
+    </nav>
+  </div>
+</header>
+<section class="wrap">
+  <h2>For Node.js</h2>
+  <p><code>nodetpl</code> 除了用于一般的 <code>web</code> 项目中，还可以用在 <code>node.js</code>。</p>
+  <h4>安装 <code>nodetpl</code></h4>
+  <pre><code class="language-markup">npm install nodetpl -g</code></pre>
+  <h4>基本语法</h4>
+  <pre><code class="language-markup">var fs = require('fs');
+var nodetpl = require('nodetpl');
+
+var filepath = '/usr/local/nodetpl/test.tpl';
+var data = {
+  name: 'zhangsan',
+  age: 18
+};
+
+fs.readFile(filepath, 'utf-8', function(err, content) {
+  if (err) {
+    throw err;
+  } else {
+    content = nodetpl.render(content, data);
+    console.log(content);
+  }
+});</code></pre>
+
+  <h4>For Express.js</h4>
+  <pre><code class="language-markup">app.set('view engine', 'tpl');
+app.set('views', __dirname + '/views');
+app.engine('tpl', require('nodetpl').express.render);
+
+app.get('/', function(req, res){
+  res.render('index', {
+    "user": "Tom",
+    "favor": [ "Apple", "Orange", "Bananer" ]
+  }, function(err, html){
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.end(html);
+  });
+});</code></pre>
+</section>
+<footer>
+  <div class="wrap">
+    <p>&copy; 2012 - 2015 nodetpl.com by pillys</p>
+  </div>
+</footer>
+</body>
+</html>
