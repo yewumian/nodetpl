@@ -589,7 +589,6 @@
     html += '\n};';
     html += "\n};\n";
     html += "}));";
-    console.log(html);
     return html;
   };
   return new NodeTpl();
