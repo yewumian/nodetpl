@@ -82,6 +82,15 @@ var content = document.getElementById('testid').innerHTML;
 var html = nodetpl.render(content, data);
 alert(html);</code></pre>
   <p><a class="btnrun" href="/demo/1.html" target="_blank">查看DEMO</a></p>
+  <h4>For sea.js</h4>
+  <pre><code class="language-javascript">var nodetpl = require('nodetpl.client');
+nodetpl.get('/demo/tpls/1', {
+  title: '个人爱好',
+  favor: ['足球', '篮球', '乒乓球', '琉璃球']
+}, function(d) {
+  alert(d);
+});</code></pre>
+  <p><a class="btnrun" href="/demo/seatest.html" target="_blank">查看DEMO</a></p>
 </section>
 <footer>
   <div class="wrap">
