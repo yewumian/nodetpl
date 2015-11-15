@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script src="/static/js/nodetpl.client.js"></script>
+<link rel="stylesheet" href="/static/css/demo.css">
+<style>
+.main{
+  float: left;
+  width: 50%;
+}
+aside{
+  float: right;
+  width: 50%;
+}
+h2{
+  font-size: 1.5em;
+  line-height: 200%;
+}
+</style>
+</head>
+<body>
+<div class="main">
+  <section>
+    <h2>Data</h2>
+    <pre id="data" contenteditable="true">{
+  "title": "个人爱好",
+  "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
+}</pre>
+  </section>
+  <section>
+    <h2>Template</h2>
+    <pre id="template" contenteditable="true">&lt;h1&gt;&lt;?=@title?&gt;&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;?for(var i=0; i&lt;@favor.length; i++){?&gt;
+    &lt;li&gt;&lt;?=i?&gt;：&lt;?=@favor[i]?&gt;&lt;/li&gt;
+  &lt;?}?&gt;
+&lt;/ul&gt;</pre>
+  </section>
+  <p><a class="btnrun" href="javascript:;">运行</a></p>
+</div>
+<aside>
+  <pre id="result"></pre>
+  <div id="result-show"></div>
+</aside>
+
+<script id="testid" type="text/template">
+<h1><?=@title?></h1>
+<ul>
+  <?for(var i=0; i<@favor.length; i++){?>
+    <li><?=i?>：<?=@favor[i]?></li>
+  <?}?>
+</ul>
+</script>
+
+<script src="/static/js/jquery-1.7.1.min.js"></script>
+<script src="/static/js/demo.js"></script>
+
+<script>
+var data = {
+  "title": "个人爱好",
+  "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
+};
+var content = document.getElementById('testid').innerHTML;
+var html = nodetpl.render(content, data);
+console.log(html);
+</script>
+</body>
+</html>

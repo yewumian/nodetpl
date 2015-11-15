@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script src="/static/js/nodetpl.client.js"></script>
+<script>
+nodetpl.config({
+  vars: {
+    root: '$("#~")'
+  }
+});
+</script>
+<link rel="stylesheet" href="/static/css/demo.css">
+</head>
+<body>
+<div class="main">
+  <section>
+    <h2>JavaScript</h2>
+    <pre id="js" contenteditable="true">var data = {
+  "title": "个人爱好",
+  "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
+};
+nodetpl.get('http://www.nodetpl.com/demo/tpls/1.js', data, function(d){
+  //输出数据d
+});</pre>
+  </section>
+  <div id="tpl-list"></div>
+  <p><a class="btnrun" href="javascript:;">运行</a></p>
+</div>
+<aside>
+  <pre id="result"></pre>
+  <div id="result-show"></div>
+</aside>
+<script src="/static/js/jquery-1.7.1.min.js"></script>
+<script src="/static/js/demo2.js"></script>
+</body>
+</html>

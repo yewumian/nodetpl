@@ -1,0 +1,42 @@
+pre {
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  overflow-x: auto;
+  margin: 0;
+  padding: .5em;
+}
+.main {
+  float: left;
+  width: 50%;
+}
+aside {
+  float: right;
+  width: 50%;
+}
+aside pre {
+  background-color: #feffd5;
+}
+h2 {
+  font-size: 1.5em;
+  line-height: 200%;
+}
+a.btnrun {
+  position: relative;
+  color: #fff;
+  display: inline-block;
+  background-color: #2ecc71;
+  vertical-align: middle;
+  padding: .3em 1.5em;
+  text-decoration: none;
+  border-radius: .2em;
+}
+a.btnrun:before {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-bottom-color: #2ecc71;
+  left: 50%;
+  margin-left: -5px;
+  top: -10px;
+}

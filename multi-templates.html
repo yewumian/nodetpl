@@ -24,13 +24,16 @@
       <a class="active" href="/multi-templates.html">多模板</a>
       <a href="/precompile.html">预编译</a>
       <a href="/node.html">node</a>
+      <a href="/faq.html">常见问题</a>
+      <a href="/change-list.html">升级日志</a>
     </nav>
   </div>
 </header>
 <section class="wrap">
   <h2>多模板</h2>
   <p>似乎前面了解到的模板功能，已经能够满足我们大部分开发所需，但是假如一个模板包含非常多的业务场景，模板代码量将会显得巨大而臃肿，为了解决这个问题，<code>nodetpl</code> 以非常巧妙的方式，引入了多模板的概念。</p>
-  <p><code>nodetpl</code> 是这样定义多模板场景的：假如一个模板，包含了非常多的业务逻辑，而每个业务逻辑都是较为独立的片断，那么我们就可以把整个模板划分为多块，每一块表示一个业务场景；多模板包含一个主模板（<code>main</code>）和多个子模板，柱模板是整个模板的入口。</p>
+  <p><code>nodetpl</code> 是这样定义多模板场景的：假如一个模板，包含了非常多的业务逻辑，而每个业务逻辑都是较为独立的片断，那么我们就可以把整个模板划分为多块，每一块表示一个业务场景；</p>
+  <p>多模板包含一个主模板（<code>main</code>）和多个子模板，主模板是整个模板的入口。</p>
   <h4>多模板的基本结构</h4>
   <p>与常规模板不同，多模板是由主模板和子模板组成，每一个模板被包含在一个 <code>&lt;template&gt;</code> 标签中：</p>
   <pre><code class="language-markup">&lt;template name="main"&gt;
@@ -63,7 +66,7 @@
   }
   &lt;/style&gt;
   &lt;div id="$ROOT"&gt;
-    &lt;div class="title"&gt;个人名片 [&lt;a class="link-modify" href="javascript:;"&gt;修改&lt;/a&gt;&lt;/div&gt;
+    &lt;div class="title"&gt;个人名片 [&lt;a class="link-modify" href="javascript:;"&gt;修改&lt;/a&gt;]&lt;/div&gt;
     &lt;div class="content"&gt;&lt;/div&gt;
   &lt;/div&gt;
   &lt;script&gt;
@@ -130,6 +133,7 @@
   &lt;/script&gt;
 &lt;/template&gt;</code></pre>
   <p>与常规模板不同的是，为了区分主模板和子模板，子模板中的“根”，不再使用“<code>$ROOT</code>”表示，取而代之的是“<code>$SUBROOT</code>”关键字。</p>
+  <p><a class="btnrun" href="/demo/9.html" target="_blank">查看DEMO</a></p>
 </section>
 <footer>
   <div class="wrap">

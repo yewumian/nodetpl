@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script src="/static/js/nodetpl.client.js"></script>
+<script>
+nodetpl.config({
+  vars: {
+    root: '$("#~")'
+  }
+});
+</script>
+<link rel="stylesheet" href="/static/css/demo.css">
+</head>
+<body>
+<div class="main">
+  <section>
+    <h2>Data</h2>
+    <pre id="data" contenteditable="true">{
+  "title": "我是传入的标题"
+}</pre>
+  </section>
+  <section>
+    <h2>Template</h2>
+    <pre id="template" contenteditable="true">&lt;div id="$ROOT"&gt;
+  &lt;h1&gt;&lt;?=@title?&gt;&lt;/h1&gt;
+  &lt;?for(var i=0; i<10; i++){?&gt;
+    &lt;p&gt;hello, world, 第 &lt;?=i?&gt; 次&lt;/p&gt;
+  &lt;?}?&gt;
+&lt;/div&gt;
+&lt;script&gt;
+var padding = '20';
+$ROOT.style.padding = padding + 'px';
+&lt;/script&gt;</pre>
+  </section>
+  <p><a class="btnrun" href="javascript:;">运行</a></p>
+</div>
+<aside>
+  <pre id="result"></pre>
+  <div id="result-show"></div>
+</aside>
+<script src="/static/js/jquery-1.7.1.min.js"></script>
+<script src="/static/js/demo.js"></script>
+</body>
+</html>

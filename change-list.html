@@ -23,50 +23,33 @@
       <a href="/methods.html">方法</a>
       <a href="/multi-templates.html">多模板</a>
       <a href="/precompile.html">预编译</a>
-      <a class="active" href="/node.html">node</a>
+      <a href="/node.html">node</a>
       <a href="/faq.html">常见问题</a>
-      <a href="/change-list.html">升级日志</a>
+      <a class="active" href="/change-list.html">升级日志</a>
     </nav>
   </div>
 </header>
 <section class="wrap">
-  <h2>For Node.js</h2>
-  <p><code>nodetpl</code> 除了用于一般的 <code>web</code> 项目中，还可以用在 <code>node.js</code>。</p>
-  <h4>安装 <code>nodetpl</code></h4>
-  <pre><code class="language-markup">npm install nodetpl -g</code></pre>
-  <h4>基本语法</h4>
-  <pre><code class="language-markup">var fs = require('fs');
-var nodetpl = require('nodetpl');
-
-var filepath = '/usr/local/nodetpl/test.tpl';
-var data = {
-  name: 'zhangsan',
-  age: 18
-};
-
-fs.readFile(filepath, 'utf-8', function(err, content) {
-  if (err) {
-    throw err;
-  } else {
-    content = nodetpl.render(content, data);
-    console.log(content);
+  <h2>升级日志</h2>
+  <dl>
+    <dt>1.x to 2.0</dt>
+    <dd>
+      <ul>
+        <li>支持通过 <code>config</code> 灵活配置引擎开关</li>
+        <li>内置 <code>_fixcss</code> 方法即将废弃，使用 1.x 版本编译的模板必须重新编译</li>
+        <li>正式支持 <code>CMD</code> 模块化开发</li>
+        <li>多模板引用由 “<code>require</code>” 关键字改为 “<code>include</code>”</li>
+        <li>
+          默认 <code>$ROOT</code> 指向由 <code>jQuery</code> 调整为普通 <code>DOM</code>，如需使用 <code>jQuery</code>，请手动 <code>config</code> 设置
+          <pre><code class="language-javascript">nodetpl.config({
+  vars: {
+    root: '$("#~")'
   }
 });</code></pre>
-
-  <h4>For Express.js</h4>
-  <pre><code class="language-markup">app.set('view engine', 'tpl');
-app.set('views', __dirname + '/views');
-app.engine('tpl', require('nodetpl').express.render);
-
-app.get('/', function(req, res){
-  res.render('index', {
-    "user": "Tom",
-    "favor": [ "Apple", "Orange", "Bananer" ]
-  }, function(err, html){
-    res.writeHead(200, { "Content-Type": "text/html" });
-    res.end(html);
-  });
-});</code></pre>
+        </li>
+      </ul>
+    </dd>
+  </dl>
 </section>
 <footer>
   <div class="wrap">

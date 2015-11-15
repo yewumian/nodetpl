@@ -24,6 +24,8 @@
       <a href="/multi-templates.html">多模板</a>
       <a class="active" href="/precompile.html">预编译</a>
       <a href="/node.html">node</a>
+      <a href="/faq.html">常见问题</a>
+      <a href="/change-list.html">升级日志</a>
     </nav>
   </div>
 </header>
@@ -41,14 +43,16 @@
     <li><code>tplpath</code>：模板文件的路径，或模板所在的目录路径</li>
     <li><code>tplid</code>：模板文件标识ID，或模板所在目录标识ID，以 <code>http</code> 或 <code>/</code> 开头</li>
   </ul>
-  <p>通常情况下，每一个模板文件都会拥有自身一个唯一ID，这个ID可以确保该模板在运行过程中全局唯一，这里，我们使用模板引用的路径来表示（可以是 <code>http</code> 开始的路径，也可以是“<code>/</code>” 开始的路径），后缀为我们编译后的 <code>.js</code> 文件。</p>
+  <p>通常情况下，每一个模板文件都会拥有自身一个唯一ID，这个ID可以确保该模板在运行过程中全局唯一，这里，我们使用模板引用的路径来表示，通常为相对于项目根路径的位置（<code>http</code> 开始的路径也是允许的），后缀为我们编译后的 <code>.js</code> 文件。</p>
   <p><strong>编译单个文件</strong></p>
-  <p>首先，将我们的模板文件保存在某个目录中（通常为 <code>tpls</code>），模板文件扩展名为 <code>.tpl</code>，运行下面的口令：</p>
+  <p>首先，将我们的模板文件保存在某个目录中（通常为 <code>tpls</code>），模板文件扩展名为 <code>.tpl</code></p>
+  <p>假定项目的根路径为：<code>/usr/local/testproject</code>，则文件相对于根路径的位置应为：<code>/tpls/demo/abc.tpl</code>，运行下面的口令：</p>
   <pre><code class="language-markup">nodetpl /usr/local/testproject/tpls/demo/abc.tpl -r /tpls/demo/abc.js</code></pre>
-  <p>我们可以看到，在模板文件统计路径下，生成了一个 <code>.js</code> 文件，该文件就是编译后的可执行文件。</p>
+  <p>我们可以看到，在模板文件同一路径下，生成了一个 <code>.js</code> 文件，该文件就是编译后的可执行文件。</p>
   <p><strong>批量编译指定目录中的多个模板文件</strong></p>
-  <p>命令行进入模板所在的目录，执行下面的语句，即可编译该目录下所有模板文件：</p>
-  <pre><code class="language-markup">nodetpl /usr/local/testproject/tpls -r /tpls</code></pre>
+  <p>同样，假定项目的根路径为：<code>/usr/local/testproject</code>，则目录相对于根路径的位置应为：<code>/tpls</code></p>
+  <p>命令行进入项目根目录 <code>/usr/local/testproject</code>，执行下面的语句，即可编译该目录下所有模板文件：</p>
+  <pre><code class="language-markup">nodetpl ./tpls -r /tpls</code></pre>
   <p>模板编译之后，就可以使用 <code>nodetpl.get()</code> 方法引用了。</p>
 </section>
 <footer>

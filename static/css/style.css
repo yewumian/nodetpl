@@ -7,6 +7,28 @@ body {
   max-width: 1000px;
   margin: 0 auto;
 }
+a.btnrun {
+  color: #fff;
+  position: relative;
+  display: inline-block;
+  background-color: #2ecc71;
+  vertical-align: middle;
+  padding: .3em 1.5em;
+  text-decoration: none;
+  border-radius: .2em;
+  margin-right: 1em;
+}
+a.btnrun:before {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-bottom-color: #2ecc71;
+  left: 50%;
+  margin-left: -5px;
+  top: -10px;
+}
 header {
   padding: 5rem 0 1rem;
 }

@@ -24,6 +24,8 @@
       <a href="/multi-templates.html">多模板</a>
       <a href="/precompile.html">预编译</a>
       <a href="/node.html">node</a>
+      <a href="/faq.html">常见问题</a>
+      <a href="/change-list.html">升级日志</a>
     </nav>
   </div>
 </header>
@@ -34,7 +36,7 @@
   <pre><code class="language-javascript">nodetpl.config({
   base: 'http://www.nodetpl.com/static/js/tpl/',   // 模板目录
   vars: {
-    root: '$("#~")'
+    root: 'document.getElementById("~")'
   },
   openTag: '&lt;?',
   closeTag: '?&gt;',
@@ -53,6 +55,7 @@
   </ul>
   <p>这里大部分是可以采用默认值的，通常状况下，可以根据所使用的类库，调整 <code>vars.root</code> 的指向。</p>
   <p>如果你使用的是 <code>jQuery</code>，那么设置 <code>$("#~")</code> 之后，<code>$ROOT</code> 便是模板代码中的 <code>&lt;div id="$ROOT"&gt;</code> 根节点。</p>
+  <p><a class="btnrun" href="/demo/6.html" target="_blank">$ROOT指向原生DOM的DEMO</a><a class="btnrun" href="/demo/7.html" target="_blank">$ROOT使用jQuery的DEMO</a></p>
   <h4>nodetpl.get(url, [data, ] callback)</h4>
   <p>加载指定的模板可执行文件（编译方式参见<a href="/precompile.html" target="_blank">预编译</a>），并用 <code>data</code> 渲染，渲染后的结果返回给 <code>callback</code>。</p>
   <ul>
@@ -61,14 +64,16 @@
     <li>callback：模板编译后，执行的回调函数，回调函数会将编译后的 HTML 作为参数传入</li>
   </ul>
   <pre><code class="language-javascript">var data = {
-  title: '个人爱好',
-  favor: ['足球', '篮球', '乒乓球', '琉璃球']
+  "title": "个人爱好",
+  "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
 };
-nodetpl.get('http://www.nodetpl.com/tpls/demo/test.js', data, function(d){
-  alert(d);
+nodetpl.get('http://www.nodetpl.com/demo/tpls/1.js', data, function(d){
+  console.log(d);
 });</code></pre>
+  <p><a class="btnrun" href="/demo/8.html" target="_blank">查看DEMO</a></p>
   <h4>nodetpl.render(tplcontent[, data]);</h4>
-  <p>使用数据 <code>data</code>，渲染模板代码 <code>tplcontent</code>，此方法不包含预编译环节，通常用在人为拼接或者 <code>&lt;script type="text/template"...</code> 的场景。</p>
+  <p>使用数据 <code>data</code>，直接渲染模板代码 <code>tplcontent</code>。</p>
+  <p>此方法不包含预编译环节，通常用在人为拼接或者 <code>&lt;script type="text/template"...</code> 的场景，前面首页给出的DEMO即是如此。</p>
   <pre><code class="language-javascript">var data = {
   title: '个人爱好',
   favor: ['足球', '篮球', '乒乓球', '琉璃球']
@@ -76,6 +81,7 @@ nodetpl.get('http://www.nodetpl.com/tpls/demo/test.js', data, function(d){
 var content = document.getElementById('testid').innerHTML;
 var html = nodetpl.render(content, data);
 alert(html);</code></pre>
+  <p><a class="btnrun" href="/demo/1.html" target="_blank">查看DEMO</a></p>
 </section>
 <footer>
   <div class="wrap">

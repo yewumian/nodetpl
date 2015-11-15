@@ -24,6 +24,8 @@
       <a href="/multi-templates.html">多模板</a>
       <a href="/precompile.html">预编译</a>
       <a href="/node.html">node</a>
+      <a href="/faq.html">常见问题</a>
+      <a href="/change-list.html">升级日志</a>
     </nav>
   </div>
 </header>
@@ -59,12 +61,12 @@
 &lt;/script&gt;</code></pre>
   <h4>执行渲染</h4>
   <pre><code class="language-javascript">var data = {
-  title: '个人爱好',
-  favor: ['足球', '篮球', '乒乓球', '琉璃球']
+  "title": "个人爱好",
+  "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
 };
 var content = document.getElementById('testid').innerHTML;
 var html = nodetpl.render(content, data);
-alert(html);</code></pre>
+console.log(html);</code></pre>
   <h4>运行结果</h4>
   <pre><code class="language-html">&lt;h1&gt;个人爱好&lt;/h1&gt;
 &lt;ul&gt;
@@ -73,6 +75,7 @@ alert(html);</code></pre>
   &lt;li&gt;2：乒乓球&lt;/li&gt;
   &lt;li&gt;3：琉璃球&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
+  <p><a class="btnrun" href="/demo/1.html" target="_blank">查看DEMO</a></p>
 </section>
 <footer>
   <div class="wrap">
