@@ -34,7 +34,11 @@
   <h2>多模板</h2>
   <p>似乎前面了解到的模板功能，已经能够满足我们大部分开发所需，但是假如一个模板包含非常多的业务场景，模板代码量将会显得巨大而臃肿，为了解决这个问题，<code>nodetpl</code> 以非常巧妙的方式，引入了多模板的概念。</p>
   <p><code>nodetpl</code> 是这样定义多模板场景的：假如一个模板，包含了非常多的业务逻辑，而每个业务逻辑都是较为独立的片断，那么我们就可以把整个模板划分为多块，每一块表示一个业务场景；</p>
-  <p>多模板包含一个主模板（<code>main</code>）和多个子模板，主模板是整个模板的入口。</p>
+  <ul>
+    <li>多模板包含一个主模板（<code>main</code>）和多个子模板，主模板是整个模板的入口</li>
+    <li>使用 <code>&lt;template name=""&gt;&lt;/template&gt;</code> 标签将每个单独的模板包起来</li>
+    <li>各模板之间通过 <code>include</code> 关键字相互引用</li>
+  </ul>
   <h4>多模板的基本结构</h4>
   <p>与常规模板不同，多模板是由主模板和子模板组成，每一个模板被包含在一个 <code>&lt;template&gt;</code> 标签中：</p>
   <pre><code class="language-markup">&lt;template name="main"&gt;
@@ -53,9 +57,10 @@
   <ul>
     <li>一个卡片区域，默认情况下，显示个人名片信息，我们定义为“浏览”状态</li>
     <li>当点击“修改”链接的时候，显示个人名片修改的相关表单字段，我们定义为“修改”状态</li>
-    <li>修改界面内，可以修改各项信息，点击保存按钮，则自动保存，并显示保存后的“浏览”界面</li>
+    <li>“修改”界面内，可以修改各项信息，点击保存按钮，则自动保存，并显示保存后的“浏览”界面</li>
   </ul>
-  <p>因此，除了主模板外，我们需要额外设计一个“浏览”状态，和一个“修改”状态的模板。</p>
+  <p><a class="btnrun" href="/demo/9.html" target="_blank">查看DEMO</a></p>
+  <p>因此，除了主模板入口外，我们需要额外设计一个“浏览”状态，和一个“修改”状态的模板。</p>
   <pre><code class="language-markup">&lt;template name="main"&gt;
   &lt;style&gt;
   .title {
@@ -81,9 +86,13 @@
   &lt;/script&gt;
 &lt;/template&gt;</code></pre>
   <p>在 <code>nodetpl</code> 中，使用关键字 <code>include</code> 表示引入一个模板。</p>
-  <p>上面代码表示，一加载主模板（<code>main</code>）的时候，将名字为“<code>view</code>”的子模板加载到主模板的“<code>contentBox</code>”容器中，当点击标题中的“修改”链接的时候，将名字为“<code>edit</code>”的子模板加载到主模板的“<code>contentBox</code>”容器中。</p>
+  <p>上面代码表示：</p>
+  <ul>
+    <li>加载主模板（<code>main</code>）的时候，将名字为 “<code>view</code>” 的子模板加载到主模板的 “<code>contentBox</code>” 容器中，作为“浏览”显示用</li>
+    <li>当点击标题中的“修改”链接的时候，将名字为 “<code>edit</code>” 的子模板加载到主模板的 “<code>contentBox</code>” 容器中。</li>
+  </ul>
   <h4>子模板</h4>
-  <p>子模板的 <code>template name</code> 需要自己去定义，同样，我们可以像书写常规模板一样来书写子模板内的代码。</p>
+  <p>同样，我们可以像书写常规模板一样来书写子模板内的代码，但略微会有不同：</p>
   <p><strong>浏览状态</strong></p>
   <pre><code class="language-markup">&lt;template name="view"&gt;
   &lt;style&gt;
@@ -133,8 +142,7 @@
   });
   &lt;/script&gt;
 &lt;/template&gt;</code></pre>
-  <p>与常规模板不同的是，为了区分主模板和子模板，子模板中的“根”，不再使用“<code>$ROOT</code>”表示，取而代之的是“<code>$SUBROOT</code>”关键字。</p>
-  <p><a class="btnrun" href="/demo/9.html" target="_blank">查看DEMO</a></p>
+  <p>从上面代码可以看到，与主模板不同的是，子模板中的“根元素”，不再使用 “<code>$ROOT</code>” 表示，取而代之的是 “<code>$SUBROOT</code>” 关键字。</p>
 </section>
 <footer>
   <div class="wrap">

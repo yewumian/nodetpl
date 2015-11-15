@@ -44,12 +44,13 @@
   &lt;p&gt;hello, world, 第 &lt;?=i?&gt; 次&lt;/p&gt;
 &lt;?}?&gt;</code></pre>
   <p><a class="btnrun" href="/demo/3.html" target="_blank">查看DEMO</a></p>
-  <p>使用“<code>@</code>”来表示传入的对象对应的属性。假如传入的对象为：</p>
+  <p>使用“<code>@</code>”来表示传入的对象对应的属性。</p>
+  <p>假如传入的对象为：</p>
   <pre><code class="language-javascript">{
   "title": "我是传入的标题",
   "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
 }</code></pre>
-  <p>在模板中，可以通过 <code>@title</code>、<code>@favor</code> 来分别引用传入的<code>title</code>、<code>favor</code>值：</p>
+  <p>在模板中，可以通过 <code>@title</code>、<code>@favor</code> 来分别引用传入的 <code>title</code>、<code>favor</code> 值：</p>
   <pre><code class="language-html">&lt;h1&gt;&lt;?=@title?&gt;&lt;/h1&gt;
 &lt;ul&gt;
   &lt;?for(var i=0; i&lt;@favor.length; i++){?&gt;
@@ -79,7 +80,8 @@
   <p>诶？逆天了，这样写岂不把整个页面的样式都要覆盖掉？</p>
   <p>没关系，<code>nodetpl</code> 不会容忍这样低级错误的发生，最终，<code>nodetpl</code> 会在输出之前，将每一行样式前面都添加“<code>#ROOT</code>”限定，这样就不会引发样式继承冲突了。</p>
   <h4>JavaScript部分</h4>
-  <p><code>nodetpl</code> 允许模板调用自身的 <code>JavaScript</code> 脚本，以方便你做一些时间绑定相关的工作。在 <code>JavaScript</code> 代码中，<code>nodetpl</code> 提供了关键字 <code>$ROOT</code> 来帮你快速选中根节点。</p>
+  <p><code>nodetpl</code> 允许模板调用自身的 <code>JavaScript</code> 脚本，以方便你做一些事件绑定相关的工作。</p>
+  <p>在 <code>JavaScript</code> 代码中，<code>nodetpl</code> 提供了关键字 <code>$ROOT</code> 来帮你快速选中根节点，关键字 <code>$DATA</code> 表示传入的数据。</p>
   <p>同样，你也不需要为命名冲突而担忧，因为 <code>nodetpl</code> 会让你的脚本在一个匿名函数中执行。</p>
   <pre><code class="language-html">&lt;div id="$ROOT"&gt;
   &lt;h1&gt;&lt;?=@title?&gt;&lt;/h1&gt;
@@ -90,10 +92,12 @@
 &lt;script&gt;
 var padding = '20';
 $ROOT.style.padding = padding + 'px';
+alert($DATA.title);
 &lt;/script&gt;</code></pre>
   <p><a class="btnrun" href="/demo/6.html" target="_blank">查看DEMO</a></p>
   <p>没错，虽然这里你定义了一个 <code>padding</code> 变量，但是它并不是在 <code>window</code> 对象中执行的，因此不会污染到 <code>window</code> 。</p>
-  <p>怎么样？有了 HTML / CSS / JS ，是不是就可以书写无所不能的模板了？接下来就看你发挥了！</p>
+  <p>怎么样？有了 HTML / CSS / JS ，是不是就可以书写你想要的模板了？</p>
+  <p>接下来就看你发挥了 O(∩_∩)O</p>
 </section>
 <footer>
   <div class="wrap">

@@ -34,8 +34,9 @@
   <h2>nodetpl 方法</h2>
   <h4>nodetpl.config(options)</h4>
   <p>配置 <code>nodetpl</code> 基本参数</p>
+  <p><code>config</code> 不是必须的，一般不需要做任何配置，但如果你使用的是 <code>jQuery</code> 等库，为方便操作根元素，还是需要对 <code>config</code> 做简单的配置的。</p>
   <pre><code class="language-javascript">nodetpl.config({
-  base: 'http://www.nodetpl.com/static/js/tpl/',   // 模板目录
+  base: 'http://www.nodetpl.com/static/tpl/',   // 强制指定模板根目录
   vars: {
     root: 'document.getElementById("~")'
   },
@@ -47,7 +48,7 @@
     <li>base：模板所在的根路径，可以省略</li>
     <li>vars：变量相关信息
       <ul>
-        <li>root：模板中 <code>JavaScript</code> 代码里的 <code>$ROOT</code> 所代表的对象。默认为 <code>DOM</code> 节点，即 <code>document.getElementById("~")</code>。如果你使用的是 <code>jQuery</code> 库，可以改为：<code>$("#~")</code></li>
+        <li>root：模板 <code>JavaScript</code> 代码中的 <code>$ROOT</code> 所代表的对象。默认为 <code>DOM</code> 节点，即 <code>document.getElementById("~")</code>。如果你使用的是 <code>jQuery</code> 库，可以改为：<code>$("#~")</code></li>
       </ul>
     </li>
     <li>openTag：模板定界符开始标签，默认为：<code>&lt;?</code></li>
@@ -55,12 +56,13 @@
     <li>cache：是否开启缓存，默认开启</li>
   </ul>
   <p>这里大部分是可以采用默认值的，通常状况下，可以根据所使用的类库，调整 <code>vars.root</code> 的指向。</p>
+  <p><a class="btnrun" href="/demo/6.html" target="_blank">$ROOT 指向原生 DOM 的 DEMO</a></p>
   <p>如果你使用的是 <code>jQuery</code>，那么设置 <code>$("#~")</code> 之后，<code>$ROOT</code> 便是模板代码中的 <code>&lt;div id="$ROOT"&gt;</code> 根节点。</p>
-  <p><a class="btnrun" href="/demo/6.html" target="_blank">$ROOT指向原生DOM的DEMO</a><a class="btnrun" href="/demo/7.html" target="_blank">$ROOT使用jQuery的DEMO</a></p>
+  <p><a class="btnrun" href="/demo/7.html" target="_blank">$ROOT 使用 jQuery 选中 DOM 的 DEMO</a></p>
   <h4>nodetpl.get(url, [data, ] callback)</h4>
   <p>加载指定的模板可执行文件（编译方式参见<a href="/precompile.html" target="_blank">预编译</a>），并用 <code>data</code> 渲染，渲染后的结果返回给 <code>callback</code>。</p>
   <ul>
-    <li>url：模板编译后的文件</li>
+    <li>url：模板编译后的 js 文件路径</li>
     <li>data：传入模板的数据</li>
     <li>callback：模板编译后，执行的回调函数，回调函数会将编译后的 HTML 作为参数传入</li>
   </ul>
