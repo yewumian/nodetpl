@@ -30,6 +30,7 @@ a.btnrun:before {
   top: -10px;
 }
 header {
+  position: relative;
   padding: 5rem 0 1rem;
 }
 header {
@@ -76,6 +77,12 @@ header nav  a {
 header nav  a.active {
   color: rgba(255, 255, 255, .9);
   background-color: rgba(255, 255, 255, .1);
+}
+header .qun {
+  position: absolute;
+  right: 1em;
+  top: 0;
+  color: #fff;
 }
 section {
   color: #606c71;
