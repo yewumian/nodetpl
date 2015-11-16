@@ -42,6 +42,9 @@ header {
 header h1 {
   font-size: 3.25rem;
 }
+header h1 sup {
+  margin-left: 10px;
+}
 header h2 {
   font-size: 1.25rem;
   font-weight: normal;
