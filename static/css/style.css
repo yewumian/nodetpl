@@ -98,29 +98,6 @@ section pre {
   width: 100%;
   height: auto;
 }
-section ul.partner {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  margin: 0 -10px;
-}
-section ul.partner:after {
-  content: '';
-  height: 0;
-  display: block;
-  clear: both;
-  overflow: hidden;
-  visibility: hidden;
-}
-section ul.partner li {
-  float: left;
-  padding: 0;
-  margin: 10px;
-}
-section ul.partner li img {
-  height: 50px;
-  vertical-align: middle;
-}
 footer {
   margin-top: 20px;
   border-top: 1px solid #ccc;
