@@ -84,6 +84,9 @@ header .qun {
   top: 0;
   color: #fff;
 }
+header .qun img {
+  vertical-align: middle;
+}
 section {
   color: #606c71;
 }
