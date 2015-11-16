@@ -22,9 +22,10 @@
   // String.prototype.trim
   if (!String.prototype.trim) String.prototype.trim = function() {
     return this.replace(/^\s+|\s+$/g, '');
-  };
+  }
 
   function NodeTpl() {
+    this.version = '2.0.3';
     this.ie6 = window.VBArray && !window.XMLHttpRequest;
     this.guid = function() {
       return 'NTGUID__' + (this.guid._counter++).toString(36);
@@ -43,7 +44,7 @@
     this.options = {
       base: '',
       vars: {
-        'root': 'document.getElementById("~")' // $ROOT $("#~")
+        'root': '$("#~")' // like jQuery
       },
       openTag: '<?',
       closeTag: '?>'
@@ -480,7 +481,6 @@
           .replace(/\'/g, '\\\'')
           .replace(/\r\n/g, '\n')
           .replace(/\n/g, '\\n')
-          .replace(/\$SUBROOT/g, '$(\\\'#\'+ guid + dguid + \'\\\')')
           .replace(/(^|[^\.])include\(([^\)]*)\)/ig, function(a, b, c) {
             var _c = (c || '').split(',');
             _c.map(function(value, index) {
@@ -559,7 +559,10 @@
       if (cache[i].js) {
         temp += "    _ += '<script>';\n";
         temp += "    _ += '(function(window, document, undefined){\\n';\n";
+        temp += "    _ += '  var ROOT = document.getElementById(\"\'+ guid +\'\");\\n';\n";
+        temp += "    _ += '  var SUBROOT = document.getElementById(\"\'+ guid + dguid +\'\");\\n';\n";
         temp += "    _ += '  var $ROOT = '+ N.options.vars.root.replace(/~/, guid) + ';\\n';\n";
+        temp += "    _ += '  var $SUBROOT = '+ N.options.vars.root.replace(/~/, guid + dguid) + ';\\n';\n";
         temp += "    _ += '  var $TPLS = NodeTpl._tpls[\"\'+ PATH +\'\"];\\n';\n";
         temp += "    _ += '  var $DATA = NodeTpl._data[\"\'+ dguid +\'\"];\\n';\n";
         temp += cache[i].js;

@@ -61,7 +61,7 @@ alert(html);
 
 ### 详细文档
 
-  [http://www.nodetpl.com]
+  http://www.nodetpl.com
 
 ### License
 
