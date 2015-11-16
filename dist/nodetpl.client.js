@@ -559,12 +559,15 @@
       if (cache[i].js) {
         temp += "    _ += '<script>';\n";
         temp += "    _ += '(function(window, document, undefined){\\n';\n";
-        temp += "    _ += '  var ROOT = document.getElementById(\"\'+ guid +\'\");\\n';\n";
-        temp += "    _ += '  var SUBROOT = document.getElementById(\"\'+ guid + dguid +\'\");\\n';\n";
-        temp += "    _ += '  var $ROOT = '+ N.options.vars.root.replace(/~/, guid) + ';\\n';\n";
-        temp += "    _ += '  var $SUBROOT = '+ N.options.vars.root.replace(/~/, guid + dguid) + ';\\n';\n";
-        temp += "    _ += '  var $TPLS = NodeTpl._tpls[\"\'+ PATH +\'\"];\\n';\n";
-        temp += "    _ += '  var $DATA = NodeTpl._data[\"\'+ dguid +\'\"];\\n';\n";
+        temp += "    _ += '  var ROOT, $ROOT, SUBROOT, $SUBROOT, $TPLS, $DATA;\\n';\n";
+        temp += "    _ += '  ROOT = document.getElementById(\"\'+ guid +\'\");\\n';\n";
+        temp += "    _ += '  SUBROOT = document.getElementById(\"\'+ guid + dguid +\'\");\\n';\n";
+        temp += "    _ += '  $TPLS = NodeTpl._tpls[\"\'+ PATH +\'\"];\\n';\n";
+        temp += "    _ += '  $DATA = NodeTpl._data[\"\'+ dguid +\'\"];\\n';\n";
+        temp += "    _ += '  try{\\n';\n";
+        temp += "    _ += '    $ROOT = '+ N.options.vars.root.replace(/~/, guid) + ';\\n';\n";
+        temp += "    _ += '    $SUBROOT = '+ N.options.vars.root.replace(/~/, guid + dguid) + ';\\n';\n";
+        temp += "    _ += '  } catch(e) { }\\n';\n";
         temp += cache[i].js;
         temp += "    _ += '})(window, document);\\n';\n";
         temp += "    _ += 'delete NodeTpl._data[\"\'+ dguid +\'\"];\\n';\n";
