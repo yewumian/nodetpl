@@ -22,7 +22,10 @@ return function(N, undefined){
     _ += '<div id="'+ guid +'">\n    <div class="title">个人名片 [<a class="link-modify" href="javascript:;">修改</a>]</div>\n    <div class="content"></div>\n  </div>';
     _ += '<script>';
     _ += '(function(window, document, undefined){\n';
+    _ += '  var ROOT = document.getElementById("'+ guid +'");\n';
+    _ += '  var SUBROOT = document.getElementById("'+ guid + dguid +'");\n';
     _ += '  var $ROOT = '+ N.options.vars.root.replace(/~/, guid) + ';\n';
+    _ += '  var $SUBROOT = '+ N.options.vars.root.replace(/~/, guid + dguid) + ';\n';
     _ += '  var $TPLS = NodeTpl._tpls["'+ PATH +'"];\n';
     _ += '  var $DATA = NodeTpl._data["'+ dguid +'"];\n';
     _ += 'var contentBox = $ROOT.find(\'.content\');\n';
@@ -69,10 +72,13 @@ return function(N, undefined){
     _ += '" /></li>\n      </ul>\n      <div class="form-actions">\n        <button type="submit">保存</button>\n      </div>\n    </form>\n  </div>';
     _ += '<script>';
     _ += '(function(window, document, undefined){\n';
+    _ += '  var ROOT = document.getElementById("'+ guid +'");\n';
+    _ += '  var SUBROOT = document.getElementById("'+ guid + dguid +'");\n';
     _ += '  var $ROOT = '+ N.options.vars.root.replace(/~/, guid) + ';\n';
+    _ += '  var $SUBROOT = '+ N.options.vars.root.replace(/~/, guid + dguid) + ';\n';
     _ += '  var $TPLS = NodeTpl._tpls["'+ PATH +'"];\n';
     _ += '  var $DATA = NodeTpl._data["'+ dguid +'"];\n';
-    _ += '$(\'#'+ guid + dguid + '\').find(\'form\').on(\'submit\', function(){\n';
+    _ += '$SUBROOT.find(\'form\').on(\'submit\', function(){\n';
     _ += '    var name = $(this).find(\'input[name="name"]\').val(),\n';
     _ += '      gender = $(this).find(\'input[name="gender"]\').val(),\n';
     _ += '      age = $(this).find(\'input[name="age"]\').val();\n';
