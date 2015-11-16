@@ -37,14 +37,15 @@
     <dd>
       <ul>
         <li>支持通过 <code>config</code> 灵活配置引擎开关</li>
-        <li>内置 <code>_fixcss</code> 方法即将废弃，使用 1.x 版本编译的模板必须重新编译</li>
+        <li>内置 <code>_fixcss</code> 方法即将废弃，使用 1.x 版本编译的模板需要重新编译</li>
         <li>正式支持 <code>CMD</code> 模块化开发</li>
-        <li>多模板引用由 “<code>require</code>” 关键字改为 “<code>include</code>”</li>
+        <li>多模板引用由 “<code>require</code>” 关键字改为 “<code>include</code>”，原 “<code>require</code>” 关键字废弃</li>
+        <li>增加关键字 <code>ROOT</code>，代表原生 <code>DOM</code> 节点</li>
         <li>
-          默认 <code>$ROOT</code> 指向由 <code>jQuery</code> 调整为普通 <code>DOM</code>，如需使用 <code>jQuery</code>，请手动 <code>config</code> 设置
+          默认 <code>$ROOT</code> 指向为 <code>jQuery</code> 对象（选择器 <code>$("#~")</code> ），如需使用其它类库，请手动 <code>config</code> 设置
           <pre><code class="language-javascript">nodetpl.config({
   vars: {
-    root: '$("#~")'
+    root: '...'
   }
 });</code></pre>
         </li>
