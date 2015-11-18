@@ -25,7 +25,7 @@
   }
 
   function NodeTpl() {
-    this.version = '2.0.3';
+    this.version = '2.1.0';
     this.ie6 = window.VBArray && !window.XMLHttpRequest;
     this.guid = function() {
       return 'NTGUID__' + (this.guid._counter++).toString(36);
@@ -549,6 +549,7 @@
       content = content.replace(/\$ROOT/igm, '\'+ guid +\'');
       content = content.replace(/\$SUBROOT/igm, '\'+ guid + dguid +\'');
     }
+    content = 'with($DATA || {}){\n' + content + '\n}\n';
     return content;
   };
   /**

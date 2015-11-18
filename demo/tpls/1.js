@@ -15,18 +15,21 @@ return function(N, undefined){
   "main": function($DATA, guid){
     var _ = '', css = '', dguid = N.dguid();
     guid = guid || N.guid();
+with($DATA){
 
     _ += '<h1>';
-    _ += (($DATA.title) == null ? '' : ($DATA.title));
+    _ += ((title) == null ? '' : (title));
     _ += '</h1>\n<ul>\n  ';
-for(var i=0; i<$DATA.favor.length; i++){
+for(var i=0; i<favor.length; i++){
     _ += '\n    <li>';
     _ += ((i) == null ? '' : (i));
     _ += '：';
-    _ += (($DATA.favor[i]) == null ? '' : ($DATA.favor[i]));
+    _ += ((favor[i]) == null ? '' : (favor[i]));
     _ += '</li>\n  ';
 }
     _ += '\n</ul>';
+
+}
     $DATA && (N._data[dguid] = $DATA);
     return _;
   }

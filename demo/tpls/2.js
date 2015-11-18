@@ -18,8 +18,11 @@ return function(N, undefined){
     css += '';
     css += '#' + guid + ' .title{    font-size: 14px;    font-weight: bold;  }';
     css += '#' + guid + ' .content{    padding: 10px;  }';
-    _ += N.css(css);
+    _ += N.css(css);with($DATA){
+
     _ += '<div id="'+ guid +'">\n    <div class="title">个人名片 [<a class="link-modify" href="javascript:;">修改</a>]</div>\n    <div class="content"></div>\n  </div>';
+
+}
     _ += '<script>';
     _ += '(function(window, document, undefined){\n';
     _ += '  var ROOT, $ROOT, SUBROOT, $SUBROOT, $TPLS, $DATA;\n';
@@ -49,14 +52,17 @@ return function(N, undefined){
     guid = guid || N.guid();
     css += '';
     css += '#' + guid + dguid + ' ul li{    border: 1px solid #ccc;  }';
-    _ += N.css(css);
+    _ += N.css(css);with($DATA){
+
     _ += '<div id="'+ guid + dguid +'">\n    <ul>\n      <li>姓名：';
-    _ += (($DATA.name) == null ? '' : ($DATA.name));
+    _ += ((name) == null ? '' : (name));
     _ += '</li>\n      <li>性别：';
-    _ += (($DATA.gender) == null ? '' : ($DATA.gender));
+    _ += ((gender) == null ? '' : (gender));
     _ += '</li>\n      <li>年龄：';
-    _ += (($DATA.age) == null ? '' : ($DATA.age));
+    _ += ((age) == null ? '' : (age));
     _ += '</li>\n    </ul>\n  </div>';
+
+}
     $DATA && (N._data[dguid] = $DATA);
     return _;
   },
@@ -65,14 +71,17 @@ return function(N, undefined){
     guid = guid || N.guid();
     css += '';
     css += '#' + guid + dguid + ' ul li{    margin: 0 10px;    background-color: #eee;  }';
-    _ += N.css(css);
+    _ += N.css(css);with($DATA){
+
     _ += '<div id="'+ guid + dguid +'">\n    <form action="">\n      <ul>\n        <li>姓名：<input type="text" name="name" value="';
-    _ += (($DATA.name) == null ? '' : ($DATA.name));
+    _ += ((name) == null ? '' : (name));
     _ += '" /></li>\n        <li>性别：<input type="text" name="gender" value="';
-    _ += (($DATA.gender) == null ? '' : ($DATA.gender));
+    _ += ((gender) == null ? '' : (gender));
     _ += '" /></li>\n        <li>年龄：<input type="text" name="age" value="';
-    _ += (($DATA.age) == null ? '' : ($DATA.age));
+    _ += ((age) == null ? '' : (age));
     _ += '" /></li>\n      </ul>\n      <div class="form-actions">\n        <button type="submit">保存</button>\n      </div>\n    </form>\n  </div>';
+
+}
     _ += '<script>';
     _ += '(function(window, document, undefined){\n';
     _ += '  var ROOT, $ROOT, SUBROOT, $SUBROOT, $TPLS, $DATA;\n';

@@ -44,17 +44,17 @@
   &lt;p&gt;hello, world, 第 &lt;?=i?&gt; 次&lt;/p&gt;
 &lt;?}?&gt;</code></pre>
   <p><a class="btnrun" href="/demo/3.html" target="_blank">查看DEMO</a></p>
-  <p>使用“<code>@</code>”来表示传入的对象对应的属性。</p>
+  <p>直接使用属性名来表示传入的对象对应的属性。</p>
   <p>假如传入的对象为：</p>
   <pre><code class="language-javascript">{
   "title": "我是传入的标题",
   "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
 }</code></pre>
-  <p>在模板中，可以通过 <code>@title</code>、<code>@favor</code> 来分别引用传入的 <code>title</code>、<code>favor</code> 值：</p>
-  <pre><code class="language-html">&lt;h1&gt;&lt;?=@title?&gt;&lt;/h1&gt;
+  <p>在模板中，可以通过 <code>title</code>、<code>favor</code> 来分别引用传入的 <code>title</code>、<code>favor</code> 值：</p>
+  <pre><code class="language-html">&lt;h1&gt;&lt;?=title?&gt;&lt;/h1&gt;
 &lt;ul&gt;
-  &lt;?for(var i=0; i&lt;@favor.length; i++){?&gt;
-    &lt;li&gt;&lt;?=i?&gt;：&lt;?=@favor[i]?&gt;&lt;/li&gt;
+  &lt;?for(var i=0; i&lt;favor.length; i++){?&gt;
+    &lt;li&gt;&lt;?=i?&gt;：&lt;?=favor[i]?&gt;&lt;/li&gt;
   &lt;?}?&gt;
 &lt;/ul&gt;</code></pre>
   <p><a class="btnrun" href="/demo/4.html" target="_blank">查看DEMO</a></p>
@@ -71,7 +71,7 @@
   }
 &lt;/style&gt;
 &lt;div id="$ROOT"&gt;
-  &lt;h1&gt;&lt;?=@title?&gt;&lt;/h1&gt;
+  &lt;h1&gt;&lt;?=title?&gt;&lt;/h1&gt;
   &lt;?for(var i=0; i<10; i++){?&gt;
     &lt;p&gt;hello, world, 第 &lt;?=i?&gt; 次&lt;/p&gt;
   &lt;?}?&gt;
@@ -89,7 +89,7 @@
   </ul>
   <p>同样，你也不需要为命名冲突而担忧，因为 <code>nodetpl</code> 会让你的脚本在一个匿名函数中执行。</p>
   <pre><code class="language-html">&lt;div id="$ROOT"&gt;
-  &lt;h1&gt;&lt;?=@title?&gt;&lt;/h1&gt;
+  &lt;h1&gt;&lt;?=title?&gt;&lt;/h1&gt;
   &lt;?for(var i=0; i<10; i++){?&gt;
     &lt;p&gt;hello, world, 第 &lt;?=i?&gt; 次&lt;/p&gt;
   &lt;?}?&gt;

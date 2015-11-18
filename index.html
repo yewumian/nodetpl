@@ -54,10 +54,10 @@
   <h4>编写模板</h4>
   <p>最简单的，可以使用一个 <code>type="text/template"</code> 的 <code>script</code> 标签存放模板：</p>
   <pre><code class="language-html">&lt;script id="testid" type="text/template"&gt;
-&lt;h1&gt;&lt;?=@title?&gt;&lt;/h1&gt;
+&lt;h1&gt;&lt;?=title?&gt;&lt;/h1&gt;
 &lt;ul&gt;
-  &lt;?for(var i=0; i&lt;@favor.length; i++){?&gt;
-    &lt;li&gt;&lt;?=i?&gt;：&lt;?=@favor[i]?&gt;&lt;/li&gt;
+  &lt;?for(var i=0; i&lt;favor.length; i++){?&gt;
+    &lt;li&gt;&lt;?=i?&gt;：&lt;?=favor[i]?&gt;&lt;/li&gt;
   &lt;?}?&gt;
 &lt;/ul&gt;
 &lt;/script&gt;</code></pre>
@@ -87,7 +87,6 @@ console.log(html);</code></pre>
     <li>SUBROOT</li>
     <li>$SUBROOT</li>
     <li>$DATA</li>
-    <li>@</li>
     <li>=</li>
     <li>include</li>
     <li>&lt;template name=""&gt;</li>
