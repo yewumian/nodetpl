@@ -25,7 +25,7 @@
   }
 
   function NodeTpl() {
-    this.version = '2.0.3';
+    this.version = '2.1.0';
     this.ie6 = window.VBArray && !window.XMLHttpRequest;
     this.guid = function() {
       return 'NTGUID__' + (this.guid._counter++).toString(36);
@@ -41,6 +41,7 @@
     this.rguid._counter = 1;
     this._data = {};
     this._tpls = {};
+    this._cache = {};
     this.options = {
       base: '',
       vars: {
@@ -264,16 +265,32 @@
    * @return {String}                        result
    */
   NodeTpl.prototype.render = function(html, data, callback) {
-    var result, path;
+    var that = this,
+      hasCache = false,
+      result, path;
     if (typeof html !== 'string') {
       throw new TypeError();
     }
     if (typeof data === 'function') {
       callback = data, data = {};
     }
-    path = Math.random().toString();
-    result = this.compile(path, html);
-    (new Function(result))();
+    for (var i in that._cache) {
+      if (that._cache.hasOwnProperty(i) && that._cache[i].html === html) {
+        path = i;
+        result = that._cache[i].result;
+        hasCache = true;
+        break;
+      }
+    }
+    if (!hasCache) {
+      path = Math.random().toString();
+      result = this.compile(path, html);
+      (new Function(result))();
+      that._cache[path] = {
+        html: html,
+        result: result
+      };
+    }
     if (typeof this._tpls[path] === 'object' && typeof this._tpls[path].main === 'function') {
       result = this._tpls[path].main(data);
       typeof callback === 'function' && callback.call(this, result);
@@ -532,6 +549,7 @@
       content = content.replace(/\$ROOT/igm, '\'+ guid +\'');
       content = content.replace(/\$SUBROOT/igm, '\'+ guid + dguid +\'');
     }
+    content = 'with($DATA || {}){\n' + content + '\n}\n';
     return content;
   };
   /**
@@ -545,6 +563,9 @@
     var temp, html = '',
       list = [];
     for (var i in cache) {
+      if (!cache.hasOwnProperty(i)) {
+        continue;
+      }
       temp = '';
       temp += '  "' + i + '": function($DATA, guid){\n';
       temp += "    var _ = '', css = '', dguid = N.dguid();\n";
