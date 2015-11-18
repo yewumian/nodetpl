@@ -4,7 +4,14 @@ $('a.btnrun').on('click', function() {
   var result;
   data = JSON.parse(data);
   result = nodetpl.render(template, data);
+
   $('#result').text(result);
-  $('#result-show').html(result);
+
+  vDialog({
+    title: '运行结果',
+    content: result,
+    ok: true
+  }).showModal();
+
   console.log(result);
 });

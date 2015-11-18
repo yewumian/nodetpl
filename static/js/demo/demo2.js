@@ -11,7 +11,14 @@ $(function() {
 
   $('a.btnrun').on('click', function() {
     var js = $('#js').text() || '{}';
-    js = js.replace(/\/\/输出数据d/g, '$("#result").text(d);$("#result-show").html(d);');
+
+    var result = 'vDialog({\
+        title: "运行结果",\
+        content: d,\
+        ok: true\
+      }).showModal()';
+
+    js = js.replace(/\/\/输出数据d/g, '$("#result").text(d);' + result);
     eval(js);
   });
 
