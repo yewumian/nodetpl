@@ -1,5 +1,5 @@
 /*!
- * nodetpl v2.2.1
+ * nodetpl v2.2.3
  * Best javascript template engine
  * https://www.nodetpl.com
  *
@@ -34,7 +34,7 @@
   }
 
   function NodeTpl() {
-    this.version = '2.2.1';
+    this.version = '2.2.3';
     this.ie6 = window.VBArray && !window.XMLHttpRequest;
     this.guid = function() {
       return 'NTGUID__' + (this.guid._counter++).toString(36);
@@ -641,15 +641,15 @@
         temp += "    _ += '  var ROOT, $ROOT, SUBROOT, $SUBROOT, $TPLS, $DATA;\\n';\n";
         temp += "    _ += '  ROOT = document.getElementById(\"\'+ guid +\'\");\\n';\n";
         temp += "    _ += '  SUBROOT = document.getElementById(\"\'+ guid + dguid +\'\");\\n';\n";
-        temp += "    _ += '  $TPLS = NodeTpl._tpls[\"\'+ PATH +\'\"];\\n';\n";
-        temp += "    _ += '  $DATA = NodeTpl._data[\"\'+ dguid +\'\"];\\n';\n";
+        temp += "    _ += '  $TPLS = nodetpl._tpls[\"\'+ PATH +\'\"];\\n';\n";
+        temp += "    _ += '  $DATA = nodetpl._data[\"\'+ dguid +\'\"];\\n';\n";
         temp += "    _ += '  try{\\n';\n";
         temp += "    _ += '    $ROOT = '+ N.options.vars.root.replace(/~/, guid) + ';\\n';\n";
         temp += "    _ += '    $SUBROOT = '+ N.options.vars.root.replace(/~/, guid + dguid) + ';\\n';\n";
         temp += "    _ += '  } catch(e) { }\\n';\n";
         temp += cache[i].js;
         temp += "    _ += '})(window, document);\\n';\n";
-        temp += "    _ += 'delete NodeTpl._data[\"\'+ dguid +\'\"];\\n';\n";
+        temp += "    _ += 'delete nodetpl._data[\"\'+ dguid +\'\"];\\n';\n";
         temp += "    _ += '</script>\\n';\n";
       }
       temp += '    $DATA && (N._data[dguid] = $DATA);\n';
@@ -663,7 +663,7 @@
     html += " } else if (typeof exports === 'object') {\n";
     html += "   module.exports = factory();\n";
     html += " } else {\n";
-    html += "   factory()(window.NodeTpl);\n";
+    html += "   factory()(window.nodetpl);\n";
     html += " }\n";
     html += "}(this, function() {\n";
     html += "return function(N, undefined){\n";
