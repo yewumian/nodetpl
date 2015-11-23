@@ -60,13 +60,16 @@ header {
 }
 header h1 {
   font-size: 3.25rem;
+  opacity: .8;
 }
 header h1 i.iconfont {
-  font-size: 1.5em;
+  font-size: 1.2em;
   margin-right: .1em;
+  opacity: .5;
 }
 header h1 sup {
   margin-left: 10px;
+  opacity: .5;
 }
 header h2 {
   font-size: 1.25rem;
