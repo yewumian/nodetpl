@@ -8,14 +8,17 @@
  }
 }(this, function() {
 return function(N, undefined){
-  var PATH = '/demo/tpls/1.js';
   if(!N || !N._tpls) return false;
+  if (PATH === '' && N._getCurrentScript) {
+    PATH = N._getCurrentScript();
+  }
   N._tpls[PATH] = N._tpls[PATH] ||
 {
   "main": function($DATA, guid){
     var _ = '', css = '', dguid = N.dguid();
     guid = guid || N.guid();
-with($DATA){
+
+with($DATA || {}){
 
     _ += '<h1>';
     _ += ((title) == null ? '' : (title));

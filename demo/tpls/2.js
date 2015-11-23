@@ -8,8 +8,11 @@
  }
 }(this, function() {
 return function(N, undefined){
-  var PATH = '/demo/tpls/2.js';
+  var PATH = '';
   if(!N || !N._tpls) return false;
+  if (PATH === '' && N._getCurrentScript) {
+    PATH = N._getCurrentScript();
+  }
   N._tpls[PATH] = N._tpls[PATH] ||
 {
   "main": function($DATA, guid){
@@ -18,7 +21,8 @@ return function(N, undefined){
     css += '';
     css += '#' + guid + ' .title{    font-size: 14px;    font-weight: bold;  }';
     css += '#' + guid + ' .content{    padding: 10px;  }';
-    _ += N.css(css);with($DATA){
+    _ += N.css(css);
+with($DATA || {}){
 
     _ += '<div id="'+ guid +'">\n    <div class="title">个人名片 [<a class="link-modify" href="javascript:;">修改</a>]</div>\n    <div class="content"></div>\n  </div>';
 
@@ -52,7 +56,8 @@ return function(N, undefined){
     guid = guid || N.guid();
     css += '';
     css += '#' + guid + dguid + ' ul li{    border: 1px solid #ccc;  }';
-    _ += N.css(css);with($DATA){
+    _ += N.css(css);
+with($DATA || {}){
 
     _ += '<div id="'+ guid + dguid +'">\n    <ul>\n      <li>姓名：';
     _ += ((name) == null ? '' : (name));
@@ -71,7 +76,8 @@ return function(N, undefined){
     guid = guid || N.guid();
     css += '';
     css += '#' + guid + dguid + ' ul li{    margin: 0 10px;    background-color: #eee;  }';
-    _ += N.css(css);with($DATA){
+    _ += N.css(css);
+with($DATA || {}){
 
     _ += '<div id="'+ guid + dguid +'">\n    <form action="">\n      <ul>\n        <li>姓名：<input type="text" name="name" value="';
     _ += ((name) == null ? '' : (name));
