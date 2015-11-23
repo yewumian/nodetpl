@@ -60,22 +60,23 @@ header {
 }
 header h1 {
   font-size: 3.25rem;
-  opacity: .8;
+  text-shadow: 1px 1px 0 #000;
 }
 header h1 i.iconfont {
   font-size: 1.2em;
   margin-right: .1em;
-  opacity: .5;
+  opacity: .2;
 }
 header h1 sup {
   margin-left: 10px;
-  opacity: .5;
+  opacity: .2;
 }
 header h2 {
   font-size: 1.25rem;
   font-weight: normal;
   margin-bottom: 2rem;
   opacity: 0.7;
+  text-shadow: 1px 1px 0 #000;
 }
 header a.btn {
   display: inline-block;
