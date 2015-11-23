@@ -1,3 +1,12 @@
+/*!
+ * nodetpl v2.2
+ * Best javascript template engine
+ * https://www.nodetpl.com
+ *
+ * Copyright 2012-2015 pillys@163.com
+ * Released under the MIT license
+ */
+
 // UMD (Universal Module Definition)
 // see https://github.com/umdjs/umd/blob/master/returnExports.js
 (function(root, factory) {
