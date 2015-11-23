@@ -7,6 +7,9 @@ body {
   max-width: 1000px;
   margin: 0 auto;
 }
+a {
+  color: #1a8a08;
+}
 a.btnrun {
   color: #fff;
   position: relative;
