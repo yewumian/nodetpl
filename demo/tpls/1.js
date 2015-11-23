@@ -8,6 +8,7 @@
  }
 }(this, function() {
 return function(N, undefined){
+  var PATH = '';
   if(!N || !N._tpls) return false;
   if (PATH === '' && N._getCurrentScript) {
     PATH = N._getCurrentScript();
