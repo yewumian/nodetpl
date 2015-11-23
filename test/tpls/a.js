@@ -8,8 +8,11 @@
  }
 }(this, function() {
 return function(N, undefined){
-  var PATH = '/tpls/a.js';
+  var PATH = '';
   if(!N || !N._tpls) return false;
+  if (PATH === '' && N._getCurrentScript) {
+    PATH = N._getCurrentScript();
+  }
   N._tpls[PATH] = N._tpls[PATH] ||
 {
   "main": function($DATA, guid){
@@ -18,18 +21,32 @@ return function(N, undefined){
     css += '';
     css += '#' + guid + ' a{  font-size: 12px;}';
     _ += N.css(css);
-    _ += '<div id="'+ guid +'">\n  ';
-for(var i=0; i<10; i++){
-    _ += '\n    <p>';
+with($DATA || {}){
+
+    _ += '<div id="'+ guid +'">\n  <h1>';
+    _ += ((title) == null ? '' : (title));
+    _ += '</h1>\n  <ul>\n    ';
+for(var i=0; i<favor.length; i++){
+    _ += '\n      <li>';
     _ += ((i) == null ? '' : (i));
-    _ += '</p>\n  ';
+    _ += '：';
+    _ += ((favor[i]) == null ? '' : (favor[i]));
+    _ += '</li>\n    ';
 }
-    _ += '\n</div>';
+    _ += '\n  </ul>\n</div>';
+
+}
     _ += '<script>';
     _ += '(function(window, document, undefined){\n';
-    _ += '  var $ROOT = '+ N.options.vars.root.replace(/~/, guid) + ';\n';
-    _ += '  var $TPLS = NodeTpl._tpls["'+ PATH +'"];\n';
-    _ += '  var $DATA = NodeTpl._data["'+ dguid +'"];\n';
+    _ += '  var ROOT, $ROOT, SUBROOT, $SUBROOT, $TPLS, $DATA;\n';
+    _ += '  ROOT = document.getElementById("'+ guid +'");\n';
+    _ += '  SUBROOT = document.getElementById("'+ guid + dguid +'");\n';
+    _ += '  $TPLS = NodeTpl._tpls["'+ PATH +'"];\n';
+    _ += '  $DATA = NodeTpl._data["'+ dguid +'"];\n';
+    _ += '  try{\n';
+    _ += '    $ROOT = '+ N.options.vars.root.replace(/~/, guid) + ';\n';
+    _ += '    $SUBROOT = '+ N.options.vars.root.replace(/~/, guid + dguid) + ';\n';
+    _ += '  } catch(e) { }\n';
     _ += 'console.log($ROOT);\n';
     _ += '})(window, document);\n';
     _ += 'delete NodeTpl._data["'+ dguid +'"];\n';

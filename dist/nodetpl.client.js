@@ -192,6 +192,52 @@
     return output.length > limit ? output.slice(0, limit) : output;
   };
   /**
+   * 获取文档当前URL
+   * @method _getCurrentScript
+   * @return {[type]}          [description]
+   */
+  NodeTpl.prototype._getCurrentScript = function() {
+    var doc = document,
+      head, nodes;
+    //取得正在解析的script节点
+    if (doc.currentScript) { //firefox 4+
+      return doc.currentScript.src;
+    }
+    // 参考 https://github.com/samyk/jiagra/blob/master/jiagra.js
+    var stack;
+    try {
+      a.b.c(); //强制报错,以便捕获e.stack
+    } catch (e) { //safari的错误对象只有line,sourceId,sourceURL
+      stack = e.stack;
+      if (!stack && window.opera) {
+        //opera 9没有e.stack,但有e.Backtrace,但不能直接取得,需要对e对象转字符串进行抽取
+        stack = (String(e).match(/of linked script \S+/g) || []).join(" ");
+      }
+    }
+    if (stack) {
+      /**e.stack最后一行在所有支持的浏览器大致如下:
+       *chrome23:
+       * at http://113.93.50.63/data.js:4:1
+       *firefox17:
+       *@http://113.93.50.63/query.js:4
+       *opera12:
+       *@http://113.93.50.63/data.js:4
+       *IE10:
+       *  at Global code (http://113.93.50.63/data.js:4:1)
+       */
+      stack = stack.split(/[@ ]/g).pop(); //取得最后一行,最后一个空格或@之后的部分
+      stack = stack[0] == "(" ? stack.slice(1, -1) : stack;
+      return stack.replace(/(:\d+)?:\d+$/i, ""); //去掉行号与或许存在的出错字符起始位置
+    }
+    head = doc.head || doc.getElementsByTagName('head')[0];
+    nodes = head.getElementsByTagName("script"); //只在head标签中寻找
+    for (var i = 0, node; node = nodes[i++];) {
+      if (node.readyState === "interactive") {
+        return node.className = node.src;
+      }
+    }
+  };
+  /**
    * It will be droped in the future
    * @method _fixcss
    * @param  {String} css css
@@ -360,6 +406,9 @@
     url = url.trim();
     if (!/^(https?:|\/{2})/.test(url)) {
       url = that.options.base + url;
+    }
+    if (/^\/{2}/.test(url)) {
+      url = location.protocol + url;
     }
     if (!/\.js$/.test(url)) {
       url = url + '.js';
@@ -549,7 +598,7 @@
       content = content.replace(/\$ROOT/igm, '\'+ guid +\'');
       content = content.replace(/\$SUBROOT/igm, '\'+ guid + dguid +\'');
     }
-    content = 'with($DATA || {}){\n' + content + '\n}\n';
+    content = '\nwith($DATA || {}){\n' + content + '\n}\n';
     return content;
   };
   /**
@@ -611,9 +660,12 @@
     html += "return function(N, undefined){\n";
     html += "  var PATH = '" + path + "';\n";
     html += "  if(!N || !N._tpls) return false;\n";
+    html += "  if (PATH === '' && N._getCurrentScript) {\n";
+    html += "    PATH = N._getCurrentScript();\n";
+    html += "  }\n";
     html += "  N._tpls[PATH] = N._tpls[PATH] ||\n{\n";
     html += list.join(',\n');
-    html += '\n};';
+    html += "\n};";
     html += "\n};\n";
     html += "}));";
     return html;
