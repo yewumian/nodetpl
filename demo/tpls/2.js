@@ -4,7 +4,7 @@
  } else if (typeof exports === 'object') {
    module.exports = factory();
  } else {
-   factory()(window.NodeTpl);
+   factory()(window.nodetpl);
  }
 }(this, function() {
 return function(N, undefined){
@@ -32,8 +32,8 @@ with($DATA || {}){
     _ += '  var ROOT, $ROOT, SUBROOT, $SUBROOT, $TPLS, $DATA;\n';
     _ += '  ROOT = document.getElementById("'+ guid +'");\n';
     _ += '  SUBROOT = document.getElementById("'+ guid + dguid +'");\n';
-    _ += '  $TPLS = NodeTpl._tpls["'+ PATH +'"];\n';
-    _ += '  $DATA = NodeTpl._data["'+ dguid +'"];\n';
+    _ += '  $TPLS = nodetpl._tpls["'+ PATH +'"];\n';
+    _ += '  $DATA = nodetpl._data["'+ dguid +'"];\n';
     _ += '  try{\n';
     _ += '    $ROOT = '+ N.options.vars.root.replace(/~/, guid) + ';\n';
     _ += '    $SUBROOT = '+ N.options.vars.root.replace(/~/, guid + dguid) + ';\n';
@@ -46,7 +46,7 @@ with($DATA || {}){
     _ += '    contentBox.html(editHtml);\n';
     _ += '  });\n';
     _ += '})(window, document);\n';
-    _ += 'delete NodeTpl._data["'+ dguid +'"];\n';
+    _ += 'delete nodetpl._data["'+ dguid +'"];\n';
     _ += '</script>\n';
     $DATA && (N._data[dguid] = $DATA);
     return _;
@@ -93,8 +93,8 @@ with($DATA || {}){
     _ += '  var ROOT, $ROOT, SUBROOT, $SUBROOT, $TPLS, $DATA;\n';
     _ += '  ROOT = document.getElementById("'+ guid +'");\n';
     _ += '  SUBROOT = document.getElementById("'+ guid + dguid +'");\n';
-    _ += '  $TPLS = NodeTpl._tpls["'+ PATH +'"];\n';
-    _ += '  $DATA = NodeTpl._data["'+ dguid +'"];\n';
+    _ += '  $TPLS = nodetpl._tpls["'+ PATH +'"];\n';
+    _ += '  $DATA = nodetpl._data["'+ dguid +'"];\n';
     _ += '  try{\n';
     _ += '    $ROOT = '+ N.options.vars.root.replace(/~/, guid) + ';\n';
     _ += '    $SUBROOT = '+ N.options.vars.root.replace(/~/, guid + dguid) + ';\n';
@@ -111,7 +111,7 @@ with($DATA || {}){
     _ += '    return false;\n';
     _ += '  });\n';
     _ += '})(window, document);\n';
-    _ += 'delete NodeTpl._data["'+ dguid +'"];\n';
+    _ += 'delete nodetpl._data["'+ dguid +'"];\n';
     _ += '</script>\n';
     $DATA && (N._data[dguid] = $DATA);
     return _;

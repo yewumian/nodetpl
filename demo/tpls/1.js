@@ -4,7 +4,7 @@
  } else if (typeof exports === 'object') {
    module.exports = factory();
  } else {
-   factory()(window.NodeTpl);
+   factory()(window.nodetpl);
  }
 }(this, function() {
 return function(N, undefined){
