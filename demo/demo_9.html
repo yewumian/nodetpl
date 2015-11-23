@@ -3,11 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
-<script src="http://www.nodetpl.com/static/js/sea.js"></script>
+<script src="http://www.nodetpl.com/static/js/nodetpl.client.js"></script>
 </head>
 <body>
+<div id="result"></div>
+
+<script src="http://www.nodetpl.com/static/js/jquery-1.7.1.min.js"></script>
 <script>
-seajs.use(['demo/seatest/index']);
+var data = {
+  "name": "张三丰",
+  "gender": "男",
+  "age": 108
+};
+nodetpl.get('http://www.nodetpl.com/demo/tpls/2.js', data, function(d){
+  $('#result').html(d);
+  console.log(d);
+});
 </script>
 
 <script>
