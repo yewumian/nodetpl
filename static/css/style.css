@@ -3,6 +3,22 @@ body {
   padding: 0;
   line-height: 1.5rem;
 }
+@font-face {
+  font-family: "iconfont";
+  src: url('../fonts/iconfont.eot'); /* IE9*/
+  src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../fonts/iconfont.woff') format('woff'), /* chrome、firefox */
+  url('../fonts/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('../fonts/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
 .wrap {
   max-width: 1000px;
   margin: 0 auto;
@@ -45,6 +61,10 @@ header {
 header h1 {
   font-size: 3.25rem;
 }
+header h1 i.iconfont {
+  font-size: 1.5em;
+  margin-right: .1em;
+}
 header h1 sup {
   margin-left: 10px;
 }
@@ -70,6 +90,10 @@ header a.btn:hover {
   text-decoration: none;
   background-color: rgba(255, 255, 255, 0.2);
   border-color: rgba(255, 255, 255, 0.3);
+}
+header a.btn i.iconfont {
+  font-size: 1.5em;
+  margin-right: .4em;
 }
 header nav  a {
   display: inline-block;
