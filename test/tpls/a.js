@@ -6,12 +6,16 @@
  } else {
    factory()(window.nodetpl);
  }
-}(this, function() {
+}(this, function(require, exports, module) {
 return function(N, undefined){
   var PATH = '';
   if(!N || !N._tpls) return false;
-  if (PATH === '' && N._getCurrentScript) {
-    PATH = N._getCurrentScript();
+  if (PATH === '') {
+    if (module && module.uri) {
+      PATH = module.uri;
+    } else if (N._getCurrentScript) {
+      PATH = N._getCurrentScript();
+    }
   }
   N._tpls[PATH] = N._tpls[PATH] ||
 {

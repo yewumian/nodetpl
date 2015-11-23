@@ -1,5 +1,5 @@
 /*!
- * nodetpl v2.2.3
+ * nodetpl v2.2.4
  * Best javascript template engine
  * https://www.nodetpl.com
  *
@@ -34,7 +34,7 @@
   }
 
   function NodeTpl() {
-    this.version = '2.2.3';
+    this.version = '2.2.4';
     this.ie6 = window.VBArray && !window.XMLHttpRequest;
     this.guid = function() {
       return 'NTGUID__' + (this.guid._counter++).toString(36);
@@ -416,6 +416,9 @@
     if (!/^(https?:|\/{2})/.test(url)) {
       url = that.options.base + url;
     }
+    if (/^\/[^\/]/.test(url)) {
+      url = '//' + location.host + url;
+    }
     if (/^\/{2}/.test(url)) {
       url = location.protocol + url;
     }
@@ -457,7 +460,6 @@
     } else {
       that._load(url, function() {
         store = cache[url] || cache[path];
-        //path = path.replace(/(http:\/\/)i\.s/, '$1s').replace(/(http:\/\/[^\.]+)\.ipc/, '$1.pc');
         if (typeof store === 'object' && typeof store.main === 'function') {
           doCallback();
         }
@@ -665,12 +667,16 @@
     html += " } else {\n";
     html += "   factory()(window.nodetpl);\n";
     html += " }\n";
-    html += "}(this, function() {\n";
+    html += "}(this, function(require, exports, module) {\n";
     html += "return function(N, undefined){\n";
     html += "  var PATH = '" + path + "';\n";
     html += "  if(!N || !N._tpls) return false;\n";
-    html += "  if (PATH === '' && N._getCurrentScript) {\n";
-    html += "    PATH = N._getCurrentScript();\n";
+    html += "  if (PATH === '') {\n";
+    html += "    if (module && module.uri) {\n";
+    html += "      PATH = module.uri;\n";
+    html += "    } else if (N._getCurrentScript) {\n";
+    html += "      PATH = N._getCurrentScript();\n";
+    html += "    }\n";
     html += "  }\n";
     html += "  N._tpls[PATH] = N._tpls[PATH] ||\n{\n";
     html += list.join(',\n');
