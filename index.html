@@ -19,6 +19,7 @@
     <a rel="nofollow" href="/demo/demo.zip" class="btn"><i class="iconfont">&#xe602;</i>Demos</a>
     <nav>
       <a class="active" href="/index.html">首页</a>
+      <a href="/guide.html">快速上手</a>
       <a href="/basic.html">语法</a>
       <a href="/methods.html">方法</a>
       <a href="/multi-templates.html">多模板</a>
@@ -30,75 +31,119 @@
     <p class="qun">QQ群：207153223 ，帮助：45554168</a></p>
   </div>
 </header>
-<section class="wrap">
-  <h2>为什么使用 nodetpl ？</h2>
-  <ul>
-    <li>完全免费</li>
-    <li>性能超群，运行速度超快，闪电一样的解析效率</li>
-    <li>扩展性强，支持自定义定界符、DOM操作类库</li>
-    <li>好评度高，国内已有超过 200 家大型互联网项目使用</li>
-    <li>纯国产开源引擎，完美支持 seajs 等 CMD 模块化开发</li>
-    <li>支持预编译，提前编译成 js 文件，减轻浏览器运行负担</li>
-    <li>支持原生 js 语法，不再像学一门新语言一样痛苦</li>
-    <li>支持复杂的多模板，include 一步到位</li>
-    <li>支持模板自身CSS/JS，独创CSS/JS随包机制，独立的模板可以拥有自身CSS/JS，并可以有效解决命名冲突问题</li>
-    <li>兼容所有主流浏览器</li>
-    <li>可以运行在 node 端，支持 Express.js</li>
-    <li>学习成本低，从入门到精通仅需 10 分钟</li>
-    <li>全程技术支持，有任何疑问，可以随时联系作者提供帮助</li>
-  </ul>
-</section>
-
-<section class="wrap">
-  <h2>快速上手</h2>
-  <h4>引入文件</h4>
-  <p>在页面 <code>head</code> 标签内，引入 <code>nodetpl</code> 客户端文件（下载包文件中的 <code>/dist/nodetpl.client.js</code>）：</p>
-  <pre><code class="language-html">&lt;script src="./static/js/nodetpl.client.js"&gt;&lt;/script&gt;</code></pre>
-  <h4>编写模板</h4>
-  <p>最简单的，可以使用一个 <code>type="text/template"</code> 的 <code>script</code> 标签存放模板：</p>
-  <pre><code class="language-html">&lt;script id="testid" type="text/template"&gt;
-&lt;h1&gt;&lt;?=title?&gt;&lt;/h1&gt;
+<section class="wrap quick-look">
+  <h2>10 秒认识 nodetpl</h2>
+  <table>
+    <tbody>
+      <tr>
+        <td><pre><code class="language-html">&lt;h1&gt;&lt;?=title?&gt;&lt;/h1&gt;
 &lt;ul&gt;
   &lt;?for(var i=0; i&lt;favor.length; i++){?&gt;
     &lt;li&gt;&lt;?=i?&gt;：&lt;?=favor[i]?&gt;&lt;/li&gt;
   &lt;?}?&gt;
-&lt;/ul&gt;
-&lt;/script&gt;</code></pre>
-  <h4>执行渲染</h4>
-  <pre><code class="language-javascript">var data = {
+&lt;/ul&gt;</code></pre></td>
+        <td class="s">+</td>
+        <td><pre><code class="language-javascript">{
   "title": "个人爱好",
-  "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
-};
-var content = document.getElementById('testid').innerHTML;
-var html = nodetpl.render(content, data);
-console.log(html);</code></pre>
-  <h4>运行结果</h4>
-  <pre><code class="language-html">&lt;h1&gt;个人爱好&lt;/h1&gt;
+  "favor": ["足球", "篮球", "乒乓球"]
+}</code></pre></td>
+        <td class="s">=</td>
+        <td><pre><code class="language-html">&lt;h1&gt;个人爱好&lt;/h1&gt;
 &lt;ul&gt;
   &lt;li&gt;0：足球&lt;/li&gt;
   &lt;li&gt;1：篮球&lt;/li&gt;
   &lt;li&gt;2：乒乓球&lt;/li&gt;
-  &lt;li&gt;3：琉璃球&lt;/li&gt;
-&lt;/ul&gt;</code></pre>
-  <p><a class="btnrun" href="/demo/1.html" target="_blank">查看DEMO</a></p>
-  <h4>关键字</h4>
-  <p><code>nodetpl</code> 引擎会涉及下面的关键字，在接下来的学习中会逐个接触到：</p>
-  <ul>
-    <li>&lt;? ?&gt;</li>
-    <li>ROOT</li>
-    <li>$ROOT</li>
-    <li>SUBROOT</li>
-    <li>$SUBROOT</li>
-    <li>$DATA</li>
-    <li>=</li>
-    <li>include</li>
-    <li>&lt;template name=""&gt;</li>
-    <li>main</li>
-    <li>config()</li>
-    <li>get()</li>
-    <li>render()</li>
-    <li>nodetpl &lt;path&gt;</li>
-  </ul>
+&lt;/ul&gt;</code></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+<section class="main-introduction">
+  <div class="wrap">
+    <h2>为什么选择 nodetpl ？</h2>
+    <ul class="clearfix">
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe609;</i>完全免费</dt>
+          <dd>开源软件，免费使用</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe607;</i>性能超群</dt>
+          <dd>运行速度超快，闪电一样的解析效率</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe60e;</i>扩展性强</dt>
+          <dd>支持自定义定界符、DOM操作类库等多项参数</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe611;</i>好评度高</dt>
+          <dd>国内已有超过 200 家大型互联网项目使用</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe60d;</i>国人基因</dt>
+          <dd>国产代码，符合国情，文档齐全，完美支持 seajs 等 CMD 模块化开发</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe614;</i>支持预编译</dt>
+          <dd>提前编译成 js 文件，减轻浏览器运行负担</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe60c;</i>支持原生 js 语法</dt>
+          <dd>不再像学一门新语言一样痛苦</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe613;</i>支持多模板</dt>
+          <dd>支持复杂的多模板，include 一步到位</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe60b;</i>支持模块CSS/JS</dt>
+          <dd>独创CSS/JS随包机制，独立的模板可以拥有自身模块的CSS/JS，并可以有效解决命名冲突问题</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe608;</i>兼容性好</dt>
+          <dd>兼容所有主流浏览器，可以运行在任何客户端</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe60f;</i>支持 node.js</dt>
+          <dd>可以作为 node.js 的模块使用，同时支持 Express.js</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe60a;</i>学习成本低</dt>
+          <dd>从入门到精通仅需 10 分钟</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe610;</i>全程技术支持</dt>
+          <dd>有任何疑问，可以随时联系作者提供帮助</dd>
+        </dl>
+      </li>
+    </ul>
+  </div>
+</section>
+<section class="wrap">
   <h4>经典案例</h4>
   <p>案例统计中，如果你想出现在这里，请加QQ联系作者</p>
 </section>
