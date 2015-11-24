@@ -173,6 +173,10 @@ ul.clearfix, ul.clearfix li {
 .main-introduction ul li {
   width: 33%;
   margin: 10px 0;
+  opacity: .8;
+}
+.main-introduction ul li:hover {
+  opacity: 1;
 }
 .main-introduction ul li dl {
   padding: 1em 2em 1em 3em;
