@@ -356,6 +356,20 @@
   };
   // todo
   NodeTpl.prototype.update = function() {
+    // insert After
+    // eval script
+    /**
+     * var script = document.createElement("script");
+
+      // Add script content
+
+      script.innerHTML = "...";
+
+      // Append
+
+      document.head.appendChild(script);
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+     */
     return this;
   };
   /**
@@ -465,6 +479,26 @@
         }
       });
     }
+  };
+
+  /**
+   * This is in beta
+   * @method getDom
+   * @param  {[type]}   url      [description]
+   * @param  {[type]}   data     [description]
+   * @param  {Function} callback [description]
+   * @return {[type]}            [description]
+   */
+  NodeTpl.prototype._getDom = function(url, data, callback) {
+    this.get(url, data, function(d) {
+      var fragment = document.createDocumentFragment(),
+        tempNode = document.createElement('span');
+      tempNode.innerHTML = d;
+      for (var i = 0; i < tempNode.childNodes.length; i++) {
+        fragment.appendChild(tempNode.childNodes[i]);
+      }
+      callback && callback(fragment);
+    });
   };
 
   /**
