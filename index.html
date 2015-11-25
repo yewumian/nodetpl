@@ -60,7 +60,9 @@
   &lt;/ul&gt;
 &lt;/div&gt;
 &lt;script&gt;
-ROOT.style.border = '1px solid #ccc';
+ROOT.onclick = function(){
+  alert('hello nodetpl.');
+};
 &lt;/script&gt;</code></pre></td>
         <td class="s">=</td>
         <td><style>
@@ -80,7 +82,9 @@ ROOT.style.border = '1px solid #ccc';
 <script>
 (function(){
   var ROOT = document.getElementById('NTGUID__1');
-  ROOT.style.border = '1px solid #ccc';
+  ROOT.onclick = function(){
+    alert('hello nodetpl.');
+  };
 })();
 </script></td>
       </tr>
