@@ -1,7 +1,15 @@
+@font-face {
+  font-family: 'vdfont';
+  src: url('../fonts/vdfont.eot'); /* IE9*/
+  src: url('../fonts/vdfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../fonts/vdfont.woff') format('woff'), /* chrome、firefox */
+  url('../fonts/vdfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('../fonts/vdfont.svg#vdfont') format('svg'); /* iOS 4.1- */
+}
 .vdialog {
   position: absolute;
   font-size: 14px;
-  min-width: 200px;
+  line-height: 1.5em;
   border: 1px solid #bcbcbc;
   border-radius: 3px;
   background-color: #fff;
@@ -11,6 +19,10 @@
   animation-fill-mode: both;
   -webkit-animation-name: vDialogZoomIn;
   animation-name: vDialogZoomIn;
+  *padding-top: 3.5em;
+}
+.vdialog-fixed {
+  position: fixed;
 }
 @-webkit-keyframes vDialogZoomIn {
   from {
@@ -34,9 +46,10 @@
 }
 .vdialog .vd-header {
   position: relative;
-}
-.vdialog .vd-header-no-title {
-  height: 1em;
+  *position: absolute;
+  *width: 100%;
+  *left: 0;
+  *top: 0;
 }
 .vdialog .vd-header .vd-title {
   padding: .8em 2em .8em 1em;
@@ -59,16 +72,76 @@
 .vdialog .vd-header a.vd-close:hover {
   opacity: 1;
 }
-.vdialog .vd-header-no-title a.vd-close {
+.vdialog-no-title {
+  *padding-top: 1em;
+}
+.vdialog-no-title .vd-header {
+  height: 1em;
+}
+.vdialog-no-title .vd-header .vd-title {
+  display: none;
+}
+.vdialog-no-title .vd-header a.vd-close {
   top: 1em;
   right: .5em;
 }
-.vdialog .vd-content {
+.vdialog .vd-main {
+  position: relative;
+}
+.vdialog .vd-main .vd-icon {
+  display: none;
+  position: absolute;
+  left: 15px;
+  top: 0;
+  font-family: "vdfont" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+  width: 50px;
+  font-size: 38px;
+  padding: 10px 0;
+  line-height: 1em;
+  text-align: center;
+}
+.vdialog .vd-main-with-icon {
+  padding: 5px 15px 0 65px;
+}
+.vdialog .vd-main-with-icon .vd-icon {
+  display: block;
+}
+.vdialog .vd-main-with-icon .icon-vd-error:before {
+  content: "\e600";
+  color: #d9534f;
+}
+.vdialog .vd-main-with-icon .icon-vd-alert:before {
+  content: "\e601";
+  color: #f0ad4e;
+}
+.vdialog .vd-main-with-icon .icon-vd-success:before {
+  content: "\e602";
+  color: #5cb85c;
+}
+.vdialog .vd-main-with-icon .icon-vd-confirm:before {
+  content: "\e603";
+  color: #eea237;
+}
+.vdialog .vd-main .vd-content {
   padding: 1em;
+  min-width: 8em;
 }
 .vdialog .vd-footer {
-  padding: 1em;
+  display: none;
+  padding: 0 1em 1em;
   text-align: right;
+}
+.vdialog .vd-footer:before {
+  content: '';
+  display: block;
+  background-color: #eee;
+  background-image: linear-gradient(90deg, #fff, #eee);
+  height: 1px;
+  margin-bottom: 15px;
 }
 .vdialog .vd-footer a.vd-btn {
   display: inline-block;
@@ -92,8 +165,9 @@
 .vdialog-modal {
   width: 100%;
   left: 0;
-  height: 0;
+  top: 0;
   position: absolute;
   opacity: .6;
+  *filter: alpha(opacity:60);
   background-color: #000;
 }
