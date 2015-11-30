@@ -1,5 +1,5 @@
 /*!
- * nodetpl v2.2.4
+ * nodetpl v2.2.5
  * Best javascript template engine
  * https://www.nodetpl.com
  *
@@ -34,7 +34,7 @@
   }
 
   function NodeTpl() {
-    this.version = '2.2.4';
+    this.version = '2.2.5';
     this.ie6 = window.VBArray && !window.XMLHttpRequest;
     this.guid = function() {
       return 'NTGUID__' + (this.guid._counter++).toString(36);
@@ -356,20 +356,6 @@
   };
   // todo
   NodeTpl.prototype.update = function() {
-    // insert After
-    // eval script
-    /**
-     * var script = document.createElement("script");
-
-      // Add script content
-
-      script.innerHTML = "...";
-
-      // Append
-
-      document.head.appendChild(script);
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-     */
     return this;
   };
   /**
@@ -479,26 +465,6 @@
         }
       });
     }
-  };
-
-  /**
-   * This is in beta
-   * @method getDom
-   * @param  {[type]}   url      [description]
-   * @param  {[type]}   data     [description]
-   * @param  {Function} callback [description]
-   * @return {[type]}            [description]
-   */
-  NodeTpl.prototype._getDom = function(url, data, callback) {
-    this.get(url, data, function(d) {
-      var fragment = document.createDocumentFragment(),
-        tempNode = document.createElement('span');
-      tempNode.innerHTML = d;
-      for (var i = 0; i < tempNode.childNodes.length; i++) {
-        fragment.appendChild(tempNode.childNodes[i]);
-      }
-      callback && callback(fragment);
-    });
   };
 
   /**
@@ -613,7 +579,7 @@
    */
   NodeTpl.prototype._html = function(content, tplname) {
     var that = this,
-      html, tagExp, openTag, closeTag, getTag;
+      html, vars, tagExp, openTag, closeTag, getTag;
     if (content) {
       getTag = function(tag) {
         return tag.replace(/([\$\(\)\*\+\.\[\]\?\\\^\{\}\|])/g, '\\$1');
@@ -629,7 +595,20 @@
           html[i] = html[i].replace(/@([a-zA-Z\$_]+)/igm, '$DATA.$1');
           html[i] = html[i].replace(/print\((.*?)\);/igm, '    template.push(($1) || \'\');\n');
           if (html[i].indexOf('=') === 0) {
-            html[i] = '    _ += ((' + html[i].substring(1) + ') == null ? \'\' : (' + html[i].substring(1) + '));';
+            // 提取变量，判断是否 undefined
+            html[i] = html[i].substring(1).trim();
+            if (!/^\d/.test(html[i])) {
+              vars = (/^(\(*)([a-zA-Z\d_\$\s\.]+)/.exec(html[i]) || [0, 0, ''])[2];
+              if (vars !== '') {
+                html[i] = '    if (typeof ' + vars + ' !== "undefined") {\n' +
+                  '      _ += (' + html[i] + ');\n' +
+                  '    }\n';
+              } else {
+                html[i] = '    _ += (' + html[i] + ');\n';
+              }
+            } else {
+              html[i] = '    _ += (' + html[i] + ');\n';
+            }
           }
         } else {
           html[i] = '\n    _ += \'' + html[i]
@@ -640,6 +619,7 @@
         }
       }
       content = html.join('');
+      console.log(content);
       content = content.replace(/\$ROOT/igm, '\'+ guid +\'');
       content = content.replace(/\$SUBROOT/igm, '\'+ guid + dguid +\'');
     }
