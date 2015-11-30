@@ -31,67 +31,6 @@
     <p class="qun">QQ群：207153223 ，帮助：45554168</a></p>
   </div>
 </header>
-<section class="wrap quick-look">
-  <h4>30 秒认识 nodetpl</h4>
-  <table>
-    <tbody>
-      <tr>
-        <td><pre><code class="language-javascript">{
-  "title": "个人爱好",
-  "favor": [
-    "足球",
-    "篮球",
-    "乒乓球",
-    "琉璃球"
-  ]
-}</code></pre></td>
-        <td class="s">+</td>
-        <td><pre><code class="language-html">&lt;style&gt;
-.title {
-  font-size: 14px;
-  color: #f00;
-}
-&lt;/style&gt;
-&lt;div id="$ROOT"&gt;
-  &lt;div class="title"&gt;&lt;?=title?&gt;&lt;/div&gt;
-  &lt;ul&gt;
-    &lt;?for(var i=0; i&lt;favor.length; i++){?&gt;
-      &lt;li&gt;&lt;?=i?&gt;：&lt;?=favor[i]?&gt;&lt;/li&gt;
-    &lt;?}?&gt;
-  &lt;/ul&gt;
-&lt;/div&gt;
-&lt;script&gt;
-ROOT.onclick = function(){
-  alert('hello nodetpl.');
-};
-&lt;/script&gt;</code></pre></td>
-        <td class="s">=</td>
-        <td><style>
-#NTGUID__1 .title{
-  font-size: 14px;
-  color: #f00;
-}</style>
-<div id="NTGUID__1">
-  <div class="title">个人爱好</div>
-  <ul>
-    <li>0：足球</li>
-    <li>1：篮球</li>
-    <li>2：乒乓球</li>
-    <li>3：琉璃球</li>
-  </ul>
-</div>
-<script>
-(function(){
-  var ROOT = document.getElementById('NTGUID__1');
-  ROOT.onclick = function(){
-    alert('hello nodetpl.');
-  };
-})();
-</script></td>
-      </tr>
-    </tbody>
-  </table>
-</section>
 <section class="main-introduction">
   <div class="wrap">
     <h4>为什么选择 nodetpl ？</h4>
@@ -181,6 +120,67 @@ ROOT.onclick = function(){
 
     <p>如果你感觉 <code>nodetpl</code> 挺有趣儿，赶快了解一下吧：<a href="/guide.html">快速上手</a></p>
   </div>
+</section>
+<section class="wrap quick-look">
+  <h4>30 秒认识 nodetpl</h4>
+  <table>
+    <tbody>
+      <tr>
+        <td><pre><code class="language-javascript">{
+  "title": "个人爱好",
+  "favor": [
+    "足球",
+    "篮球",
+    "乒乓球",
+    "琉璃球"
+  ]
+}</code></pre></td>
+        <td class="s">+</td>
+        <td><pre><code class="language-html">&lt;style&gt;
+.title {
+  font-size: 14px;
+  color: #f00;
+}
+&lt;/style&gt;
+&lt;div id="$ROOT"&gt;
+  &lt;div class="title"&gt;&lt;?=title?&gt;&lt;/div&gt;
+  &lt;ul&gt;
+    &lt;?for(var i=0; i&lt;favor.length; i++){?&gt;
+      &lt;li&gt;&lt;?=i?&gt;：&lt;?=favor[i]?&gt;&lt;/li&gt;
+    &lt;?}?&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+&lt;script&gt;
+ROOT.onclick = function(){
+  alert('hello nodetpl.');
+};
+&lt;/script&gt;</code></pre></td>
+        <td class="s">=</td>
+        <td><style>
+#NTGUID__1 .title{
+  font-size: 14px;
+  color: #f00;
+}</style>
+<div id="NTGUID__1">
+  <div class="title">个人爱好</div>
+  <ul>
+    <li>0：足球</li>
+    <li>1：篮球</li>
+    <li>2：乒乓球</li>
+    <li>3：琉璃球</li>
+  </ul>
+</div>
+<script>
+(function(){
+  var ROOT = document.getElementById('NTGUID__1');
+  ROOT.onclick = function(){
+    alert('hello nodetpl.');
+  };
+})();
+</script></td>
+      </tr>
+    </tbody>
+  </table>
 </section>
 <section class="wrap">
   <h4>经典案例</h4>
