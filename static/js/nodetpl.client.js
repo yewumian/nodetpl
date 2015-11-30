@@ -1,5 +1,5 @@
 /*!
- * nodetpl v2.2.5
+ * nodetpl v2.2.6
  * Best javascript template engine
  * https://www.nodetpl.com
  *
@@ -34,7 +34,7 @@
   }
 
   function NodeTpl() {
-    this.version = '2.2.5';
+    this.version = '2.2.6';
     this.ie6 = window.VBArray && !window.XMLHttpRequest;
     this.guid = function() {
       return 'NTGUID__' + (this.guid._counter++).toString(36);
@@ -619,7 +619,6 @@
         }
       }
       content = html.join('');
-      console.log(content);
       content = content.replace(/\$ROOT/igm, '\'+ guid +\'');
       content = content.replace(/\$SUBROOT/igm, '\'+ guid + dguid +\'');
     }
