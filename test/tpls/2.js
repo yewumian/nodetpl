@@ -64,11 +64,20 @@ with($DATA || {}){
 with($DATA || {}){
 
     _ += '<div id="'+ guid + dguid +'">\n    <ul>\n      <li>姓名：';
-    _ += ((name) == null ? '' : (name));
+    if (typeof name !== "undefined") {
+      _ += (name);
+    }
+
     _ += '</li>\n      <li>性别：';
-    _ += ((gender) == null ? '' : (gender));
+    if (typeof gender !== "undefined") {
+      _ += (gender);
+    }
+
     _ += '</li>\n      <li>年龄：';
-    _ += ((age) == null ? '' : (age));
+    if (typeof age !== "undefined") {
+      _ += (age);
+    }
+
     _ += '</li>\n    </ul>\n  </div>';
 
 }
@@ -84,11 +93,20 @@ with($DATA || {}){
 with($DATA || {}){
 
     _ += '<div id="'+ guid + dguid +'">\n    <form action="">\n      <ul>\n        <li>姓名：<input type="text" name="name" value="';
-    _ += ((name) == null ? '' : (name));
+    if (typeof name !== "undefined") {
+      _ += (name);
+    }
+
     _ += '" /></li>\n        <li>性别：<input type="text" name="gender" value="';
-    _ += ((gender) == null ? '' : (gender));
+    if (typeof gender !== "undefined") {
+      _ += (gender);
+    }
+
     _ += '" /></li>\n        <li>年龄：<input type="text" name="age" value="';
-    _ += ((age) == null ? '' : (age));
+    if (typeof age !== "undefined") {
+      _ += (age);
+    }
+
     _ += '" /></li>\n      </ul>\n      <div class="form-actions">\n        <button type="submit">保存</button>\n      </div>\n    </form>\n  </div>';
 
 }

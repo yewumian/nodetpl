@@ -28,13 +28,22 @@ return function(N, undefined){
 with($DATA || {}){
 
     _ += '<div id="'+ guid +'">\n  <h1>';
-    _ += ((title) == null ? '' : (title));
+    if (typeof title !== "undefined") {
+      _ += (title);
+    }
+
     _ += '</h1>\n  <ul>\n    ';
 for(var i=0; i<favor.length; i++){
     _ += '\n      <li>';
-    _ += ((i) == null ? '' : (i));
+    if (typeof i !== "undefined") {
+      _ += (i);
+    }
+
     _ += '：';
-    _ += ((favor[i]) == null ? '' : (favor[i]));
+    if (typeof favor !== "undefined") {
+      _ += (favor[i]);
+    }
+
     _ += '</li>\n    ';
 }
     _ += '\n  </ul>\n</div>';
