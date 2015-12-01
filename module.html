@@ -11,7 +11,7 @@
 <script type="text/javascript" src="./static/js/sea.js"></script>
 <script type="text/javascript" src="./static/js/sea-config.js"></script>
 </head>
-<body id="node">
+<body id="module">
 <header>
   <div class="wrap">
     <div class="logo">
@@ -26,57 +26,32 @@
         <li><a href="./api.html">API</a></li>
         <li><a href="./multi.html">多模板</a></li>
         <li><a href="./compile.html">预编译</a></li>
-        <li><a href="./module.html">模块化</a></li>
-        <li class="active"><a href="./node.html">Node</a></li>
+        <li class="active"><a href="./module.html">模块化</a></li>
+        <li><a href="./node.html">Node</a></li>
         <li><a href="./changes.html">升级日志</a></li>
       </ul>
     </nav>
   </div>
 </header>
 <section class="wrap">
-  <h2>For Node.js</h2>
-  <p><code>nodetpl</code> 除了用于一般的 <code>web</code> 项目中，还可以用在 <code>node.js</code>。</p>
-  <h4>安装 <code>nodetpl</code></h4>
-  <pre><code class="language-markup">npm install nodetpl -g</code></pre>
-  <h4>基本语法</h4>
-  <pre><code class="language-markup">var fs = require('fs');
-var nodetpl = require('nodetpl');
-
-var filepath = '/usr/local/nodetpl/test.tpl';
-var data = {
-  name: 'zhangsan',
-  age: 18
-};
-
-fs.readFile(filepath, 'utf-8', function(err, content) {
-  if (err) {
-    throw err;
-  } else {
-    content = nodetpl.render(content, data);
-    console.log(content);
+  <h2><code>CMD</code>（seaJs）</h2>
+  <h4><code>seaJs</code> 基本配置</h4>
+  <p>配置 <code>seaJs</code> 基本参数，增加 <code>nodetpl</code> 的 <code>alias</code> 项：</p>
+  <pre><code class="language-javascript">seajs.config({
+  alias: {
+    'nodetpl': 'lib/nodetpl.client.min'
   }
 });</code></pre>
-
-  <h4>For Express.js</h4>
-  <pre><code class="language-markup">app.set('view engine', 'tpl');
-app.set('views', __dirname + '/views');
-app.engine('tpl', require('nodetpl').express.render);
-
-app.get('/', function(req, res){
-  res.render('index', {
-    "user": "Tom",
-    "favor": [ "Apple", "Orange", "Bananer" ]
-  }, function(err, html){
-    res.writeHead(200, { "Content-Type": "text/html" });
-    res.end(html);
-  });
-});</code></pre>
+  <p>通过 <code>require</code> 将 <code>nodetpl</code> 模块引入：</p>
+  <pre><code class="language-javascript">var nodetpl = require('nodetpl');
+nodetpl.get('...');</code></pre>
 </section>
 <footer>
   <div class="wrap">
     <p>&copy; 2012 - 2015 nodetpl.com by <a href="http://www.qque.com/">pillys</a></p>
   </div>
 </footer>
+<script>seajs.use('view/module');</script>
 <script>
 var _hmt = _hmt || [];
 (function() {
