@@ -14,7 +14,8 @@ define(function(require, exports, module) {
       vDialog({
         title: '运行结果',
         content: d,
-        width: 400
+        width: 400,
+        ok: true
       }).showModal();
     });
   });
@@ -29,7 +30,8 @@ define(function(require, exports, module) {
       vDialog({
         title: '运行结果',
         content: d,
-        width: 400
+        width: 400,
+        ok: true
       }).showModal();
     });
   });
