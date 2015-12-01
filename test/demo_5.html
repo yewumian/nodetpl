@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
-<script src="http://www.nodetpl.com/static/js/nodetpl.client.js"></script>
+<script src="http://www.nodetpl.com/static/js/lib/nodetpl.client.min.js"></script>
 </head>
 <body>
 <div id="result"></div>
 
-<script id="testid" type="text/template">
+<script id="favor-tpl" type="text/template">
 <style>
   h1 {
     font-size: 20px;
@@ -32,10 +32,12 @@ var data = {
   "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
 };
 var resultDom = document.getElementById('result');
-var content = document.getElementById('testid').innerHTML;
-var html = nodetpl.render(content, data);
-resultDom.innerHTML = html;
-console.log(html);
+var content = document.getElementById('favor-tpl').innerHTML;
+
+nodetpl.render(content, data, function(d){
+  resultDom.innerHTML = d;
+  console.log(d);
+});
 </script>
 
 <script>

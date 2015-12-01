@@ -3,17 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
-<script src="http://www.nodetpl.com/static/js/nodetpl.client.js"></script>
+<script src="http://www.nodetpl.com/static/js/lib/nodetpl.client.min.js"></script>
 </head>
 <body>
 <div id="result"></div>
 
-<script src="http://www.nodetpl.com/static/js/jquery-1.7.1.min.js"></script>
+<script src="http://www.nodetpl.com/static/js/lib/jquery-1.10.2.js"></script>
 <script>
 var data = {
   "title": "个人爱好",
   "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
 };
+
 nodetpl.get('http://www.nodetpl.com/demo/tpls/1.js', data, function(d){
   $('#result').html(d);
   console.log(d);

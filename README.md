@@ -18,7 +18,7 @@
 在页面 head 标签内，引入 nodetpl 客户端文件：
 
 ```html
-<script src="./static/js/nodetpl.client.js"></script>
+<script src="./static/js/nodetpl.client.min.js"></script>
 ```
 
 ### 编写模板
@@ -26,7 +26,7 @@
 最简单的，可以使用一个 type="text/template" 的 script 标签存放模板：
 
 ```html
-<script id="testid" type="text/template">
+<script id="favor-tpl" type="text/template">
 <h1><?=title?></h1>
 <ul>
   <?for(var i=0; i<favor.length; i++){?>
@@ -43,9 +43,10 @@ var data = {
   title: '个人爱好',
   favor: ['足球', '篮球', '乒乓球', '琉璃球']
 };
-var content = document.getElementById('testid').innerHTML;
-var html = nodetpl.render(content, data);
-alert(html);
+var content = document.getElementById('favor-tpl').innerHTML;
+nodetpl.render(content, data, function(d){
+  alert(d);
+});
 ```
 
 ### 运行结果
