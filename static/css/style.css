@@ -206,3 +206,7 @@ a.btn {
   top: 1em;
   right: 0;
 }
+#changes section time {
+  color: #999;
+  margin-left: 1em;
+}
