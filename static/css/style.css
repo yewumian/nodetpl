@@ -206,6 +206,16 @@ a.btn {
   top: 1em;
   right: 0;
 }
+#start section ul.key-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#start section ul.key-list li {
+  float: left;
+  width: 10em;
+  line-height: 2em;
+}
 #changes section time {
   color: #999;
   margin-left: 1em;
