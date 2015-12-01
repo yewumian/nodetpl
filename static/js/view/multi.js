@@ -12,7 +12,6 @@ define(function(require, exports, module) {
       "age": 108
     };
     nodetpl.get('/demo/tpls/2.js', data, function(d) {
-      console.log(d);
       vDialog({
         title: '运行结果',
         content: d,
