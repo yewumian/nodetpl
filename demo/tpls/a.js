@@ -85,10 +85,10 @@ for(var i=0; i<favor.length; i++){
     } else if (typeof define === 'function' && define.amd && typeof require === 'function') {
       // AMD requireJs
       _ += '  require(\'nodetpl\', function(nodetpl){\n';
-      _ += '    __callback(nodetpl);\n';
+      _ += '    __callback(nodetpl, "'+ guid + '", "'+ dguid + '");\n';
       _ += '  });\n';
     } else {
-      _ += '__callback(window.nodetpl);\n';
+      _ += '__callback(window.nodetpl, "'+ guid + '", "'+ dguid + '");\n';
     }
     _ += '})(window, document);\n';
     _ += '</script>\n';
