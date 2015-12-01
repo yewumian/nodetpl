@@ -51,6 +51,7 @@
     this._data = {};
     this._tpls = {};
     this._cache = {};
+    this._docid = '_tpl_';
     this.options = {
       base: '',
       vars: {
@@ -322,7 +323,26 @@
   NodeTpl.prototype.render = function(html, data, callback) {
     var that = this,
       hasCache = false,
-      result, path;
+      result, path, setCache = function() {
+        that._cache[path] = {
+          html: html,
+          result: result
+        };
+      },
+      doFinal = function() {
+        if (typeof that._tpls[path] === 'object' && typeof that._tpls[path].main === 'function') {
+          result = that._tpls[path].main(data);
+          typeof callback === 'function' && callback.call(that, result);
+          return result;
+        } else {
+          return null;
+        }
+      },
+      moduleIniter = function(init) {
+        init(that);
+        setCache();
+        doFinal();
+      };
     if (typeof html !== 'string') {
       throw new TypeError();
     }
@@ -338,24 +358,30 @@
       }
     }
     if (!hasCache) {
-      path = Math.random().toString();
-      result = this.compile(path, html);
+      // 如果非预编译模板，path 为 _docid 开头的字符串（固定）
+      path = that._docid + Math.random().toString();
+      result = that.compile(path, html);
+
+      // global eval or define a module.
       (new Function(result))();
-      that._cache[path] = {
-        html: html,
-        result: result
-      };
+
+      if (typeof define === 'function' && define.amd && typeof require === 'function') {
+        // requireJs module loader
+        require(path, moduleIniter);
+        return that;
+      } else if (typeof define === 'function' && define.cmd && typeof seajs === 'object') {
+        // seaJs module loader
+        seajs.use(path, moduleIniter);
+        return that;
+      } else {
+        setCache();
+      }
     }
-    if (typeof this._tpls[path] === 'object' && typeof this._tpls[path].main === 'function') {
-      result = this._tpls[path].main(data);
-      typeof callback === 'function' && callback.call(this, result);
-      return result;
-    } else {
-      return null;
-    }
+    doFinal();
+    return that;
   };
   // todo
-  NodeTpl.prototype.update = function() {
+  NodeTpl.prototype._update = function() {
     return this;
   };
   /**
@@ -411,7 +437,8 @@
       path,
       cache = that._tpls,
       store,
-      doCallback;
+      doCallback,
+      moduleIniter;
     url = url.trim();
     if (!/^(https?:|\/{2})/.test(url)) {
       url = that.options.base + url;
@@ -425,12 +452,20 @@
     if (!/\.js$/.test(url)) {
       url = url + '.js';
     }
-    if (require && require.async) {
-      require.async(url, function(init) {
+    moduleIniter = function(init) {
+      if (init) {
         init(that);
         callback(that._tpls[url].main(data));
-      });
-      return this;
+      }
+    };
+    if (typeof define === 'function' && define.amd && typeof require === 'function') {
+      // requireJs module loader
+      require(url, moduleIniter);
+      return that;
+    } else if (typeof define === 'function' && define.cmd && typeof seajs === 'object') {
+      // seaJs module loader
+      seajs.use(url, moduleIniter);
+      return that;
     }
     path = url.replace(/^((https?:)?\/{2}[^\/]+)/, '');
     if (!path) {
@@ -653,18 +688,36 @@
       if (cache[i].js) {
         temp += "    _ += '<script>';\n";
         temp += "    _ += '(function(window, document, undefined){\\n';\n";
-        temp += "    _ += '  var ROOT, $ROOT, SUBROOT, $SUBROOT, $TPLS, $DATA;\\n';\n";
-        temp += "    _ += '  ROOT = document.getElementById(\"\'+ guid +\'\");\\n';\n";
-        temp += "    _ += '  SUBROOT = document.getElementById(\"\'+ guid + dguid +\'\");\\n';\n";
-        temp += "    _ += '  $TPLS = nodetpl._tpls[\"\'+ PATH +\'\"];\\n';\n";
-        temp += "    _ += '  $DATA = nodetpl._data[\"\'+ dguid +\'\"];\\n';\n";
-        temp += "    _ += '  try{\\n';\n";
-        temp += "    _ += '    $ROOT = '+ N.options.vars.root.replace(/~/, guid) + ';\\n';\n";
-        temp += "    _ += '    $SUBROOT = '+ N.options.vars.root.replace(/~/, guid + dguid) + ';\\n';\n";
-        temp += "    _ += '  } catch(e) { }\\n';\n";
+        temp += "    _ += '  var __module_id = \"" + path + "_" + i + "\";\\n';\n";
+        temp += "    _ += '  var __callback = function(nodetpl){\\n';\n";
+        temp += "    _ += '    var ROOT, $ROOT, SUBROOT, $SUBROOT, $TPLS, $DATA;\\n';\n";
+        temp += "    _ += '    ROOT = document.getElementById(\"\'+ guid +\'\");\\n';\n";
+        temp += "    _ += '    SUBROOT = document.getElementById(\"\'+ guid + dguid +\'\");\\n';\n";
+        temp += "    _ += '    $TPLS = nodetpl._tpls[\"\'+ PATH +\'\"];\\n';\n";
+        temp += "    _ += '    $DATA = nodetpl._data[\"\'+ dguid +\'\"];\\n';\n";
+        temp += "    _ += '    try{\\n';\n";
+        temp += "    _ += '      $ROOT = '+ N.options.vars.root.replace(/~/, guid) + ';\\n';\n";
+        temp += "    _ += '      $SUBROOT = '+ N.options.vars.root.replace(/~/, guid + dguid) + ';\\n';\n";
+        temp += "    _ += '    } catch(e) { }\\n';\n";
         temp += cache[i].js;
+        temp += "    _ += '    delete nodetpl._data[\"\'+ dguid +\'\"];\\n';\n";
+        temp += "    _ += '  };\\n';\n";
+        temp += "if (typeof define === 'function' && define.cmd && typeof seajs === 'object') {\n";
+        temp += "  // CMD seaJs\n";
+        temp += "    _ += '  define(__module_id, function(require, exports, module){\\n';\n";
+        temp += "    _ += '    var nodetpl = require(\\'nodetpl\\');\\n';\n";
+        temp += "    _ += '    __callback(nodetpl);\\n';\n";
+        temp += "    _ += '  });\\n';\n";
+        temp += "    _ += '  seajs.use(__module_id);\\n';\n";
+        temp += "} else if (typeof define === 'function' && define.amd && typeof require === 'function') {\n";
+        temp += "  // AMD requireJs\n";
+        temp += "    _ += '  require(\\'nodetpl\\', function(nodetpl){\\n';\n";
+        temp += "    _ += '    __callback(nodetpl);\\n';\n";
+        temp += "    _ += '  });\\n';\n";
+        temp += "} else {\n";
+        temp += "    _ += '__callback(window.nodetpl);\\n';\n";
+        temp += "}\n";
         temp += "    _ += '})(window, document);\\n';\n";
-        temp += "    _ += 'delete nodetpl._data[\"\'+ dguid +\'\"];\\n';\n";
         temp += "    _ += '</script>\\n';\n";
       }
       temp += '    $DATA && (N._data[dguid] = $DATA);\n';
@@ -673,8 +726,22 @@
       list.push(temp);
     }
     html += "(function(root, factory) {\n";
-    html += " if (typeof define === 'function' && (define.amd || define.cmd)) {\n";
-    html += "   define(factory);\n";
+    html += " if (typeof define === 'function') {\n";
+    html += "   if (define.amd){\n";
+    html += "     define(factory);\n";
+    html += "   } else if (define.cmd){\n";
+    if (path.indexOf(this._docid) === 0) {
+      // 非预编译模板，需要传递一个 id 给模块
+      html += "     define('" + path + "', function(require, exports, module) {\n";
+      html += "       return factory(require, exports, module);\n";
+      html += "     });\n";
+    } else {
+      // 预编译模板，无需传递 id
+      html += "     define(function(require, exports, module) {\n";
+      html += "       return factory(require, exports, module);\n";
+      html += "     });\n";
+    }
+    html += "   }\n";
     html += " } else if (typeof exports === 'object') {\n";
     html += "   module.exports = factory();\n";
     html += " } else {\n";
