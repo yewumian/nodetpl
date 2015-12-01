@@ -101,7 +101,7 @@ define(function(require, exports, module) {
       ROOT.style.padding = padding + \'px\';\n\
       // OR\n\
       $ROOT.css(\'color\', \'#f00\');\n\
-      alert($DATA.title);\n\
+      console.log($DATA.title);\n\
       </script>';
     nodetpl.render(template, data, function(d) {
       vDialog({

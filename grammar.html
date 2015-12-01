@@ -101,7 +101,7 @@ var padding = '20';
 ROOT.style.padding = padding + 'px';
 // OR
 $ROOT.css('color', '#f00');
-alert($DATA.title);
+console.log($DATA.title);
 &lt;/script&gt;</code></pre>
   <p><a href="javascript:;" class="btn btn-try" id="btn-05">试一试</a><a href="./demo/demo_6.html" class="btn" target="_blank">查看DEMO</a></p>
   <p>没错，虽然这里你定义了一个 <code>padding</code> 变量，但是它并不是在 <code>window</code> 对象中执行的，因此不会污染到 <code>window</code> 。</p>

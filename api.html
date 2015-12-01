@@ -71,7 +71,7 @@
   "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
 };
 nodetpl.get('http://www.nodetpl.com/demo/tpls/1.js', data, function(d){
-  console.log(d);
+  // console.log(d);
 });</code></pre>
   <p><a href="javascript:;" class="btn btn-try" id="btn-01">试一试</a><a href="./demo/demo_8.html" class="btn" target="_blank">查看DEMO</a></p>
   <h4>nodetpl.render(tplcontent[, data]);</h4>
@@ -83,7 +83,7 @@ nodetpl.get('http://www.nodetpl.com/demo/tpls/1.js', data, function(d){
 };
 var content = document.getElementById('testid').innerHTML;
 var html = nodetpl.render(content, data);
-alert(html);</code></pre>
+console.log(html);</code></pre>
   <p><a href="javascript:;" class="btn btn-try" id="btn-02">试一试</a><a href="./demo/demo_1.html" class="btn" target="_blank">查看DEMO</a></p>
   <h4>For sea.js</h4>
   <pre><code class="language-javascript">var nodetpl = require('nodetpl');
@@ -91,7 +91,7 @@ nodetpl.get('/demo/tpls/1', {
   title: '个人爱好',
   favor: ['足球', '篮球', '乒乓球', '琉璃球']
 }, function(d) {
-  alert(d);
+  // console.log(d);
 });</code></pre>
   <p><a href="javascript:;" class="btn btn-try" id="btn-03">试一试</a><a href="./demo/demo_sea.html" class="btn" target="_blank">查看DEMO</a></p>
 </section>
