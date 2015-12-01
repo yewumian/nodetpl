@@ -1,17 +1,27 @@
 (function(root, factory) {
- if (typeof define === 'function' && (define.amd || define.cmd)) {
-   define(factory);
+ if (typeof define === 'function') {
+   if (define.amd){
+     define(factory);
+   } else if (define.cmd){
+     define(function(require, exports, module) {
+       return factory(require, exports, module);
+     });
+   }
  } else if (typeof exports === 'object') {
    module.exports = factory();
  } else {
    factory()(window.nodetpl);
  }
-}(this, function() {
+}(this, function(require, exports, module) {
 return function(N, undefined){
   var PATH = '';
   if(!N || !N._tpls) return false;
-  if (PATH === '' && N._getCurrentScript) {
-    PATH = N._getCurrentScript();
+  if (PATH === '') {
+    if (module && module.uri) {
+      PATH = module.uri;
+    } else if (N._getCurrentScript) {
+      PATH = N._getCurrentScript();
+    }
   }
   N._tpls[PATH] = N._tpls[PATH] ||
 {
@@ -22,13 +32,22 @@ return function(N, undefined){
 with($DATA || {}){
 
     _ += '<h1>';
-    _ += ((title) == null ? '' : (title));
+    if (typeof title !== "undefined") {
+      _ += (title);
+    }
+
     _ += '</h1>\n<ul>\n  ';
 for(var i=0; i<favor.length; i++){
     _ += '\n    <li>';
-    _ += ((i) == null ? '' : (i));
+    if (typeof i !== "undefined") {
+      _ += (i);
+    }
+
     _ += '：';
-    _ += ((favor[i]) == null ? '' : (favor[i]));
+    if (typeof favor !== "undefined") {
+      _ += (favor[i]);
+    }
+
     _ += '</li>\n  ';
 }
     _ += '\n</ul>';

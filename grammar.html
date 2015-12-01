@@ -3,31 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <title>NodeTpl - 高效javascript模板引擎</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="/static/css/style.css">
-<link rel="stylesheet" type="text/css" href="/static/css/highlight/prism.css">
-<script type="text/javascript" src="/static/js/highlight/prism.js"></script>
-<script src="/static/js/nodetpl.client.js"></script>
+<link rel="stylesheet" href="./static/css/normalize.css">
+<link rel="stylesheet" href="./static/css/style.css">
+<link rel="stylesheet" type="text/css" href="./static/css/vdialog.css">
+<link rel="stylesheet" type="text/css" href="./static/css/highlight/prism.css">
+<script type="text/javascript" src="./static/js/highlight/prism.js"></script>
+<script type="text/javascript" src="./static/js/sea.js"></script>
+<script type="text/javascript" src="./static/js/sea-config.js"></script>
 </head>
-<body>
+<body id="start">
 <header>
   <div class="wrap">
-    <h1 class="project-name"><i class="iconfont">&#xe605;</i>NodeTpl<sup>v2.2.6</sup></h1>
-    <h2 class="project-tagline">一款强大、高效、易用、有趣儿的 JavaScript 模板引擎</h2>
-    <a rel="nofollow" target="_blank" href="https://github.com/pillys/nodetpl" class="btn"><i class="iconfont">&#xe601;</i>View on GitHub</a>
-    <a rel="nofollow" target="_blank" href="https://github.com/pillys/nodetpl/zipball/master" class="btn"><i class="iconfont">&#xe600;</i>下载 nodetpl v2.2.6</a>
-    <a rel="nofollow" href="/demo/demo.zip" class="btn"><i class="iconfont">&#xe602;</i>Demos</a>
+    <div class="logo">
+      <a href="./"><i class="iconfont">&#xe605;</i>NodeTpl</a>
+      <span>一款强大、高效、易用、有趣儿的 JavaScript 模板引擎</span>
+    </div>
     <nav>
-      <a href="/index.html">首页</a>
-      <a href="/guide.html">快速上手</a>
-      <a class="active" href="/grammar.html">语法</a>
-      <a href="/methods.html">方法</a>
-      <a href="/includes.html">多模板</a>
-      <a href="/precompile.html">预编译</a>
-      <a href="/node.html">node</a>
-      <a href="/change-list.html">升级日志</a>
+      <ul class="clearfix">
+        <li><a href="./">首页</a></li>
+        <li><a href="./start.html">快速上手</a></li>
+        <li class="active"><a href="./grammar.html">模板语法</a></li>
+        <li><a href="./api.html">API</a></li>
+        <li><a href="./multi.html">多模板</a></li>
+        <li><a href="./compile.html">预编译</a></li>
+        <li><a href="./node.html">Node</a></li>
+        <li><a href="./changes.html">升级日志</a></li>
+      </ul>
     </nav>
-    <p class="qun">QQ群：207153223 ，帮助：45554168</a></p>
   </div>
 </header>
 <section class="wrap">
@@ -38,12 +40,12 @@
   <pre><code class="language-html">&lt;?for(var i=0; i<10; i++){?&gt;
   &lt;p&gt;hello, world&lt;/p&gt;
 &lt;?}?&gt;</code></pre>
-  <p><a class="btnrun" href="/demo/2.html" target="_blank">查看DEMO</a></p>
+  <p><a href="javascript:;" class="btn btn-try" id="btn-01">试一试</a><a href="./demo/demo_2.html" class="btn" target="_blank">查看DEMO</a></p>
   <p>使用等于号“<code>=</code>”来输出对应的值：</p>
   <pre><code class="language-html">&lt;?for(var i=0; i<10; i++){?&gt;
   &lt;p&gt;hello, world, 第 &lt;?=i?&gt; 次&lt;/p&gt;
 &lt;?}?&gt;</code></pre>
-  <p><a class="btnrun" href="/demo/3.html" target="_blank">查看DEMO</a></p>
+  <p><a href="javascript:;" class="btn btn-try" id="btn-02">试一试</a><a href="./demo/demo_3.html" class="btn" target="_blank">查看DEMO</a></p>
   <p>直接使用属性名来表示传入的对象对应的属性。</p>
   <p>假如传入的对象为：</p>
   <pre><code class="language-javascript">{
@@ -57,7 +59,7 @@
     &lt;li&gt;&lt;?=i?&gt;：&lt;?=favor[i]?&gt;&lt;/li&gt;
   &lt;?}?&gt;
 &lt;/ul&gt;</code></pre>
-  <p><a class="btnrun" href="/demo/4.html" target="_blank">查看DEMO</a></p>
+  <p><a href="javascript:;" class="btn btn-try" id="btn-03">试一试</a><a href="./demo/demo_4.html" class="btn" target="_blank">查看DEMO</a></p>
   <h4>CSS部分</h4>
   <p><code>nodetpl</code> 允许模板定义自身的 <code>CSS</code> 样式，并且你大可不必为命名冲突而担忧，因为 <code>nodetpl</code> 有一套解决样式继承冲突的机制。</p>
   <p>若要书写模板样式，你需要为模板的 <code>HTML</code> 部分定义一个 <code>id</code> 为 “<code>$ROOT</code>” 的根元素，之后直接在模板中书写样式即可：</p>
@@ -76,7 +78,7 @@
     &lt;p&gt;hello, world, 第 &lt;?=i?&gt; 次&lt;/p&gt;
   &lt;?}?&gt;
 &lt;/div&gt;</code></pre>
-  <p><a class="btnrun" href="/demo/5.html" target="_blank">查看DEMO</a></p>
+  <p><a href="javascript:;" class="btn btn-try" id="btn-04">试一试</a><a href="./demo/demo_5.html" class="btn" target="_blank">查看DEMO</a></p>
   <p>诶？逆天了，这样写岂不把整个页面的样式都要覆盖掉？</p>
   <p>没关系，<code>nodetpl</code> 不会容忍这样低级错误的发生，最终，<code>nodetpl</code> 会在输出之前，将每一行样式前面都添加“<code>#ROOT</code>”限定，这样就不会引发样式继承冲突了。</p>
   <h4>JavaScript部分</h4>
@@ -101,18 +103,17 @@ ROOT.style.padding = padding + 'px';
 $ROOT.css('color', '#f00');
 alert($DATA.title);
 &lt;/script&gt;</code></pre>
-  <p><a class="btnrun" href="/demo/6.html" target="_blank">查看DEMO</a></p>
+  <p><a href="javascript:;" class="btn btn-try" id="btn-05">试一试</a><a href="./demo/demo_6.html" class="btn" target="_blank">查看DEMO</a></p>
   <p>没错，虽然这里你定义了一个 <code>padding</code> 变量，但是它并不是在 <code>window</code> 对象中执行的，因此不会污染到 <code>window</code> 。</p>
   <p>怎么样？有了 HTML / CSS / JS ，是不是就可以书写你想要的模板了？</p>
-  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a></div>
-  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["qzone","tsina","weixin","douban","sqq","fbook","twi","linkedin"],"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
   <p>接下来就看你发挥了 O(∩_∩)O</p>
 </section>
 <footer>
   <div class="wrap">
-    <p>&copy; 2012 - 2015 nodetpl.com</p>
+    <p>&copy; 2012 - 2015 nodetpl.com by <a href="http://www.qque.com/">pillys</a></p>
   </div>
 </footer>
+<script>seajs.use('view/grammar');</script>
 <script>
 var _hmt = _hmt || [];
 (function() {

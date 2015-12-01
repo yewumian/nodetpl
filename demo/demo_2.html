@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
-<script src="http://www.nodetpl.com/static/js/nodetpl.client.js"></script>
+<script src="../static/js/lib/nodetpl.client.min.js"></script>
 </head>
 <body>
 <div id="result"></div>
 
-<script id="testid" type="text/template">
+<script id="favor-tpl" type="text/template">
 <?for(var i=0; i<10; i++){?>
   <p>hello, world</p>
 <?}?>
@@ -16,10 +16,12 @@
 
 <script>
 var resultDom = document.getElementById('result');
-var content = document.getElementById('testid').innerHTML;
-var html = nodetpl.render(content);
-resultDom.innerHTML = html;
-console.log(html);
+var content = document.getElementById('favor-tpl').innerHTML;
+
+nodetpl.render(content, function(d){
+  resultDom.innerHTML = d;
+  console.log(d);
+});
 </script>
 
 <script>

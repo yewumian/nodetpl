@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>NodeTpl - 高效javascript模板引擎</title>
+<link rel="stylesheet" href="./static/css/normalize.css">
+<link rel="stylesheet" href="./static/css/style.css">
+<link rel="stylesheet" type="text/css" href="./static/css/vdialog.css">
+<link rel="stylesheet" type="text/css" href="./static/css/highlight/prism.css">
+<script type="text/javascript" src="./static/js/highlight/prism.js"></script>
+<script type="text/javascript" src="./static/js/sea.js"></script>
+<script type="text/javascript" src="./static/js/sea-config.js"></script>
+</head>
+<body id="api">
+<header>
+  <div class="wrap">
+    <div class="logo">
+      <a href="./"><i class="iconfont">&#xe605;</i>NodeTpl</a>
+      <span>一款强大、高效、易用、有趣儿的 JavaScript 模板引擎</span>
+    </div>
+    <nav>
+      <ul class="clearfix">
+        <li><a href="./">首页</a></li>
+        <li><a href="./start.html">快速上手</a></li>
+        <li><a href="./grammar.html">模板语法</a></li>
+        <li class="active"><a href="./api.html">API</a></li>
+        <li><a href="./multi.html">多模板</a></li>
+        <li><a href="./compile.html">预编译</a></li>
+        <li><a href="./node.html">Node</a></li>
+        <li><a href="./changes.html">升级日志</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<section class="wrap">
+  <h2>nodetpl 方法</h2>
+  <h4>nodetpl.config(options)</h4>
+  <p>配置 <code>nodetpl</code> 基本参数</p>
+  <p><code>config</code> 不是必须的，一般不需要做任何配置</p>
+  <p>下面是可以配置的参数示例：</p>
+  <pre><code class="language-javascript">nodetpl.config({
+  base: 'http://www.nodetpl.com/static/tpl/',   // 强制指定模板根目录
+  vars: {
+    root: '$("#~")'
+  },
+  openTag: '&lt;?',
+  closeTag: '?&gt;',
+  cache: true
+});</code></pre>
+  <ul>
+    <li>base：模板所在的根路径，可以省略。若配置该参数，则使用 <code>.get()</code> 方法填写的路径会相对于该路径进行查找</li>
+    <li>vars：变量相关信息
+      <ul>
+        <li>root：模板 <code>JS</code> 代码中的 <code>$ROOT</code> 所代表的对象。默认为 <code>jQuery</code> 对象，即 <code>$("#~")</code>，若你使用的是其他类库，可以调整该参数的指向</li>
+      </ul>
+    </li>
+    <li>openTag：模板定界符开始标签，默认为：<code>&lt;?</code></li>
+    <li>closeTag：模板定界符结束标签，默认为：<code>?&gt;</code></li>
+    <li>cache：是否开启缓存，默认开启</li>
+  </ul>
+  <p>这里大部分是可以采用默认值的，只是在极少数的场景下，可能会涉及到调整 <code>vars.root</code> 的指向。</p>
+  <h4>nodetpl.get(url, [data, ] callback)</h4>
+  <p>加载指定的模板可执行文件（编译方式参见<a href="./compile.html" target="_blank">预编译</a>），并用 <code>data</code> 渲染，渲染后的结果返回给 <code>callback</code>。</p>
+  <ul>
+    <li>url：模板编译后的 js 文件路径</li>
+    <li>data：传入模板的数据</li>
+    <li>callback：模板编译后，执行的回调函数，回调函数会将编译后的 HTML 作为参数传入</li>
+  </ul>
+  <pre><code class="language-javascript">var data = {
+  "title": "个人爱好",
+  "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
+};
+nodetpl.get('http://www.nodetpl.com/demo/tpls/1.js', data, function(d){
+  console.log(d);
+});</code></pre>
+  <p><a href="javascript:;" class="btn btn-try" id="btn-01">试一试</a><a href="./demo/demo_8.html" class="btn" target="_blank">查看DEMO</a></p>
+  <h4>nodetpl.render(tplcontent[, data]);</h4>
+  <p>使用数据 <code>data</code>，直接渲染模板代码 <code>tplcontent</code>。</p>
+  <p>此方法不包含预编译环节，通常用在人为拼接或者 <code>&lt;script type="text/template"...</code> 的场景，前面首页给出的DEMO即是如此。</p>
+  <pre><code class="language-javascript">var data = {
+  title: '个人爱好',
+  favor: ['足球', '篮球', '乒乓球', '琉璃球']
+};
+var content = document.getElementById('testid').innerHTML;
+var html = nodetpl.render(content, data);
+alert(html);</code></pre>
+  <p><a href="javascript:;" class="btn btn-try" id="btn-02">试一试</a><a href="./demo/demo_1.html" class="btn" target="_blank">查看DEMO</a></p>
+  <h4>For sea.js</h4>
+  <pre><code class="language-javascript">var nodetpl = require('nodetpl');
+nodetpl.get('/demo/tpls/1', {
+  title: '个人爱好',
+  favor: ['足球', '篮球', '乒乓球', '琉璃球']
+}, function(d) {
+  alert(d);
+});</code></pre>
+  <p><a href="javascript:;" class="btn btn-try" id="btn-03">试一试</a><a href="./demo/demo_sea.html" class="btn" target="_blank">查看DEMO</a></p>
+</section>
+<footer>
+  <div class="wrap">
+    <p>&copy; 2012 - 2015 nodetpl.com by <a href="http://www.qque.com/">pillys</a></p>
+  </div>
+</footer>
+<script id="favor-tpl" type="text/template">
+<h1><?=title?></h1>
+<ul>
+  <?for(var i=0; i<favor.length; i++){?>
+    <li><?=i?>：<?=favor[i]?></li>
+  <?}?>
+</ul>
+</script>
+<script>seajs.use('view/api');</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?55310397b78e4d3793e8b32711e7c487";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>

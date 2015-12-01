@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>NodeTpl - 高效javascript模板引擎</title>
+<link rel="stylesheet" href="./static/css/normalize.css">
+<link rel="stylesheet" href="./static/css/style.css">
+<link rel="stylesheet" type="text/css" href="./static/css/vdialog.css">
+<link rel="stylesheet" type="text/css" href="./static/css/highlight/prism.css">
+<script type="text/javascript" src="./static/js/highlight/prism.js"></script>
+<script type="text/javascript" src="./static/js/sea.js"></script>
+<script type="text/javascript" src="./static/js/sea-config.js"></script>
+</head>
+<body id="changes">
+<header>
+  <div class="wrap">
+    <div class="logo">
+      <a href="./"><i class="iconfont">&#xe605;</i>NodeTpl</a>
+      <span>一款强大、高效、易用、有趣儿的 JavaScript 模板引擎</span>
+    </div>
+    <nav>
+      <ul class="clearfix">
+        <li><a href="./">首页</a></li>
+        <li><a href="./start.html">快速上手</a></li>
+        <li><a href="./grammar.html">模板语法</a></li>
+        <li><a href="./api.html">API</a></li>
+        <li><a href="./multi.html">多模板</a></li>
+        <li><a href="./compile.html">预编译</a></li>
+        <li><a href="./node.html">Node</a></li>
+        <li class="active"><a href="./changes.html">升级日志</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<section class="wrap">
+  <h2>升级日志</h2>
+  <dl>
+    <dt>2.2.6</dt>
+    <dd>
+      <ul>
+        <li>完善 <code>&lt;?=..?&gt;</code> 功能，自动判断引用的变量是否 <code>undefined</code></li>
+      </ul>
+    </dd>
+  </dl>
+  <dl>
+    <dt>2.1 to 2.2</dt>
+    <dd>
+      <ul>
+        <li>编译工具做重大升级，不再要求输入 <code>-o</code> 属性，支持文件监听，支持指定模板后缀</li>
+      </ul>
+    </dd>
+  </dl>
+  <dl>
+    <dt>2.0 to 2.1</dt>
+    <dd>
+      <ul>
+        <li>关键字 “<code>@</code>” 可以省略，在将来的版本中将要废弃</li>
+      </ul>
+    </dd>
+  </dl>
+  <dl>
+    <dt>1.x to 2.0</dt>
+    <dd>
+      <ul>
+        <li>支持通过 <code>config</code> 灵活配置引擎开关</li>
+        <li>内置 <code>_fixcss</code> 方法即将废弃，使用 1.x 版本编译的模板需要重新编译</li>
+        <li>正式支持 <code>CMD</code> 模块化开发</li>
+        <li>多模板引用由 “<code>require</code>” 关键字改为 “<code>include</code>”，原 “<code>require</code>” 关键字废弃</li>
+        <li>增加关键字 <code>ROOT</code>，代表原生 <code>DOM</code> 节点</li>
+        <li>
+          默认 <code>$ROOT</code> 指向为 <code>jQuery</code> 对象（选择器 <code>$("#~")</code> ），如需使用其它类库，请手动 <code>config</code> 设置
+          <pre><code class="language-javascript">nodetpl.config({
+  vars: {
+    root: '...'
+  }
+});</code></pre>
+        </li>
+        <li><code>render()</code> 由异步方法改为同步</li>
+      </ul>
+    </dd>
+  </dl>
+</section>
+<footer>
+  <div class="wrap">
+    <p>&copy; 2012 - 2015 nodetpl.com by <a href="http://www.qque.com/">pillys</a></p>
+  </div>
+</footer>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?55310397b78e4d3793e8b32711e7c487";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>

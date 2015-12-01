@@ -1,39 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>NodeTpl - 高效javascript模板引擎</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="baidu-site-verification" content="aec8f2d624d358123d4d18d811e97aba"/>
-<link rel="stylesheet" type="text/css" href="/static/css/style.css">
-<link rel="stylesheet" type="text/css" href="/static/css/highlight/prism.css">
-<script type="text/javascript" src="/static/js/highlight/prism.js"></script>
-<script src="/static/js/nodetpl.client.js"></script>
+<link rel="stylesheet" href="./static/css/normalize.css">
+<link rel="stylesheet" href="./static/css/style.css">
+<link rel="stylesheet" type="text/css" href="./static/css/vdialog.css">
+<link rel="stylesheet" type="text/css" href="./static/css/highlight/prism.css">
+<script type="text/javascript" src="./static/js/highlight/prism.js"></script>
+<script type="text/javascript" src="./static/js/sea.js"></script>
+<script type="text/javascript" src="./static/js/sea-config.js"></script>
 </head>
-<body>
+<body id="index">
 <header>
   <div class="wrap">
-    <h1 class="project-name"><i class="iconfont">&#xe605;</i>NodeTpl<sup>v2.2.6</sup></h1>
-    <h2 class="project-tagline">一款强大、高效、易用、有趣儿的 JavaScript 模板引擎</h2>
-    <a rel="nofollow" target="_blank" href="https://github.com/pillys/nodetpl" class="btn"><i class="iconfont">&#xe601;</i>View on GitHub</a>
-    <a rel="nofollow" target="_blank" href="https://github.com/pillys/nodetpl/zipball/master" class="btn"><i class="iconfont">&#xe600;</i>下载 nodetpl v2.2.6</a>
-    <a rel="nofollow" href="/demo/demo.zip" class="btn"><i class="iconfont">&#xe602;</i>Demos</a>
+    <div class="logo">
+      <a href="./"><i class="iconfont">&#xe605;</i>NodeTpl</a>
+      <span>一款强大、高效、易用、有趣儿的 JavaScript 模板引擎</span>
+    </div>
     <nav>
-      <a class="active" href="/index.html">首页</a>
-      <a href="/guide.html">快速上手</a>
-      <a href="/grammar.html">语法</a>
-      <a href="/methods.html">方法</a>
-      <a href="/includes.html">多模板</a>
-      <a href="/precompile.html">预编译</a>
-      <a href="/node.html">node</a>
-      <a href="/change-list.html">升级日志</a>
+      <ul class="clearfix">
+        <li class="active"><a href="./">首页</a></li>
+        <li><a href="./start.html">快速上手</a></li>
+        <li><a href="./grammar.html">模板语法</a></li>
+        <li><a href="./api.html">API</a></li>
+        <li><a href="./multi.html">多模板</a></li>
+        <li><a href="./compile.html">预编译</a></li>
+        <li><a href="./node.html">Node</a></li>
+        <li><a href="./changes.html">升级日志</a></li>
+      </ul>
     </nav>
-    <p class="qun">QQ群：207153223 ，帮助：45554168</a></p>
   </div>
 </header>
-<section class="main-introduction">
+<section class="wrap quick-look">
+  <h2>30 秒认识 nodetpl</h2>
+  <table>
+    <thead>
+      <tr>
+        <th><i class="iconfont">&#xe618;</i>数据层</th>
+        <td></td>
+        <th><i class="iconfont">&#xe616;</i>模板层</th>
+        <td></td>
+        <th><i class="iconfont">&#xe617;</i>渲染层</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><pre class="code-data"></pre></td>
+        <td><i class="iconfont">&#xe610;</i></td>
+        <td><pre class="code-template"></pre></td>
+        <td><i class="iconfont">&#xe615;</i></td>
+        <td><div class="code-result"></div></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>一句话，就能渲染指定模板代码：</p>
+  <pre><code class="language-javascript">nodetpl.render(template, data, function(d){
+  // alert(d);
+});</code></pre>
+  <p>一句话，就能渲染指定模板文件：</p>
+  <pre><code class="language-javascript">nodetpl.get(url, data, function(d){
+  // alert(d);
+});</code></pre>
+  <p><a href="javascript:;" class="btn btn-try">试一试</a></p>
+</section>
+<section class="introduction">
   <div class="wrap">
-    <h4>为什么选择 nodetpl ？</h4>
+    <h2>为什么选择 nodetpl ？</h2>
     <ul class="clearfix">
       <li>
         <dl>
@@ -56,13 +89,13 @@
       <li>
         <dl>
           <dt><i class="iconfont">&#xe614;</i>支持预编译</dt>
-          <dd>提前编译成 js 文件，减轻浏览器运行负担 <a href="/precompile.html">工具</a></dd>
+          <dd>提前编译成 js 文件，减轻浏览器运行负担 <a href="./compile.html">工具</a></dd>
         </dl>
       </li>
       <li>
         <dl>
           <dt><i class="iconfont">&#xe613;</i>支持多模板</dt>
-          <dd>支持复杂的多模板，include 一步到位 <a href="/multi-templates.html">书写规则</a></dd>
+          <dd>支持复杂的多模板，include 一步到位 <a href="./multi.html">书写规则</a></dd>
         </dl>
       </li>
       <li>
@@ -74,13 +107,13 @@
       <li>
         <dl>
           <dt><i class="iconfont">&#xe60f;</i>支持 node.js</dt>
-          <dd>可以作为 node.js 的模块使用，同时支持 Express.js <a href="/node.html">引用说明</a></dd>
+          <dd>可以作为 node.js 的模块使用，同时支持 Express.js <a href="./node.html">引用说明</a></dd>
         </dl>
       </li>
       <li>
         <dl>
           <dt><i class="iconfont">&#xe60e;</i>扩展性强</dt>
-          <dd>支持自定义定界符、DOM操作类库等多项参数 <a href="/methods.html">配置</a></dd>
+          <dd>支持自定义定界符、DOM操作类库等多项参数 <a href="./api.html">配置</a></dd>
         </dl>
       </li>
       <li>
@@ -104,93 +137,26 @@
       <li>
         <dl>
           <dt><i class="iconfont">&#xe60d;</i>国人基因</dt>
-          <dd>国产代码，符合国情，文档齐全，完美支持 seajs 等 CMD 模块化开发 <a href="/methods.html">方法</a></dd>
-        </dl>
-      </li>
-      <li>
-        <dl>
-          <dt><i class="iconfont">&#xe610;</i>技术支持</dt>
-          <dd>有任何疑问，可以随时联系作者提供帮助</dd>
+          <dd>国产代码，符合国情，文档齐全，完美支持 seajs 等 CMD 模块化开发 <a href="./api.html">方法</a></dd>
         </dl>
       </li>
     </ul>
-
-    <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a></div>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["qzone","tsina","weixin","douban","sqq","fbook","twi","linkedin"],"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-
-    <p>如果你感觉 <code>nodetpl</code> 挺有趣儿，赶快了解一下吧：<a href="/guide.html">快速上手</a></p>
+    <div class="share-box">
+      <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a></div>
+    </div>
   </div>
 </section>
-<section class="wrap quick-look">
-  <h4>30 秒认识 nodetpl</h4>
-  <table>
-    <tbody>
-      <tr>
-        <td><pre><code class="language-javascript">{
-  "title": "个人爱好",
-  "favor": [
-    "足球",
-    "篮球",
-    "乒乓球",
-    "琉璃球"
-  ]
-}</code></pre></td>
-        <td class="s">+</td>
-        <td><pre><code class="language-html">&lt;style&gt;
-.title {
-  font-size: 14px;
-  color: #f00;
-}
-&lt;/style&gt;
-&lt;div id="$ROOT"&gt;
-  &lt;div class="title"&gt;&lt;?=title?&gt;&lt;/div&gt;
-  &lt;ul&gt;
-    &lt;?for(var i=0; i&lt;favor.length; i++){?&gt;
-      &lt;li&gt;&lt;?=i?&gt;：&lt;?=favor[i]?&gt;&lt;/li&gt;
-    &lt;?}?&gt;
-  &lt;/ul&gt;
-&lt;/div&gt;
-&lt;script&gt;
-ROOT.onclick = function(){
-  alert('hello nodetpl.');
-};
-&lt;/script&gt;</code></pre></td>
-        <td class="s">=</td>
-        <td><style>
-#NTGUID__1 .title{
-  font-size: 14px;
-  color: #f00;
-}</style>
-<div id="NTGUID__1">
-  <div class="title">个人爱好</div>
-  <ul>
-    <li>0：足球</li>
-    <li>1：篮球</li>
-    <li>2：乒乓球</li>
-    <li>3：琉璃球</li>
-  </ul>
-</div>
-<script>
-(function(){
-  var ROOT = document.getElementById('NTGUID__1');
-  ROOT.onclick = function(){
-    alert('hello nodetpl.');
-  };
-})();
-</script></td>
-      </tr>
-    </tbody>
-  </table>
-</section>
 <section class="wrap">
-  <h4>经典案例</h4>
+  <h2>经典案例</h2>
   <p>案例统计中，如果你想出现在这里，请加QQ联系作者</p>
 </section>
 <footer>
   <div class="wrap">
-    <p>&copy; 2012 - 2015 nodetpl.com</p>
+    <p>&copy; 2012 - 2015 nodetpl.com by <a href="http://www.qque.com/">pillys</a></p>
   </div>
 </footer>
+<script>seajs.use('view/index');</script>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["qzone","tsina","weixin","douban","sqq","fbook","twi","linkedin"],"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 <script>
 var _hmt = _hmt || [];
 (function() {

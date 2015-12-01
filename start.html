@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>NodeTpl - 高效javascript模板引擎</title>
+<link rel="stylesheet" href="./static/css/normalize.css">
+<link rel="stylesheet" href="./static/css/style.css">
+<link rel="stylesheet" type="text/css" href="./static/css/vdialog.css">
+<link rel="stylesheet" type="text/css" href="./static/css/highlight/prism.css">
+<script type="text/javascript" src="./static/js/highlight/prism.js"></script>
+<script type="text/javascript" src="./static/js/sea.js"></script>
+<script type="text/javascript" src="./static/js/sea-config.js"></script>
+</head>
+<body id="start">
+<header>
+  <div class="wrap">
+    <div class="logo">
+      <a href="./"><i class="iconfont">&#xe605;</i>NodeTpl</a>
+      <span>一款强大、高效、易用、有趣儿的 JavaScript 模板引擎</span>
+    </div>
+    <nav>
+      <ul class="clearfix">
+        <li><a href="./">首页</a></li>
+        <li class="active"><a href="./start.html">快速上手</a></li>
+        <li><a href="./grammar.html">模板语法</a></li>
+        <li><a href="./api.html">API</a></li>
+        <li><a href="./multi.html">多模板</a></li>
+        <li><a href="./compile.html">预编译</a></li>
+        <li><a href="./node.html">Node</a></li>
+        <li><a href="./changes.html">升级日志</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<section class="wrap">
+  <h2>快速上手</h2>
+  <h4>引入文件</h4>
+  <p>下载 <code>nodetpl</code>：<a href="https://github.com/pillys/nodetpl/zipball/master">https://github.com/pillys/nodetpl/zipball/master</a> 并解压</p>
+  <p>在页面 <code>head</code> 标签内，引入 <code>nodetpl</code> 客户端文件（压缩包中的 <code>/dist/nodetpl.client.min.js</code>）：</p>
+  <pre><code class="language-html">&lt;script src="./static/js/nodetpl.client.min.js"&gt;&lt;/script&gt;</code></pre>
+  <h4>编写模板</h4>
+  <p>最简单的，可以使用一个 <code>type="text/template"</code> 的 <code>script</code> 标签存放模板：</p>
+  <pre><code class="language-html">&lt;script id="testid" type="text/template"&gt;
+&lt;h1&gt;&lt;?=title?&gt;&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;?for(var i=0; i&lt;favor.length; i++){?&gt;
+    &lt;li&gt;&lt;?=i?&gt;：&lt;?=favor[i]?&gt;&lt;/li&gt;
+  &lt;?}?&gt;
+&lt;/ul&gt;
+&lt;/script&gt;</code></pre>
+  <h4>执行渲染</h4>
+  <pre><code class="language-javascript">var data = {
+  "title": "个人爱好",
+  "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
+};
+var content = document.getElementById('testid').innerHTML;
+nodetpl.render(content, data, function(d){
+  console.log(d);
+});
+</code></pre>
+  <h4>运行结果</h4>
+  <pre><code class="language-html">&lt;h1&gt;个人爱好&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;0：足球&lt;/li&gt;
+  &lt;li&gt;1：篮球&lt;/li&gt;
+  &lt;li&gt;2：乒乓球&lt;/li&gt;
+  &lt;li&gt;3：琉璃球&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+  <p><a href="javascript:;" class="btn btn-try" id="btn-01">试一试</a><a href="./demo/demo_1.html" class="btn" target="_blank">查看DEMO</a></p>
+</section>
+<section class="wrap">
+  <h2>关键字</h2>
+  <p><code>nodetpl</code> 引擎会涉及下面的关键字，在接下来的学习中会逐个接触到：</p>
+  <ul>
+    <li>&lt;? ?&gt;</li>
+    <li>ROOT</li>
+    <li>$ROOT</li>
+    <li>SUBROOT</li>
+    <li>$SUBROOT</li>
+    <li>$DATA</li>
+    <li>=</li>
+    <li>include</li>
+    <li>template</li>
+    <li>main</li>
+    <li>config()</li>
+    <li>get()</li>
+    <li>render()</li>
+    <li>nodetpl &lt;path&gt;</li>
+  </ul>
+</section>
+<footer>
+  <div class="wrap">
+    <p>&copy; 2012 - 2015 nodetpl.com by <a href="http://www.qque.com/">pillys</a></p>
+  </div>
+</footer>
+<script id="favor-tpl" type="text/template">
+<h1><?=title?></h1>
+<ul>
+  <?for(var i=0; i<favor.length; i++){?>
+    <li><?=i?>：<?=favor[i]?></li>
+  <?}?>
+</ul>
+</script>
+<script>seajs.use('view/start');</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?55310397b78e4d3793e8b32711e7c487";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>

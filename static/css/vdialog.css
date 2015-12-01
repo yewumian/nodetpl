@@ -1,3 +1,4 @@
+/* vDialog 图标字体 */
 @font-face {
   font-family: 'vdfont';
   src: url('../fonts/vdfont.eot'); /* IE9*/
@@ -6,20 +7,19 @@
   url('../fonts/vdfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
   url('../fonts/vdfont.svg#vdfont') format('svg'); /* iOS 4.1- */
 }
+
+/* vDialog 主样式 */
 .vdialog {
   position: absolute;
   font-size: 14px;
   line-height: 1.5em;
-  border: 1px solid #bcbcbc;
   border-radius: 3px;
-  background-color: #fff;
   -webkit-animation-duration: .3s;
   animation-duration: .3s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   -webkit-animation-name: vDialogZoomIn;
   animation-name: vDialogZoomIn;
-  *padding-top: 3.5em;
 }
 .vdialog-fixed {
   position: fixed;
@@ -44,12 +44,66 @@
     opacity: 1;
   }
 }
+.vdialog .vd-header, .vdialog .vd-footer {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
 .vdialog .vd-header {
   position: relative;
-  *position: absolute;
-  *width: 100%;
-  *left: 0;
-  *top: 0;
+  z-index: 1;
+}
+.vdialog .vd-header .vd-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.vdialog .vd-header a.vd-close {
+  position: absolute;
+  text-decoration: none;
+}
+.vdialog-no-title .vd-header .vd-title {
+  display: none;
+}
+.vdialog .vd-main {
+  position: relative;
+}
+.vdialog .vd-main .vd-icon {
+  display: none;
+  position: absolute;
+  font-family: "vdfont" !important;
+  font-style: normal;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.vdialog .vd-main-with-icon .vd-icon {
+  display: block;
+}
+.vdialog .vd-footer {
+  display: none;
+}
+.vdialog .vd-footer:before {
+  content: '';
+  display: block;
+}
+.vdialog .vd-footer a.vd-btn {
+  display: inline-block;
+  text-decoration: none;
+}
+.vdialog-modal {
+  width: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+}
+
+/* vDialog 风格控制 */
+.vdialog {
+  background-color: #fff;
+  border: 1px solid #bcbcbc;
 }
 .vdialog .vd-header .vd-title {
   padding: .8em 2em .8em 1em;
@@ -58,7 +112,6 @@
   text-overflow: ellipsis;
 }
 .vdialog .vd-header a.vd-close {
-  position: absolute;
   right: .5em;
   top: 50%;
   padding: 0 .2em;
@@ -66,49 +119,28 @@
   font-size: 1.2em;
   color: #000;
   line-height: 1.1em;
-  text-decoration: none;
   opacity: .3;
 }
 .vdialog .vd-header a.vd-close:hover {
   opacity: 1;
 }
-.vdialog-no-title {
-  *padding-top: 1em;
-}
 .vdialog-no-title .vd-header {
   height: 1em;
-}
-.vdialog-no-title .vd-header .vd-title {
-  display: none;
 }
 .vdialog-no-title .vd-header a.vd-close {
   top: 1em;
   right: .5em;
 }
-.vdialog .vd-main {
-  position: relative;
-}
 .vdialog .vd-main .vd-icon {
-  display: none;
-  position: absolute;
   left: 15px;
   top: 0;
-  font-family: "vdfont" !important;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-stroke-width: 0.2px;
-  -moz-osx-font-smoothing: grayscale;
   width: 50px;
   font-size: 38px;
   padding: 10px 0;
   line-height: 1em;
-  text-align: center;
 }
 .vdialog .vd-main-with-icon {
   padding: 5px 15px 0 65px;
-}
-.vdialog .vd-main-with-icon .vd-icon {
-  display: block;
 }
 .vdialog .vd-main-with-icon .icon-vd-error:before {
   content: "\e600";
@@ -131,23 +163,18 @@
   min-width: 8em;
 }
 .vdialog .vd-footer {
-  display: none;
   padding: 0 1em 1em;
   text-align: right;
 }
 .vdialog .vd-footer:before {
-  content: '';
-  display: block;
   background-color: #eee;
   background-image: linear-gradient(90deg, #fff, #eee);
   height: 1px;
   margin-bottom: 15px;
 }
 .vdialog .vd-footer a.vd-btn {
-  display: inline-block;
   color: #fff;
   padding: .2em .8em;
-  text-decoration: none;
   border: 1px solid #fff;
   border-radius: 3px;
   background-color: #429cf9;
@@ -163,11 +190,23 @@
   background-color: #fff;
 }
 .vdialog-modal {
-  width: 100%;
-  left: 0;
-  top: 0;
-  position: absolute;
   opacity: .6;
-  *filter: alpha(opacity:60);
   background-color: #000;
+}
+
+/* IE6/7 layout fixed */
+.vdialog {
+  *padding-top: 3.5em;
+}
+.vdialog .vd-header {
+  *position: absolute;
+  *width: 100%;
+  *left: 0;
+  *top: 0;
+}
+.vdialog-no-title {
+  *padding-top: 1em;
+}
+.vdialog-modal {
+  *filter: alpha(opacity:60);
 }
