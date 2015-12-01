@@ -1,5 +1,5 @@
 /*!
- * nodetpl v2.2.8
+ * nodetpl v2.2.9
  * Best javascript template engine
  * https://www.nodetpl.com
  *
@@ -34,7 +34,7 @@
   }
 
   function NodeTpl() {
-    this.version = '2.2.8';
+    this.version = '2.2.9';
     this.ie6 = window.VBArray && !window.XMLHttpRequest;
     this.guid = function() {
       return 'NTGUID__' + (this.guid._counter++).toString(36);
@@ -716,10 +716,10 @@
         temp += "    } else if (typeof define === 'function' && define.amd && typeof require === 'function') {\n";
         temp += "      // AMD requireJs\n";
         temp += "      _ += '  require(\\'nodetpl\\', function(nodetpl){\\n';\n";
-        temp += "      _ += '    __callback(nodetpl);\\n';\n";
+        temp += "      _ += '    __callback(nodetpl, \"'+ guid + '\", \"'+ dguid + '\");\\n';\n";
         temp += "      _ += '  });\\n';\n";
         temp += "    } else {\n";
-        temp += "      _ += '__callback(window.nodetpl);\\n';\n";
+        temp += "      _ += '__callback(window.nodetpl, \"'+ guid + '\", \"'+ dguid + '\");\\n';\n";
         temp += "    }\n";
         temp += "    _ += '})(window, document);\\n';\n";
         temp += "    _ += '</script>\\n';\n";
