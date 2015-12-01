@@ -1,5 +1,5 @@
 /*!
- * nodetpl v2.2.6
+ * nodetpl v2.2.7
  * Best javascript template engine
  * https://www.nodetpl.com
  *
@@ -34,7 +34,7 @@
   }
 
   function NodeTpl() {
-    this.version = '2.2.6';
+    this.version = '2.2.7';
     this.ie6 = window.VBArray && !window.XMLHttpRequest;
     this.guid = function() {
       return 'NTGUID__' + (this.guid._counter++).toString(36);
