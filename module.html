@@ -43,8 +43,17 @@
   }
 });</code></pre>
   <p>通过 <code>require</code> 将 <code>nodetpl</code> 模块引入：</p>
-  <pre><code class="language-javascript">var nodetpl = require('nodetpl');
-nodetpl.get('...');</code></pre>
+  <pre><code class="language-javascript">define(function(require, exports, module) {
+  var nodetpl = require('nodetpl');
+
+  nodetpl.get('/demo/tpls/1', {
+    title: '个人爱好',
+    favor: ['足球', '篮球', '乒乓球', '琉璃球']
+  }, function(d) {
+    // d
+  });
+});</code></pre>
+  <p><a href="javascript:;" class="btn btn-try" id="btn-01">试一试</a><a href="./demo/demo_sea.html" class="btn" target="_blank">查看DEMO</a></p>
 </section>
 <footer>
   <div class="wrap">
