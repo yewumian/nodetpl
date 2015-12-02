@@ -1,5 +1,5 @@
 /*!
- * nodetpl v2.3.0
+ * nodetpl v2.3.1
  * Best javascript template engine
  * https://www.nodetpl.com
  *
@@ -34,7 +34,7 @@
   }
 
   function NodeTpl() {
-    this.version = '2.3.0';
+    this.version = '2.3.1';
     this.ie6 = window.VBArray && !window.XMLHttpRequest;
     this.guid = function() {
       return 'NTGUID__' + (this.guid._counter++).toString(36);
@@ -387,7 +387,7 @@
   NodeTpl.prototype.exec = function(content) {
     var code, jsExp = /<script\b[^>]*>([^<]*(?:(?!<\/script>)<[^<]*)*)<\/script>/igm;
     while (code = jsExp.exec(content)) {
-      (new Function(code))();
+      (new Function(code[1]))();
     }
     return this;
   };
