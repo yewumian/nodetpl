@@ -5,14 +5,19 @@
 <title></title>
 <script src="http://www.nodetpl.com/static/js/lib/nodetpl.client.min.js"></script>
 <style>
+h4 span{
+  margin-left: 1em;
+  font-weight: normal;
+  font-size: .8em;
+}
 textarea{
   width: 500px;
-  height: 100px;
+  height: 150px;
 }
 </style>
 </head>
 <body>
-<h4>数据</h4>
+<h4>数据<span>请按严格模式书写 JSON，key 要使用双引号引起来</span></h4>
 <textarea id="code-data">{
   "name": "zhangsan"
 }</textarea>
