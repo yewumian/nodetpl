@@ -208,7 +208,14 @@ a.btn {
   width: 10em;
   line-height: 2em;
 }
+#changes section ul li {
+  margin-top: .5em;
+}
 #changes section time {
   color: #999;
   margin-left: 1em;
+}
+#changes section .high-level {
+  color: #f00;
+  margin-left: .5em;
 }
