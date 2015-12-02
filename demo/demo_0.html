@@ -3,9 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<link rel="stylesheet" type="text/css" href="http://www.nodetpl.com/static/css/vdialog.css">
 <script src="http://www.nodetpl.com/static/js/lib/nodetpl.client.min.js"></script>
+<!--[if lt IE 9]><script type="text/javascript" src="http://www.nodetpl.com/static/js/html5shiv.js"></script><![endif]-->
+<script src="http://www.nodetpl.com/static/js/lib/es5-shim.min.js"></script>
 <style>
 h4 span{
+  color: #666;
   margin-left: 1em;
   font-weight: normal;
   font-size: .8em;
@@ -13,6 +17,19 @@ h4 span{
 textarea{
   width: 500px;
   height: 150px;
+}
+a.btn {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 1em;
+  font-size: 14px;
+  line-height: 26px;
+  border-radius: 3px;
+  padding: 0 1em;
+  color: #333;
+  padding-top: 2px;
+  text-decoration: none;
+  border: 1px solid #ccc;
 }
 </style>
 </head>
@@ -27,18 +44,30 @@ textarea{
 &lt;?} else {?&gt;
   姓名不是 zhangsan
 &lt;?}?&gt;</textarea>
-<p><input type="button" id="btn-run" name="button" value="运行" /></p>
-<div id="result"></div>
+<p><a class="btn" id="btn-run">运行</a></p>
 
 <script src="http://www.nodetpl.com/static/js/lib/jquery-1.10.2.js"></script>
+<script src="http://www.nodetpl.com/static/js/lib/vDialog.min.js"></script>
 <script>
 $('#btn-run').on('click', function(){
-  var data = JSON.parse($('#code-data').val());
-  var template = $('#code-template').val();
-  nodetpl.render(template, data, function(d){
-    $('#result').html(d);
-    console.log(d);
-  });
+  var data = $('#code-data').val().trim();
+  var template = $('#code-template').val().trim();
+  if(data && template){
+    try {
+      data = JSON.parse(data);
+      nodetpl.render(template, data, function(d){
+        vDialog({
+          title: '运行结果',
+          content: d,
+          width: 400,
+          ok: true
+        }).showModal();
+        console.log(d);
+      });
+    } catch(e){
+      vDialog.error(e);
+    }
+  }
 });
 </script>
 
