@@ -39,14 +39,15 @@
 <section class="wrap">
   <h2>升级日志</h2>
   <dl>
-    <dt>2.2.9<time>2015.12.01</time></dt>
+    <dt>2.3.0<time>2015.12.02</time></dt>
     <dd>
       <ul>
+        <li>增加 <code>exec</code> 方法</li>
         <li>完善 <code>seaJs</code> 支持，提高模块化场景下代码的运行效率</li>
-        <li><code>render</code> 方法改为异步<strong class="high-level">这是一个重大调整</strong>
-          <p>升级办法，将原：</p>
+        <li><code>render</code> 方法增加同步、异步两种方式<strong class="high-level">模块化加载只能使用异步方式</strong>
+          <p>常规用法：</p>
           <pre><code class="language-javascript">var html = nodetpl.render(..., data);</code></pre>
-          <p>改为：</p>
+          <p>模块化用法：</p>
           <pre><code class="language-javascript">nodetpl.render(..., data, function(d){
   // 这里是编译结果
 });</code></pre>
