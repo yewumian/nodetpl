@@ -117,6 +117,21 @@ a.btn {
   text-decoration: none;
   border: 1px solid #ccc;
 }
+.fixed-tools {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 100px;
+  text-align: right;
+}
+.fixed-tools a {
+  color: #999;
+  text-decoration: none;
+}
+.fixed-tools i.iconfont {
+  font-size: 2em;
+  margin-right: -1em;
+}
 #index section h2:before {
   position: relative;
   top: -2px;
