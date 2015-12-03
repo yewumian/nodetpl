@@ -124,6 +124,9 @@ a.btn {
   top: 100px;
   text-align: right;
 }
+.fixed-tools .wrap {
+  height: 0;
+}
 .fixed-tools a {
   color: #999;
   text-decoration: none;

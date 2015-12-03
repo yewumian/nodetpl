@@ -38,7 +38,17 @@
 </div>
 <section class="wrap">
   <h2>nodetpl 方法</h2>
-  <h4>nodetpl.config(options)</h4>
+  <p><code>nodetpl</code> 的方法有下面几个：</p>
+  <aside>
+    <ul>
+      <li><a href="#nodetpl_config">nodetpl.config</a>：基本配置，非必须</li>
+      <li><a href="#nodetpl_get">nodetpl.get</a>：获取某个模板</li>
+      <li><a href="#nodetpl_render">nodetpl.render</a>：渲染某个模板</li>
+      <li><a href="#nodetpl_exec">nodetpl.exec</a>：执行模板里面的 js 代码，较少使用</li>
+    </ul>
+  </aside>
+  <p>常用的方法仅有 <code>get()</code> 和 <code>render()</code>，掌握了这两个方法，你也便掌握了 <code>nodetpl</code>。</p>
+  <h4 id="nodetpl_config">nodetpl.config(options)</h4>
   <p>配置 <code>nodetpl</code> 基本参数</p>
   <p><code>config</code> 不是必须的，一般不需要做任何配置</p>
   <p>下面是可以配置的参数示例：</p>
@@ -63,33 +73,102 @@
     <li>cache：是否开启缓存，默认开启</li>
   </ul>
   <p>这里大部分是可以采用默认值的，只是在极少数的场景下，可能会涉及到调整 <code>vars.root</code> 的指向。</p>
-  <h4>nodetpl.get(url, [data, ] callback)</h4>
-  <p>加载指定的模板可执行文件（编译方式参见<a href="./compile.html" target="_blank">预编译</a>），并用 <code>data</code> 渲染，渲染后的结果返回给 <code>callback</code>。</p>
+  <h4 id="nodetpl_get">nodetpl.get(url, [data, ] callback)</h4>
+  <p>该方法具有双面性，它可以直接加载编译后的文件，也可以加载编译前的模板代码。</p>
   <ul>
-    <li>url：模板编译后的 js 文件路径</li>
-    <li>data：传入模板的数据</li>
-    <li>callback：模板编译后，执行的回调函数，回调函数会将编译后的 HTML 作为参数传入</li>
-  </ul>
-  <pre><code class="language-javascript">var data = {
+    <li>
+      <p><strong>指定 <code>url</code> 没有后缀，或后缀为 <code>.js</code></strong></p>
+      <p>加载指定的模板可执行文件（编译方式参见<a href="./compile.html" target="_blank">预编译</a>，后缀 .js 可以省略），并用 <code>data</code> 渲染，渲染后的结果返回给 <code>callback</code>。</p>
+      <ul>
+        <li>url：模板编译后的 js 文件路径</li>
+        <li>data：传入模板的数据</li>
+        <li>callback：模板编译后，执行的回调函数，回调函数会将编译后的 HTML 作为参数传入</li>
+      </ul>
+      <pre><code class="language-javascript">var data = {
   "title": "个人爱好",
   "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
 };
 nodetpl.get('http://www.nodetpl.com/demo/tpls/1.js', data, function(d){
   // console.log(d);
 });</code></pre>
-  <p><a href="javascript:;" class="btn btn-try" id="btn-01">试一试</a><a href="./demo/demo_8.html" class="btn" target="_blank">查看DEMO</a></p>
-  <h4>nodetpl.render(tplcontent[, data]);</h4>
-  <p>使用数据 <code>data</code>，直接渲染模板代码 <code>tplcontent</code>。</p>
-  <p>此方法不包含预编译环节，通常用在人为拼接或者 <code>&lt;script type="text/template"...</code> 的场景，前面首页给出的DEMO即是如此。</p>
-  <pre><code class="language-javascript">var data = {
+      <p><a href="javascript:;" class="btn btn-try" id="btn-01">试一试</a><a href="./demo/demo_8.html" class="btn" target="_blank">查看DEMO</a></p>
+    </li>
+    <li>
+      <p><strong>指定 <code>url</code> 为对应的模板源文件</strong></p>
+      <p>加载指定的模板源文件（未编译），加载后的结果返回给 <code>callback</code>，暂缓渲染，该种场景下 <code>data</code> 不需要传递。</p>
+      <ul>
+        <li>url：模板源文件路径</li>
+        <li>callback：模板加载后，执行的回调函数，回调函数会传入一个包含 <code>render()</code> 及 <code>toString()</code> 方法的对象</li>
+      </ul>
+      <p>在这种场景下，传入的对象是这样的一个结构体：</p>
+      <pre><code class="language-javascript">{
+  render: function(data) {...}
+  toString: function() {...}
+}</code></pre>
+      <pre><code class="language-javascript">nodetpl.get('http://www.nodetpl.com/demo/tpls/1.tpl', function(tpl){
+  var data = {
+    "title": "个人爱好",
+    "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
+  };
+  // 这里的 d 不是渲染后的代码，而是一个对象，使用 render(data) 方法可以渲染模板
+  var d = tpl.render(data);
+  // console.log(d);
+});</code></pre>
+      <p><a href="javascript:;" class="btn btn-try" id="btn-02">试一试</a><a href="./demo/demo_7.html" class="btn" target="_blank">查看DEMO</a></p>
+      <p>当得到 <code>tpl</code> 之后，你可以在任何场景下，反复调用 tpl.render() 方法，传入不同对象，以达到模板复用的目的。</p>
+      <p>如果你想单纯的读取模板的源文件，直接嗲用 tpl.toString() 方法即可。</p>
+    </li>
+  </ul>
+  <h4 id="nodetpl_render">nodetpl.render(tplcontent[, data]);</h4>
+  <ul>
+    <li>
+      <p>使用数据 <code>data</code>，直接渲染模板代码 <code>tplcontent</code>。</p>
+      <p>此方法不包含预编译环节，通常用在人为拼接或者 <code>&lt;script type="text/template"...</code> 的场景。</p>
+      <p>HTML部分：</p>
+      <pre><code class="language-html">&lt;script id="favor-tpl" type="text/template"&gt;
+&lt;h1&gt;&lt;?=title?&gt;&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;?for(var i=0; i&lt;favor.length; i++){?&gt;
+    &lt;li&gt;&lt;?=i?&gt;：&lt;?=favor[i]?&gt;&lt;/li&gt;
+  &lt;?}?&gt;
+&lt;/ul&gt;
+&lt;/script&gt;</code></pre>
+      <p>JS部分：</p>
+      <pre><code class="language-javascript">var data = {
   title: '个人爱好',
   favor: ['足球', '篮球', '乒乓球', '琉璃球']
 };
-var content = document.getElementById('testid').innerHTML;
+var content = document.getElementById('favor-tpl').innerHTML;
 var html = nodetpl.render(content, data);
 console.log(html);</code></pre>
-  <p><a href="javascript:;" class="btn btn-try" id="btn-02">试一试</a><a href="./demo/demo_1.html" class="btn" target="_blank">查看DEMO</a></p>
-  <h4>nodetpl.exec(content);</h4>
+      <p>或者，不写在 <code>HTML</code> 中，直接在 <code>js</code> 中做字符串拼接亦可：</p>
+      <pre><code class="language-javascript">var template = '\
+&lt;script id="favor-tpl" type="text/template"&gt;\
+&lt;h1&gt;&lt;?=title?&gt;&lt;/h1&gt;\
+&lt;ul&gt;\
+  &lt;?for(var i=0; i&lt;favor.length; i++){?&gt;\
+    &lt;li&gt;&lt;?=i?&gt;：&lt;?=favor[i]?&gt;&lt;/li&gt;\
+  &lt;?}?&gt;\
+&lt;/ul&gt;\
+&lt;/script&gt;';
+nodetpl.render(template, ...</code></pre>
+      <p><a href="javascript:;" class="btn btn-try" id="btn-03">试一试</a><a href="./demo/demo_1.html" class="btn" target="_blank">查看DEMO</a></p>
+    </li>
+    <li>
+      <p>如果你只是想先得到模板，暂时不作渲染，在适合的场景下才去渲染，你可以将 <code>render()</code> 方法传入的 <code>data</code> 设置成 <code>false</code> 即可。</p>
+      <p>在这种场景下，得到的结果是这样的一个结构体：</p>
+      <pre><code class="language-javascript">{
+  render: function(data) {...}
+  toString: function() {...}
+}</code></pre>
+      <p>在需要的场景下，直接调用该对象的 <code>render()</code> 方法即可：</p>
+      <pre><code class="language-javascript">var tpl = nodetpl.render(content, false);
+var html = tpl.render(data);
+console.log(html);</code></pre>
+      <p>这种机制在 <code>nodetpl</code> 中称为 “暂缓渲染”。</p>
+    </li>
+  </ul>
+  <h4 id="nodetpl_exec">nodetpl.exec(content);</h4>
   <p>执行 <code>html</code> 中的 <code>JavaScript</code>，该方法在极少数场景下使用（例如原生 <code>innerHTML</code>），因为大多数 <code>js</code> 库已包含自动执行的方法。</p>
   <p>例如下面一段 <code>HTML</code>，通过常规 <code>innerHTML</code> 添加到某个 <code>DOM</code> 中时，<code>JavaScript</code> 不会执行，在添加完之后手动运行一下 <code>exec</code> 方法即可。</p>
   <pre><code class="language-javascript">&lt;h1&gt;hello&lt;/h1&gt;

@@ -21,6 +21,21 @@ define(function(require, exports, module) {
   });
 
   $('#btn-02').on('click', function() {
+    nodetpl.get('http://www.nodetpl.com/demo/tpls/1.tpl', function(tpl) {
+      var data = {
+        "title": "个人爱好",
+        "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
+      };
+      vDialog({
+        title: '运行结果',
+        content: tpl.render(data),
+        width: 400,
+        ok: true
+      }).showModal();
+    });
+  });
+
+  $('#btn-03').on('click', function() {
     var data = {
       "title": "个人爱好",
       "favor": ["足球", "篮球", "乒乓球", "琉璃球"]

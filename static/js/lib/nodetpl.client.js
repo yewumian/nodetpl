@@ -1,5 +1,5 @@
 /*!
- * nodetpl v2.3.1
+ * nodetpl v2.3.2
  * Best javascript template engine
  * https://www.nodetpl.com
  *
@@ -34,7 +34,7 @@
   }
 
   function NodeTpl() {
-    this.version = '2.3.1';
+    this.version = '2.3.2';
     this.ie6 = window.VBArray && !window.XMLHttpRequest;
     this.guid = function() {
       return 'NTGUID__' + (this.guid._counter++).toString(36);
@@ -331,7 +331,20 @@
       },
       doFinal = function() {
         if (typeof that._tpls[path] === 'object' && typeof that._tpls[path].main === 'function') {
-          result = that._tpls[path].main(data);
+          if (data === false) {
+            // 暂缓渲染
+            result = {
+              render: function(_data) {
+                return that._tpls[path].main(_data || {});
+              },
+              toString: function() {
+                return that._cache[path] ? that._cache[path].html : this;
+              }
+            };
+          } else {
+            // 直接渲染
+            result = that._tpls[path].main(data);
+          }
           typeof callback === 'function' && callback.call(that, result);
           return result;
         } else {
@@ -436,7 +449,43 @@
     return this;
   };
   /**
-   * get template data by url
+   * get a template file
+   * @method _ajax
+   * @param  {Object} options ajax options
+   * @return {this}
+   */
+  NodeTpl.prototype._ajax = function(options) {
+    var xmlHttp;
+    options = this.extend({
+      type: 'get',
+      async: true,
+      data: '',
+      success: function(data) {}
+    }, options);
+    try {
+      xmlHttp = new XMLHttpRequest();
+    } catch (e) {
+      try {
+        xmlHttp = new ActiveXObject('Msxml2.XMLHTTP');
+      } catch (e) {
+        try {
+          xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
+        } catch (e) {
+          return false;
+        }
+      }
+    }
+    xmlHttp.onreadystatechange = function() {
+      if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+        options.success.call(xmlHttp, xmlHttp.responseText);
+      }
+    };
+    xmlHttp.open(options.type, options.url, options.async);
+    xmlHttp.send(options.data);
+    return this;
+  };
+  /**
+   * get template compiled data or template code by url
    * @method get
    * @param  {String}   url      url
    * @param  {Object}   data     data
@@ -444,12 +493,42 @@
    * @return {Null}              null
    */
   NodeTpl.prototype.get = function(url, data, callback) {
+    var that = this;
+    if (/\/[^\/\.]+$|\.js$/.test(url.replace(/(\?#).*$/, ''))) {
+      // 编译后的 js 文件
+      that._getJs(url, data, callback);
+    } else {
+      // 模板源文件，暂缓渲染
+      if (typeof data === 'function') {
+        callback = data;
+        data = null;
+      }
+      that._ajax({
+        url: url,
+        type: 'get',
+        success: function(data) {
+          that.render(data, false, callback);
+        }
+      });
+    }
+  };
+  /**
+   * get template data by js url
+   * @method get
+   * @param  {String}   url      url
+   * @param  {Object}   data     data
+   * @param  {Function} callback callback
+   * @return {Null}              null
+   */
+  NodeTpl.prototype._getJs = function(url, data, callback) {
     var that = this,
-      path,
-      cache = that._tpls,
-      store,
+      delayData,
       doCallback,
-      moduleIniter;
+      moduleIniter,
+      _cache = that._cache,
+      _tpls = that._tpls,
+      _data = that._data;
+
     url = url.trim();
     if (!/^(https?:|\/{2})/.test(url)) {
       url = that.options.base + url;
@@ -463,10 +542,24 @@
     if (!/\.js$/.test(url)) {
       url = url + '.js';
     }
+    if (data === false) {
+      delayData = {
+        render: function(_data) {
+          return _tpls[url].main(_data || {});
+        },
+        toString: function() {
+          return _cache[url] ? _cache[url].html : this;
+        }
+      };
+    }
     moduleIniter = function(init) {
-      if (init) {
-        init(that);
-        callback(that._tpls[url].main(data));
+      if (!init) return false;
+      init(that);
+      if (typeof callback !== 'function') return false;
+      if (data === false) {
+        callback.call(that, delayData);
+      } else {
+        callback(_tpls[url].main(data));
       }
     };
     if (typeof define === 'function' && define.amd && typeof require === 'function') {
@@ -478,35 +571,24 @@
       seajs.use(url, moduleIniter);
       return that;
     }
-    path = url.replace(/^((https?:)?\/{2}[^\/]+)/, '');
-    if (!path) {
-      return false;
-    }
-    store = cache[url] || cache[path];
     if (typeof data === 'function') {
       callback = data;
       data = {};
     }
     doCallback = function() {
-      if (typeof callback === 'function') {
-        if (data === false) {
-          // when data is false, the render is delayed, call d.render(_data) manually.
-          callback.call(that, {
-            render: function(_data) {
-              return store.main(_data || {});
-            }
-          });
-        } else {
-          callback.call(that, store.main(data));
-        }
+      if (typeof callback !== 'function') return false;
+      if (data === false) {
+        // when data is false, the render is delayed, call d.render(_data) manually.
+        callback.call(that, delayData);
+      } else {
+        callback.call(that, _tpls[url].main(data));
       }
     };
-    if (typeof store === 'object' && typeof store.main === 'function') {
+    if (typeof _tpls[url] === 'object' && typeof _tpls[url].main === 'function') {
       doCallback();
     } else {
       that._load(url, function() {
-        store = cache[url] || cache[path];
-        if (typeof store === 'object' && typeof store.main === 'function') {
+        if (typeof _tpls[url] === 'object' && typeof _tpls[url].main === 'function') {
           doCallback();
         }
       });
