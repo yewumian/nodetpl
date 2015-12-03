@@ -25,10 +25,9 @@ var data = {
 var resultDom = document.getElementById('result');
 var content = document.getElementById('favor-tpl').innerHTML;
 
-nodetpl.render(content, data, function(d){
-  resultDom.innerHTML = d;
-  console.log(d);
-});
+var d = nodetpl.render(content, data);
+resultDom.innerHTML = d;
+console.log(d);
 </script>
 
 <script>
