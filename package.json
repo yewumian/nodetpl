@@ -2,7 +2,7 @@
   "author": {
     "name": "pillys",
     "email": "pillys@163.com",
-    "url": "http://www.nodetpl.com"
+    "url": "http://www.qque.com"
   },
   "dependencies": {},
   "description": "一款强大、高效、易用、有趣儿的 JavaScript 模板引擎",
@@ -25,7 +25,7 @@
     "url": "https://github.com/pillys/nodetpl",
     "type": "git"
   },
-  "version": "2.3.2",
+  "version": "2.3.3",
   "readmeFilename": "README.md",
   "license": "MIT",
   "bugs": {

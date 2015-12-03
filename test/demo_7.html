@@ -10,13 +10,12 @@
 
 <script src="http://www.nodetpl.com/static/js/lib/jquery-1.10.2.js"></script>
 <script>
-nodetpl.get('http://www.nodetpl.com/demo/tpls/1.tpl', function(tpl){
-  var data = {
-    "title": "个人爱好",
-    "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
-  };
-  // 这里的 d 不是渲染后的代码，而是一个对象
-  var d = tpl.render(data);
+var data = {
+  "title": "个人爱好",
+  "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
+};
+
+nodetpl.get('http://www.nodetpl.com/demo/tpls/1.tpl', data, function(d){
   $('#result').html(d);
   console.log(d);
 });
