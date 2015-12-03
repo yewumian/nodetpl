@@ -53,12 +53,12 @@
         <li>增加 <code>exec</code> 方法</li>
         <li>完善 <code>seaJs</code> 支持，提高模块化场景下代码的运行效率</li>
         <li><code>render</code> 方法增加同步、异步两种方式<strong class="high-level">模块化加载只能使用异步方式</strong>
-          <p>常规用法：</p>
-          <pre><code class="language-javascript">var html = nodetpl.render(..., data);</code></pre>
-          <p>模块化用法：</p>
+          <p>常规用法（异步）：</p>
           <pre><code class="language-javascript">nodetpl.render(..., data, function(d){
   // 这里是编译结果
 });</code></pre>
+          <p>同步方法（不安全，考虑适配更多场景，不支持使用此种渲染方法，请使用异步）：</p>
+          <del><pre><code class="language-javascript">var html = nodetpl.render(..., data);</code></pre></del>
         </li>
       </ul>
     </dd>
