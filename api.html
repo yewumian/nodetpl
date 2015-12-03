@@ -74,14 +74,14 @@
   </ul>
   <p>这里大部分是可以采用默认值的，只是在极少数的场景下，可能会涉及到调整 <code>vars.root</code> 的指向。</p>
   <h4 id="nodetpl_get">nodetpl.get(url, [data, ] callback)</h4>
-  <p>该方法具有双面性，它可以直接加载编译后的文件，也可以加载编译前的模板代码。</p>
+  <p>该方法具有双面性，它可以直接加载编译后的文件，也可以加载模板源代码进行编译。</p>
   <ul>
     <li>
       <p><strong>指定 <code>url</code> 没有后缀，或后缀为 <code>.js</code></strong></p>
       <p>加载指定的模板可执行文件（编译方式参见<a href="./compile.html" target="_blank">预编译</a>，后缀 .js 可以省略），并用 <code>data</code> 渲染，渲染后的结果返回给 <code>callback</code>。</p>
       <ul>
         <li>url：模板编译后的 js 文件路径</li>
-        <li>data：传入模板的数据</li>
+        <li>data：传入模板的数据，若 <code>data</code> 为 <code>false</code>，则暂缓渲染</li>
         <li>callback：模板编译后，执行的回调函数，回调函数会将编译后的 HTML 作为参数传入</li>
       </ul>
       <pre><code class="language-javascript">var data = {
@@ -92,26 +92,36 @@ nodetpl.get('http://www.nodetpl.com/demo/tpls/1.js', data, function(d){
   // console.log(d);
 });</code></pre>
       <p><a href="javascript:;" class="btn btn-try" id="btn-01">试一试</a><a href="./demo/demo_8.html" class="btn" target="_blank">查看DEMO</a></p>
-    </li>
-    <li>
-      <p><strong>指定 <code>url</code> 为对应的模板源文件</strong></p>
-      <p>加载指定的模板源文件（未编译），加载后的结果返回给 <code>callback</code>，暂缓渲染，该种场景下 <code>data</code> 不需要传递。</p>
-      <ul>
-        <li>url：模板源文件路径</li>
-        <li>callback：模板加载后，执行的回调函数，回调函数会传入一个包含 <code>render()</code> 及 <code>toString()</code> 方法的对象</li>
-      </ul>
-      <p>在这种场景下，传入的对象是这样的一个结构体：</p>
+      <p>若为 “暂缓渲染”，则 <code>callback</code> 传入的数据不再是渲染后的 <code>html</code>，而是下面结构体：</p>
       <pre><code class="language-javascript">{
   render: function(data) {...}
   toString: function() {...}
 }</code></pre>
-      <pre><code class="language-javascript">nodetpl.get('http://www.nodetpl.com/demo/tpls/1.tpl', function(tpl){
+      <p>在需要渲染的地方，直接执行该参数的 <code>render()</code> 方法即可：</p>
+      <pre><code class="language-javascript">nodetpl.get('http://www.nodetpl.com/demo/tpls/1.js', false, function(tpl){
   var data = {
     "title": "个人爱好",
     "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
   };
-  // 这里的 d 不是渲染后的代码，而是一个对象，使用 render(data) 方法可以渲染模板
-  var d = tpl.render(data);
+  // 这里的 tpl 不是渲染后的代码，而是一个对象，使用 render(data) 方法可以渲染模板
+  // var d = tpl.render(data);
+  // console.log(d);
+});</code></pre>
+    </li>
+    <li>
+      <p><strong>指定 <code>url</code> 为对应的模板源文件</strong></p>
+      <p>加载指定的模板源文件（未经过预编译），并用 <code>data</code> 渲染，渲染的结果返回给 <code>callback</code>。</p>
+      <ul>
+        <li>url：模板源文件路径</li>
+        <li>data：传入模板的数据，若 <code>data</code> 为 <code>false</code>，则暂缓渲染</li>
+        <li>callback：模板加载后，执行的回调函数，回调函数会传入一个包含 <code>render()</code> 及 <code>toString()</code> 方法的对象</li>
+      </ul>
+      <p>用法同上，但不同的是这里传入的 <code>url</code> 路径是模板源文件地址，通常为 <code>.tpl</code> 或 <code>.html</code></p>
+      <pre><code class="language-javascript">var data = {
+  "title": "个人爱好",
+  "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
+};
+nodetpl.get('http://www.nodetpl.com/demo/tpls/1.tpl', data, function(d){
   // console.log(d);
 });</code></pre>
       <p><a href="javascript:;" class="btn btn-try" id="btn-02">试一试</a><a href="./demo/demo_7.html" class="btn" target="_blank">查看DEMO</a></p>

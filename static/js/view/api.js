@@ -21,14 +21,14 @@ define(function(require, exports, module) {
   });
 
   $('#btn-02').on('click', function() {
-    nodetpl.get('http://www.nodetpl.com/demo/tpls/1.tpl', function(tpl) {
-      var data = {
-        "title": "个人爱好",
-        "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
-      };
+    var data = {
+      "title": "个人爱好",
+      "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
+    };
+    nodetpl.get('http://www.nodetpl.com/demo/tpls/1.tpl', data, function(d) {
       vDialog({
         title: '运行结果',
-        content: tpl.render(data),
+        content: d,
         width: 400,
         ok: true
       }).showModal();
