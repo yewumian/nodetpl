@@ -64,8 +64,9 @@
   "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
 };
 var content = document.getElementById('testid').innerHTML;
-var d = nodetpl.render(content, data);
-console.log(d);
+nodetpl.render(content, data, function(d){
+  console.log(d);
+});
 </code></pre>
   <h4>运行结果</h4>
   <pre><code class="language-html">&lt;h1&gt;个人爱好&lt;/h1&gt;
@@ -94,7 +95,8 @@ console.log(d);
     <li>config()</li>
     <li>get()</li>
     <li>render()</li>
-    <li>nodetpl &lt;path&gt;</li>
+    <li>exec()</li>
+    <li>nodetpl &lt;path&gt; -look</li>
   </ul>
 </section>
 <footer>
