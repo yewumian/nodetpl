@@ -5,7 +5,7 @@ define(function(require, exports, module) {
   var nodetpl = require('nodetpl');
   var vDialog = require('vDialog');
 
-  $('#btn-01').on('click', function() {
+  $('#btn-01,#btn-02').on('click', function() {
     var data = {
       "title": "个人爱好",
       "favor": ["足球", "篮球", "乒乓球", "琉璃球"]

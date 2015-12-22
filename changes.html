@@ -8,8 +8,8 @@
 <link rel="stylesheet" type="text/css" href="./static/css/vdialog.css">
 <link rel="stylesheet" type="text/css" href="./static/css/highlight/prism.css">
 <script type="text/javascript" src="./static/js/highlight/prism.js"></script>
-<script type="text/javascript" src="./static/js/sea.js"></script>
-<script type="text/javascript" src="./static/js/sea-config.js"></script>
+<script type="text/javascript" src="./static/js/require.js"></script>
+<script type="text/javascript" src="./static/js/require-config.js"></script>
 </head>
 <body id="changes">
 <header>
@@ -38,6 +38,15 @@
 </div>
 <section class="wrap">
   <h2>升级日志</h2>
+  <dl>
+    <dt>3.0.0<time>2015.12.22</time></dt>
+    <dd>
+      <ul>
+        <li>优化了模块化加载方式（CMD/AMD），提高编译性能</li>
+        <li><code>$ROOT</code> / <code>$SUBROOT</code> 废弃，若使用 <code>jQuery</code>，请用 <code>$(ROOT)</code> 和 <code>$(SUBROOT)</code> 代替</li>
+      </ul>
+    </dd>
+  </dl>
   <dl>
     <dt>2.3.3<time>2015.12.04</time></dt>
     <dd>

@@ -13,10 +13,10 @@
     <div class="content"></div>
   </div>
   <script>
-  var contentBox = $ROOT.find('.content');
+  var contentBox = $(ROOT).find('.content');
   var viewHtml = include('view');
   contentBox.html(viewHtml);
-  $ROOT.find('.title a.link-modify').on('click', function(){
+  $(ROOT).find('.title a.link-modify').on('click', function(){
     var editHtml = include('edit');
     contentBox.html(editHtml);
   });
@@ -58,7 +58,7 @@
     </form>
   </div>
   <script>
-  $SUBROOT.find('form').on('submit', function(){
+  $(SUBROOT).find('form').on('submit', function(){
     var name = $(this).find('input[name="name"]').val(),
       gender = $(this).find('input[name="gender"]').val(),
       age = $(this).find('input[name="age"]').val();
@@ -66,7 +66,7 @@
     $DATA.gender = gender;
     $DATA.age = age;
     var viewHtml = include('view');
-    $ROOT.find('.content').html(viewHtml);
+    $(ROOT).find('.content').html(viewHtml);
     return false;
   });
   </script>

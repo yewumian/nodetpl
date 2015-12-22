@@ -104,7 +104,7 @@ define(function(require, exports, module) {
       var padding = \'20\';\n\
       ROOT.style.padding = padding + \'px\';\n\
       // OR\n\
-      $ROOT.css(\'color\', \'#f00\');\n\
+      $(ROOT).css(\'color\', \'#f00\');\n\
       console.log($DATA.title);\n\
       </script>';
     nodetpl.render(template, data, function(d) {

@@ -12,5 +12,5 @@ a{
   </ul>
 </div>
 <script>
-console.log($ROOT);
+console.log($(ROOT));
 </script>

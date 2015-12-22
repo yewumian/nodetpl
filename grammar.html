@@ -8,8 +8,8 @@
 <link rel="stylesheet" type="text/css" href="./static/css/vdialog.css">
 <link rel="stylesheet" type="text/css" href="./static/css/highlight/prism.css">
 <script type="text/javascript" src="./static/js/highlight/prism.js"></script>
-<script type="text/javascript" src="./static/js/sea.js"></script>
-<script type="text/javascript" src="./static/js/sea-config.js"></script>
+<script type="text/javascript" src="./static/js/require.js"></script>
+<script type="text/javascript" src="./static/js/require-config.js"></script>
 </head>
 <body id="start">
 <header>
@@ -90,7 +90,6 @@
   <p>在 <code>JavaScript</code> 代码中，<code>nodetpl</code> 为你预置了下面几个变量：</p>
   <ul>
     <li><code>ROOT</code>：根节点 <code>DOM</code> 元素，即：<code>document.getElementById('根节点')</code></li>
-    <li><code>$ROOT</code>：默认为根节点所代表的 <code>jQuery</code> 对象，即：<code>$('#根节点')</code>，该变量代表的含义可以在 <code>config</code> 中进行调整</li>
     <li><code>$DATA</code>：传入的数据</li>
   </ul>
   <p>同样，你也不需要为命名冲突而担忧，因为 <code>nodetpl</code> 会让你的脚本在一个匿名函数中执行。</p>
@@ -103,8 +102,8 @@
 &lt;script&gt;
 var padding = '20';
 ROOT.style.padding = padding + 'px';
-// OR
-$ROOT.css('color', '#f00');
+// OR use jQuery
+$(ROOT).css('color', '#f00');
 console.log($DATA.title);
 &lt;/script&gt;</code></pre>
   <p><a href="javascript:;" class="btn btn-try" id="btn-05">试一试</a><a href="./demo/demo_6.html" class="btn" target="_blank">查看DEMO</a></p>
@@ -117,7 +116,7 @@ console.log($DATA.title);
     <p>&copy; 2012 - 2015 nodetpl.com by <a href="http://www.qque.com/">pillys</a></p>
   </div>
 </footer>
-<script>seajs.use('view/grammar');</script>
+<script>require(['view/grammar']);</script>
 <script>
 var _hmt = _hmt || [];
 (function() {

@@ -1,36 +1,22 @@
 (function(root, factory) {
  if (typeof define === 'function') {
-   if (define.amd){
-     define(factory);
-   } else if (define.cmd){
-     define(function(require, exports, module) {
-       return factory(require, exports, module);
-     });
-   }
+   define(factory);
  } else if (typeof exports === 'object') {
-   module.exports = factory();
+   module.exports = factory;
  } else {
-   factory()(window.nodetpl);
+   factory();
  }
 }(this, function(require, exports, module) {
-return function(N, undefined){
-  var PATH = '';
-  if(!N || !N._tpls) return false;
-  if (PATH === '') {
-    if (module && module.uri) {
-      PATH = module.uri;
-    } else if (N._getCurrentScript) {
-      PATH = N._getCurrentScript();
-    }
-  }
-  N._tpls[PATH] = N._tpls[PATH] ||
-{
+  var nodetpl = typeof require === 'function' ? require('nodetpl') : window.nodetpl;
+  var tpl_id = module && module.uri ? module.uri : nodetpl._getCurrentScript();
+  nodetpl._tpls[tpl_id] = {
   "main": function($DATA, guid){
-    var _ = '', css = '', dguid = N.dguid();
-    guid = guid || N.guid();
-    css += '';
-    css += '#' + guid + ' a{  font-size: 12px;}';
-    _ += N.css(css);
+    var _ = '';
+    var css = '';
+    var duid = nodetpl.duid();
+    guid = guid || nodetpl.guid();
+    css += '\n#' + guid + ' a{  font-size: 12px;}';
+    _ += nodetpl.css(css);
 with($DATA || {}){
 
     _ += '<div id="'+ guid +'">\n  <h1>';
@@ -55,46 +41,34 @@ for(var i=0; i<favor.length; i++){
     _ += '\n  </ul>\n</div>';
 
 }
-    _ += '<script>';
+    _ += '\n<script>\n';
     _ += '(function(window, document, undefined){\n';
-    _ += '  var __module_id = "'+ PATH + '_main";\n';
-    _ += '  var __callback = function(nodetpl, guid, dguid){\n';
+    _ += '  var _module_id = Math.random().toString();\n';
+    _ += '  var _factory = function(require, exports, module){\n';
+    _ += '    var nodetpl = typeof require === \'function\' ? require(\'nodetpl\') : window.nodetpl;\n';
     _ += '    var ROOT, $ROOT, SUBROOT, $SUBROOT, $TPLS, $DATA;\n';
+    _ += '    var guid = \''+ guid + '\', duid = \''+ duid + '\';\n';
     _ += '    ROOT = document.getElementById(guid);\n';
-    _ += '    SUBROOT = document.getElementById(guid + dguid);\n';
-    _ += '    $TPLS = nodetpl._tpls["'+ PATH +'"];\n';
-    _ += '    $DATA = nodetpl._data[dguid];\n';
-    _ += '    try{\n';
-    _ += '      $ROOT = '+ N.options.vars.root.replace(/~/, '"+ guid + "') + ';\n';
-    _ += '      $SUBROOT = '+ N.options.vars.root.replace(/~/, '"+ guid + dguid + "') + ';\n';
-    _ += '    } catch(e) { }\n';
-    _ += 'console.log($ROOT);\n';
-    _ += '    delete nodetpl._data[dguid];\n';
-    _ += '  };\n';
-    if (typeof define === 'function' && define.cmd && typeof seajs === 'object') {
-      // CMD seaJs
-      _ += '  define(__module_id, function(require, exports, module){\n';
-      _ += '    var nodetpl = require(\'nodetpl\');\n';
-      _ += '    return function(guid, dguid){\n';
-      _ += '      __callback(nodetpl, guid, dguid);\n';
-      _ += '    };\n';
-      _ += '  });\n';
-      _ += '  seajs.use(__module_id, function(fn){\n';
-      _ += '    fn && fn("'+ guid + '", "'+ dguid + '");\n';
-      _ += '  });\n';
-    } else if (typeof define === 'function' && define.amd && typeof require === 'function') {
-      // AMD requireJs
-      _ += '  require(\'nodetpl\', function(nodetpl){\n';
-      _ += '    __callback(nodetpl, "'+ guid + '", "'+ dguid + '");\n';
-      _ += '  });\n';
-    } else {
-      _ += '__callback(window.nodetpl, "'+ guid + '", "'+ dguid + '");\n';
-    }
-    _ += '})(window, document);\n';
+    _ += '    SUBROOT = document.getElementById(guid + duid);\n';
+    _ += '    $TPLS = nodetpl._tpls["'+ tpl_id +'"];\n';
+    _ += '    $DATA = nodetpl._data[duid];\n';
+    _ += 'console.log($(ROOT));\n';
+    _ += '  }\n';
+    _ += '  if(typeof define === \'function\'){\n';
+    _ += '    define(_module_id, _factory);\n';
+    _ += '    if (define.amd && typeof require === \'function\') {\n';
+    _ += '      require([_module_id]);\n';
+    _ += '    } else if (define.cmd && typeof seajs === \'object\') {\n';
+    _ += '      seajs.use([_module_id]);\n';
+    _ += '    }\n';
+    _ += '  } else {\n';
+    _ += '    _factory();\n';
+    _ += '  }\n';
+    _ += '})(window, document);';
     _ += '</script>\n';
-    $DATA && (N._data[dguid] = $DATA);
+    $DATA && (nodetpl._data[duid] = $DATA);
     return _;
   }
 };
-};
+  return nodetpl._tpls[tpl_id];
 }));

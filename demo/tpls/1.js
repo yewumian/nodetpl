@@ -1,33 +1,20 @@
 (function(root, factory) {
  if (typeof define === 'function') {
-   if (define.amd){
-     define(factory);
-   } else if (define.cmd){
-     define(function(require, exports, module) {
-       return factory(require, exports, module);
-     });
-   }
+   define(factory);
  } else if (typeof exports === 'object') {
-   module.exports = factory();
+   module.exports = factory;
  } else {
-   factory()(window.nodetpl);
+   factory();
  }
 }(this, function(require, exports, module) {
-return function(N, undefined){
-  var PATH = '';
-  if(!N || !N._tpls) return false;
-  if (PATH === '') {
-    if (module && module.uri) {
-      PATH = module.uri;
-    } else if (N._getCurrentScript) {
-      PATH = N._getCurrentScript();
-    }
-  }
-  N._tpls[PATH] = N._tpls[PATH] ||
-{
+  var nodetpl = typeof require === 'function' ? require('nodetpl') : window.nodetpl;
+  var tpl_id = module && module.uri ? module.uri : nodetpl._getCurrentScript();
+  nodetpl._tpls[tpl_id] = {
   "main": function($DATA, guid){
-    var _ = '', css = '', dguid = N.dguid();
-    guid = guid || N.guid();
+    var _ = '';
+    var css = '';
+    var duid = nodetpl.duid();
+    guid = guid || nodetpl.guid();
 
 with($DATA || {}){
 
@@ -53,9 +40,9 @@ for(var i=0; i<favor.length; i++){
     _ += '\n</ul>';
 
 }
-    $DATA && (N._data[dguid] = $DATA);
+    $DATA && (nodetpl._data[duid] = $DATA);
     return _;
   }
 };
-};
+  return nodetpl._tpls[tpl_id];
 }));

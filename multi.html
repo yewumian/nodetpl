@@ -8,8 +8,8 @@
 <link rel="stylesheet" type="text/css" href="./static/css/vdialog.css">
 <link rel="stylesheet" type="text/css" href="./static/css/highlight/prism.css">
 <script type="text/javascript" src="./static/js/highlight/prism.js"></script>
-<script type="text/javascript" src="./static/js/sea.js"></script>
-<script type="text/javascript" src="./static/js/sea-config.js"></script>
+<script type="text/javascript" src="./static/js/require.js"></script>
+<script type="text/javascript" src="./static/js/require-config.js"></script>
 </head>
 <body id="multi">
 <header>
@@ -77,15 +77,15 @@
     padding: 10px;
   }
   &lt;/style&gt;
-  &lt;div id="$ROOT"&gt;
+  &lt;div id="$(ROOT)"&gt;
     &lt;div class="title"&gt;个人名片 [&lt;a class="link-modify" href="javascript:;"&gt;修改&lt;/a&gt;]&lt;/div&gt;
     &lt;div class="content"&gt;&lt;/div&gt;
   &lt;/div&gt;
   &lt;script&gt;
-  var contentBox = $ROOT.find('.content');
+  var contentBox = $(ROOT).find('.content');
   var viewHtml = include('view');
   contentBox.html(viewHtml);
-  $ROOT.find('.title a.link-modify').on('click', function(){
+  $(ROOT).find('.title a.link-modify').on('click', function(){
     var editHtml = include('edit');
     contentBox.html(editHtml);
   });
@@ -106,7 +106,7 @@
     border: 1px solid #ccc;
   }
   &lt;/style&gt;
-  &lt;div id="$SUBROOT"&gt;
+  &lt;div id="$(SUBROOT)"&gt;
     &lt;ul&gt;
       &lt;li&gt;姓名：&lt;?=name?&gt;&lt;/li&gt;
       &lt;li&gt;性别：&lt;?=gender?&gt;&lt;/li&gt;
@@ -122,7 +122,7 @@
     background-color: #eee;
   }
   &lt;/style&gt;
-  &lt;div id="$SUBROOT"&gt;
+  &lt;div id="$(SUBROOT)"&gt;
     &lt;form action=""&gt;
       &lt;ul&gt;
         &lt;li&gt;姓名：&lt;input type="text" name="name" value="&lt;?=name?&gt;" /&gt;&lt;/li&gt;
@@ -135,7 +135,7 @@
     &lt;/form&gt;
   &lt;/div&gt;
   &lt;script&gt;
-  $SUBROOT.find('form').on('submit', function(){
+  $(SUBROOT).find('form').on('submit', function(){
     var name = $(this).find('input[name="name"]').val(),
       gender = $(this).find('input[name="gender"]').val(),
       age = $(this).find('input[name="age"]').val();
@@ -143,19 +143,19 @@
     $DATA.gender = gender;
     $DATA.age = age;
     var viewHtml = include('view');
-    $ROOT.find('.content').html(viewHtml);
+    $(ROOT).find('.content').html(viewHtml);
     return false;
   });
   &lt;/script&gt;
 &lt;/template&gt;</code></pre>
-  <p>从上面代码可以看到，与主模板不同的是，子模板中的“根元素”，不再使用 “<code>$ROOT</code>” 表示，取而代之的是 “<code>$SUBROOT</code>” 关键字。</p>
+  <p>从上面代码可以看到，与主模板不同的是，子模板中的“根元素”，不再使用 “<code>ROOT</code>” 表示，取而代之的是 “<code>SUBROOT</code>” 关键字。</p>
 </section>
 <footer>
   <div class="wrap">
     <p>&copy; 2012 - 2015 nodetpl.com by <a href="http://www.qque.com/">pillys</a></p>
   </div>
 </footer>
-<script>seajs.use('view/multi');</script>
+<script>require(['view/multi']);</script>
 <script>
 var _hmt = _hmt || [];
 (function() {

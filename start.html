@@ -8,8 +8,8 @@
 <link rel="stylesheet" type="text/css" href="./static/css/vdialog.css">
 <link rel="stylesheet" type="text/css" href="./static/css/highlight/prism.css">
 <script type="text/javascript" src="./static/js/highlight/prism.js"></script>
-<script type="text/javascript" src="./static/js/sea.js"></script>
-<script type="text/javascript" src="./static/js/sea-config.js"></script>
+<script type="text/javascript" src="./static/js/require.js"></script>
+<script type="text/javascript" src="./static/js/require-config.js"></script>
 </head>
 <body id="start">
 <header>
@@ -84,9 +84,7 @@ nodetpl.render(content, data, function(d){
   <ul class="clearfix key-list">
     <li>&lt;? ?&gt;</li>
     <li>ROOT</li>
-    <li>$ROOT</li>
     <li>SUBROOT</li>
-    <li>$SUBROOT</li>
     <li>$DATA</li>
     <li>=</li>
     <li>include</li>
@@ -112,7 +110,7 @@ nodetpl.render(content, data, function(d){
   <?}?>
 </ul>
 </script>
-<script>seajs.use('view/start');</script>
+<script>require(['view/start']);</script>
 <script>
 var _hmt = _hmt || [];
 (function() {

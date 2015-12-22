@@ -8,8 +8,8 @@
 <link rel="stylesheet" type="text/css" href="./static/css/vdialog.css">
 <link rel="stylesheet" type="text/css" href="./static/css/highlight/prism.css">
 <script type="text/javascript" src="./static/js/highlight/prism.js"></script>
-<script type="text/javascript" src="./static/js/sea.js"></script>
-<script type="text/javascript" src="./static/js/sea-config.js"></script>
+<script type="text/javascript" src="./static/js/require.js"></script>
+<script type="text/javascript" src="./static/js/require-config.js"></script>
 </head>
 <body id="api">
 <header>
@@ -54,25 +54,17 @@
   <p>下面是可以配置的参数示例：</p>
   <pre><code class="language-javascript">nodetpl.config({
   base: 'http://www.nodetpl.com/static/tpl/',   // 强制指定模板根目录
-  vars: {
-    root: '$("#~")'
-  },
   openTag: '&lt;?',
   closeTag: '?&gt;',
   cache: true
 });</code></pre>
   <ul>
     <li>base：模板所在的根路径，可以省略。若配置该参数，则使用 <code>.get()</code> 方法填写的路径会相对于该路径进行查找</li>
-    <li>vars：变量相关信息
-      <ul>
-        <li>root：模板 <code>JS</code> 代码中的 <code>$ROOT</code> 所代表的对象。默认为 <code>jQuery</code> 对象，即 <code>$("#~")</code>，若你使用的是其他类库，可以调整该参数的指向</li>
-      </ul>
-    </li>
     <li>openTag：模板定界符开始标签，默认为：<code>&lt;?</code></li>
     <li>closeTag：模板定界符结束标签，默认为：<code>?&gt;</code></li>
     <li>cache：是否开启缓存，默认开启</li>
   </ul>
-  <p>这里大部分是可以采用默认值的，只是在极少数的场景下，可能会涉及到调整 <code>vars.root</code> 的指向。</p>
+  <p>这里大部分是可以采用默认值的，所以该方法可以省略。只是在极少数的场景下，你可能根据自己的需要做调整。</p>
   <h4 id="nodetpl_get">nodetpl.get(url, [data, ] callback)</h4>
   <p>该方法具有双面性，它可以直接加载编译后的文件，也可以加载模板源代码进行编译。</p>
   <ul>
@@ -202,7 +194,7 @@ console.log(html);</code></pre>
   <?}?>
 </ul>
 </script>
-<script>seajs.use('view/api');</script>
+<script>require(['view/api']);</script>
 <script>
 var _hmt = _hmt || [];
 (function() {
