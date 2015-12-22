@@ -1,5 +1,5 @@
 /*!
- * nodetpl v2.3.3
+ * nodetpl v3.0.0
  * Best javascript template engine
  * https://www.nodetpl.com
  *
@@ -14,7 +14,7 @@
   /* global define, exports, module */
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define('nodetpl', [], factory);
+    define(factory);
   } else if (typeof define === 'function' && define.cmd) {
     // CMD.
     define(factory);
@@ -28,35 +28,31 @@
     root.nodetpl = factory();
   }
 }(this, function(require, exports, module) {
+
+  var nodetpl;
+
   // String.prototype.trim
   if (!String.prototype.trim) String.prototype.trim = function() {
     return this.replace(/^\s+|\s+$/g, '');
   }
 
   function NodeTpl() {
-    this.version = '2.3.3';
+    this.version = '3.0.0';
     this.ie6 = window.VBArray && !window.XMLHttpRequest;
     this.guid = function() {
       return 'NTGUID__' + (this.guid._counter++).toString(36);
     };
-    this.dguid = function() {
-      return 'NTDGUID__' + (this.dguid._counter++).toString(36);
-    };
-    this.rguid = function() {
-      return 'NTRGUID__' + (this.rguid._counter++).toString(36);
+    this.duid = function() {
+      return 'NTDUID__' + (this.duid._counter++).toString(36);
     };
     this.guid._counter = 1;
-    this.dguid._counter = 1;
-    this.rguid._counter = 1;
+    this.duid._counter = 1;
     this._data = {};
     this._tpls = {};
     this._cache = {};
     this._docid = '_tpl_';
     this.options = {
       base: '',
-      vars: {
-        'root': '$("#~")' // like jQuery
-      },
       openTag: '<?',
       closeTag: '?>'
     };
@@ -65,87 +61,20 @@
 
   NodeTpl.prototype.config = function(options) {
     if (options) {
-      this.extend(this.options, options);
+      this._extend(this.options, options);
       return this;
     } else {
       return this.options;
     }
   };
 
-  NodeTpl.prototype.extend = function() {
-    var that = this,
-      options, name, src, copy, copyIsArray, clone,
-      target = arguments[0],
-      i = 1,
-      length = arguments.length,
-      deep = false;
-    var hasOwn = Object.prototype.hasOwnProperty;
-    var toStr = Object.prototype.toString;
-
-    var isArray = function isArray(arr) {
-      if (typeof Array.isArray === 'function') {
-        return Array.isArray(arr);
-      }
-
-      return toStr.call(arr) === '[object Array]';
-    };
-    var isPlainObject = function isPlainObject(obj) {
-      if (!obj || toStr.call(obj) !== '[object Object]') {
-        return false;
-      }
-
-      var hasOwnConstructor = hasOwn.call(obj, 'constructor');
-      var hasIsPrototypeOf = obj.constructor && obj.constructor.prototype && hasOwn.call(obj.constructor.prototype, 'isPrototypeOf');
-      // Not own constructor property must be Object
-      if (obj.constructor && !hasOwnConstructor && !hasIsPrototypeOf) {
-        return false;
-      }
-
-      // Own properties are enumerated firstly, so to speed up,
-      // if last one is own, then all properties are own.
-      var key;
-      for (key in obj) { /**/ }
-
-      return typeof key === 'undefined' || hasOwn.call(obj, key);
-    };
-    // Handle a deep copy situation
-    if (typeof target === 'boolean') {
-      deep = target;
-      target = arguments[1] || {};
-      // skip the boolean and the target
-      i = 2;
-    } else if ((typeof target !== 'object' && typeof target !== 'function') || target == null) {
-      target = {};
+  NodeTpl.prototype._extend = function(obj, options) {
+    var hasOwnProperty = Object.prototype.hasOwnProperty;
+    options = options || {};
+    for (var i in options) {
+      if (!hasOwnProperty.call(options, i)) continue;
+      obj[i] = options[i];
     }
-    for (; i < length; ++i) {
-      options = arguments[i];
-      // Only deal with non-null/undefined values
-      if (options != null) {
-        // Extend the base object
-        for (name in options) {
-          src = target[name];
-          copy = options[name];
-          // Prevent never-ending loop
-          if (target !== copy) {
-            // Recurse if we're merging plain objects or arrays
-            if (deep && copy && (isPlainObject(copy) || (copyIsArray = isArray(copy)))) {
-              if (copyIsArray) {
-                copyIsArray = false;
-                clone = src && isArray(src) ? src : [];
-              } else {
-                clone = src && isPlainObject(src) ? src : {};
-              }
-              // Never move original objects, clone them
-              target[name] = that.extend(deep, clone, copy);
-              // Don't bring in undefined values
-            } else if (typeof copy !== 'undefined') {
-              target[name] = copy;
-            }
-          }
-        }
-      }
-    }
-    // Return the modified object
     return target;
   };
 
@@ -235,6 +164,7 @@
        *IE10:
        *  at Global code (http://113.93.50.63/data.js:4:1)
        */
+      stack = stack.replace(/(at Global code \([^\)]+\))[\s\S]*/i, '$1');
       stack = stack.split(/[@ ]/g).pop(); //取得最后一行,最后一个空格或@之后的部分
       stack = stack[0] == "(" ? stack.slice(1, -1) : stack;
       return stack.replace(/(:\d+)?:\d+$/i, ""); //去掉行号与或许存在的出错字符起始位置
@@ -321,76 +251,13 @@
    * @return {String}                        result
    */
   NodeTpl.prototype.render = function(html, data, callback) {
-    var that = this,
-      hasCache = false,
-      result, path, setCache = function() {
-        that._cache[path] = {
-          html: html,
-          result: result
-        };
-      },
-      doFinal = function() {
-        if (typeof that._tpls[path] === 'object' && typeof that._tpls[path].main === 'function') {
-          if (data === false) {
-            // 暂缓渲染
-            result = {
-              render: function(_data) {
-                return that._tpls[path].main(_data || {});
-              },
-              toString: function() {
-                return that._cache[path] ? that._cache[path].html : this;
-              }
-            };
-          } else {
-            // 直接渲染
-            result = that._tpls[path].main(data);
-          }
-          typeof callback === 'function' && callback.call(that, result);
-          return result;
-        } else {
-          return null;
-        }
-      },
-      moduleIniter = function(init) {
-        init(that);
-        setCache();
-        doFinal();
-      };
+    var path, result;
     if (typeof html !== 'string') {
       throw new TypeError();
     }
-    if (typeof data === 'function') {
-      callback = data, data = {};
-    }
-    for (var i in that._cache) {
-      if (that._cache.hasOwnProperty(i) && that._cache[i].html === html) {
-        path = i;
-        result = that._cache[i].result;
-        hasCache = true;
-        break;
-      }
-    }
-    if (!hasCache) {
-      // 如果非预编译模板，path 为 _docid 开头的字符串（固定）
-      path = that._docid + Math.random().toString();
-      result = that.compile(path, html);
-
-      // global eval or define a module.
-      (new Function(result))();
-
-      if (typeof define === 'function' && define.amd && typeof require === 'function') {
-        // requireJs module loader
-        require(path, moduleIniter);
-        return that;
-      } else if (typeof define === 'function' && define.cmd && typeof seajs === 'object') {
-        // seaJs module loader
-        seajs.use(path, moduleIniter);
-        return that;
-      } else {
-        setCache();
-      }
-    }
-    return doFinal();
+    path = this._docid + Math.random().toString();
+    (new Function(this.compile(path, html)))();
+    return this._getJs(path, data, callback);
   };
   /**
    * exec script code in content
@@ -403,23 +270,6 @@
       (new Function(code[1]))();
     }
     return this;
-  };
-  // todo
-  NodeTpl.prototype._update = function() {
-    return this;
-  };
-  /**
-   * Compile a template file
-   * @method compile
-   * @param  {String} path  pre compile path
-   * @param  {String} html  the tpl content
-   * @return {String}       content compiled
-   */
-  NodeTpl.prototype.compile = function(path, html) {
-    if (typeof path !== 'string' || typeof html !== 'string') {
-      throw new TypeError();
-    }
-    return this._compile(path, this._fetch(html));
   };
 
   NodeTpl.prototype._load = function(url, callback) {
@@ -456,7 +306,7 @@
    */
   NodeTpl.prototype._ajax = function(options) {
     var xmlHttp;
-    options = this.extend({
+    options = this._extend({
       type: 'get',
       async: true,
       data: '',
@@ -512,6 +362,25 @@
       });
     }
   };
+
+  NodeTpl.prototype._getUrl = function(url) {
+    url = url.trim();
+    if (url.indexOf(this._docid) !== 0) {
+      if (!/^(https?:|\/{2})/.test(url)) {
+        url = this.options.base + url;
+      }
+      if (/^\/[^\/]/.test(url)) {
+        url = '//' + location.host + url;
+      }
+      if (/^\/{2}/.test(url)) {
+        url = location.protocol + url;
+      }
+      if (!/\.js$/.test(url)) {
+        url = url + '.js';
+      }
+    }
+    return url;
+  };
   /**
    * get template data by js url
    * @method get
@@ -523,25 +392,12 @@
   NodeTpl.prototype._getJs = function(url, data, callback) {
     var that = this,
       delayData,
-      doCallback,
-      moduleIniter,
+      normalCallback,
+      moduleCallback,
       _cache = that._cache,
       _tpls = that._tpls,
       _data = that._data;
-
-    url = url.trim();
-    if (!/^(https?:|\/{2})/.test(url)) {
-      url = that.options.base + url;
-    }
-    if (/^\/[^\/]/.test(url)) {
-      url = '//' + location.host + url;
-    }
-    if (/^\/{2}/.test(url)) {
-      url = location.protocol + url;
-    }
-    if (!/\.js$/.test(url)) {
-      url = url + '.js';
-    }
+    url = that._getUrl(url);
     if (data === false) {
       delayData = {
         render: function(_data) {
@@ -552,30 +408,19 @@
         }
       };
     }
-    moduleIniter = function(init) {
-      if (!init) return false;
-      init(that);
-      if (typeof callback !== 'function') return false;
-      if (data === false) {
-        callback.call(that, delayData);
-      } else {
-        callback(_tpls[url].main(data));
-      }
-    };
-    if (typeof define === 'function' && define.amd && typeof require === 'function') {
-      // requireJs module loader
-      require(url, moduleIniter);
-      return that;
-    } else if (typeof define === 'function' && define.cmd && typeof seajs === 'object') {
-      // seaJs module loader
-      seajs.use(url, moduleIniter);
-      return that;
-    }
     if (typeof data === 'function') {
       callback = data;
       data = {};
     }
-    doCallback = function() {
+    moduleCallback = function(template) {
+      if (typeof callback !== 'function') return false;
+      if (data === false) {
+        callback.call(that, delayData);
+      } else {
+        callback(template.main(data));
+      }
+    };
+    normalCallback = function() {
       if (typeof callback !== 'function') return false;
       if (data === false) {
         // when data is false, the render is delayed, call d.render(_data) manually.
@@ -584,14 +429,24 @@
         callback.call(that, _tpls[url].main(data));
       }
     };
-    if (typeof _tpls[url] === 'object' && typeof _tpls[url].main === 'function') {
-      doCallback();
+    if (typeof define === 'function') {
+      if (define.amd && typeof require === 'function') {
+        // requireJs module loader
+        require([url], moduleCallback);
+      } else if (define.cmd && typeof seajs === 'object') {
+        // seaJs module loader
+        seajs.use([url], moduleCallback);
+      }
     } else {
-      that._load(url, function() {
-        if (typeof _tpls[url] === 'object' && typeof _tpls[url].main === 'function') {
-          doCallback();
-        }
-      });
+      if (url.indexOf(that._docid) === 0 || typeof _tpls[url] === 'object' && typeof _tpls[url].main === 'function') {
+        normalCallback();
+      } else {
+        that._load(url, function() {
+          if (typeof _tpls[url] === 'object' && typeof _tpls[url].main === 'function') {
+            normalCallback();
+          }
+        });
+      }
     }
   };
 
@@ -607,11 +462,12 @@
       jsCode = '',
       cssCode = '',
       cache = {};
-    var jsExp = /<script\b[^>]*>([^<]*(?:(?!<\/script>)<[^<]*)*)<\/script>/igm,
+    var hasOwnProperty = Object.prototype.hasOwnProperty,
+      jsExp = /<script\b[^>]*>([^<]*(?:(?!<\/script>)<[^<]*)*)<\/script>/igm,
       cssExp = /<style\b[^>]*>([^<]*(?:(?!<\/style>)<[^<]*)*)<\/style>/igm;
     list = this._template(html);
     for (var tplname in list) {
-      if (!list.hasOwnProperty(tplname)) {
+      if (!hasOwnProperty.call(list, tplname)) {
         continue;
       }
       cssCode = '';
@@ -642,15 +498,15 @@
    */
   NodeTpl.prototype._css = function(content, tplname) {
     if (content) {
-      content = content.replace(/'/g, '\\\'');
-      content = '    css += \'' + content
+      content = content
+        .replace(/'/g, '\\\'')
         .replace(/\/\*(.|\n)*?\*\/|\r?\n/ig, '')
         .replace(/([a-zA-Z0-9_\-#*\.:\s,\(\)'"<>=]*)(\{)/ig, function(a, b, c) {
           var sguid;
           if (tplname === 'main') {
             sguid = 'guid';
           } else {
-            sguid = 'guid + dguid';
+            sguid = 'guid + duid';
           }
           b = b.trim();
           if (b === '') {
@@ -659,12 +515,14 @@
             var _b = b.split(',');
             for (var i = 0; i < _b.length; i++) {
               _b[i] = _b[i].trim();
-              _b[i] = '\';\r\n    css += \'#\' + ' + sguid + ' + \'' + (_b[i].indexOf(':') === 0 ? '' : ' ') + _b[i];
+              _b[i] = '\\n#\' + ' + sguid + ' + \'' + (_b[i].indexOf(':') === 0 ? '' : ' ') + _b[i];
             }
             return _b.join(',') + c;
           }
         });
-      content += '\';';
+      if (content !== '') {
+        content = '    css += \'' + content + '\';';
+      }
     }
     return content;
   };
@@ -748,10 +606,23 @@
       }
       content = html.join('');
       content = content.replace(/\$ROOT/igm, '\'+ guid +\'');
-      content = content.replace(/\$SUBROOT/igm, '\'+ guid + dguid +\'');
+      content = content.replace(/\$SUBROOT/igm, '\'+ guid + duid +\'');
     }
     content = '\nwith($DATA || {}){\n' + content + '\n}\n';
     return content;
+  };
+  /**
+   * Compile a template file
+   * @method compile
+   * @param  {String} path  pre compile path
+   * @param  {String} html  the tpl content
+   * @return {String}       content compiled
+   */
+  NodeTpl.prototype.compile = function(path, html) {
+    if (typeof path !== 'string' || typeof html !== 'string') {
+      throw new TypeError();
+    }
+    return this._compile(path, this._fetch(html));
   };
   /**
    * compile template using path
@@ -762,105 +633,87 @@
    */
   NodeTpl.prototype._compile = function(path, cache) {
     var temp, html = '',
-      list = [];
+      list = [],
+      hasOwnProperty = Object.prototype.hasOwnProperty;
     for (var i in cache) {
-      if (!cache.hasOwnProperty(i)) {
+      if (!hasOwnProperty.call(cache, i)) {
         continue;
       }
       temp = '';
       temp += '  "' + i + '": function($DATA, guid){\n';
-      temp += "    var _ = '', css = '', dguid = N.dguid();\n";
-      temp += "    guid = guid || N.guid();\n";
+      temp += "    var _ = '';\n";
+      temp += "    var css = '';\n";
+      temp += "    var duid = nodetpl.duid();\n";
+      temp += "    guid = guid || nodetpl.guid();\n";
       if (cache[i].css) {
         temp += cache[i].css + "\n";
-        temp += "    _ += N.css(css);";
+        temp += "    _ += nodetpl.css(css);";
       }
       if (cache[i].html) {
         temp += cache[i].html;
       }
       if (cache[i].js) {
-        temp += "    _ += '<script>';\n";
+        temp += "    _ += '\\n<script>\\n';\n";
         temp += "    _ += '(function(window, document, undefined){\\n';\n";
-        temp += "    _ += '  var __module_id = \"'+ PATH + '_" + i + "\";\\n';\n";
-        temp += "    _ += '  var __callback = function(nodetpl, guid, dguid){\\n';\n";
+        temp += "    _ += '  var _module_id = Math.random().toString();\\n';\n";
+        temp += "    _ += '  var _factory = function(require, exports, module){\\n';\n";
+        temp += "    _ += '    var nodetpl = typeof require === \\'function\\' ? require(\\'nodetpl\\') : window.nodetpl;\\n';\n";
         temp += "    _ += '    var ROOT, $ROOT, SUBROOT, $SUBROOT, $TPLS, $DATA;\\n';\n";
+        temp += "    _ += '    var guid = \\''+ guid + '\\', duid = \\''+ duid + '\\';\\n';\n";
         temp += "    _ += '    ROOT = document.getElementById(guid);\\n';\n";
-        temp += "    _ += '    SUBROOT = document.getElementById(guid + dguid);\\n';\n";
-        temp += "    _ += '    $TPLS = nodetpl._tpls[\"\'+ PATH +\'\"];\\n';\n";
-        temp += "    _ += '    $DATA = nodetpl._data[dguid];\\n';\n";
-        temp += "    _ += '    try{\\n';\n";
-        temp += "    _ += '      $ROOT = '+ N.options.vars.root.replace(/~/, '\"+ guid + \"') + ';\\n';\n";
-        temp += "    _ += '      $SUBROOT = '+ N.options.vars.root.replace(/~/, '\"+ guid + dguid + \"') + ';\\n';\n";
-        temp += "    _ += '    } catch(e) { }\\n';\n";
+        temp += "    _ += '    SUBROOT = document.getElementById(guid + duid);\\n';\n";
+        temp += "    _ += '    $TPLS = nodetpl._tpls[\"\'+ tpl_id +\'\"];\\n';\n";
+        temp += "    _ += '    $DATA = nodetpl._data[duid];\\n';\n";
         temp += cache[i].js;
-        temp += "    _ += '    delete nodetpl._data[dguid];\\n';\n";
-        temp += "    _ += '  };\\n';\n";
-        temp += "    if (typeof define === 'function' && define.cmd && typeof seajs === 'object') {\n";
-        temp += "      // CMD seaJs\n";
-        temp += "      _ += '  define(__module_id, function(require, exports, module){\\n';\n";
-        temp += "      _ += '    var nodetpl = require(\\'nodetpl\\');\\n';\n";
-        temp += "      _ += '    return function(guid, dguid){\\n';\n";
-        temp += "      _ += '      __callback(nodetpl, guid, dguid);\\n';\n";
-        temp += "      _ += '    };\\n';\n";
-        temp += "      _ += '  });\\n';\n";
-        temp += "      _ += '  seajs.use(__module_id, function(fn){\\n';\n";
-        temp += "      _ += '    fn && fn(\"'+ guid + '\", \"'+ dguid + '\");\\n';\n";
-        temp += "      _ += '  });\\n';\n";
-        temp += "    } else if (typeof define === 'function' && define.amd && typeof require === 'function') {\n";
-        temp += "      // AMD requireJs\n";
-        temp += "      _ += '  require(\\'nodetpl\\', function(nodetpl){\\n';\n";
-        temp += "      _ += '    __callback(nodetpl, \"'+ guid + '\", \"'+ dguid + '\");\\n';\n";
-        temp += "      _ += '  });\\n';\n";
-        temp += "    } else {\n";
-        temp += "      _ += '__callback(window.nodetpl, \"'+ guid + '\", \"'+ dguid + '\");\\n';\n";
-        temp += "    }\n";
-        temp += "    _ += '})(window, document);\\n';\n";
+        temp += "    _ += '  }\\n';\n";
+        temp += "    _ += '  if(typeof define === \\'function\\'){\\n';\n";
+        temp += "    _ += '    define(_module_id, _factory);\\n';\n";
+        temp += "    _ += '    if (define.amd && typeof require === \\'function\\') {\\n';\n";
+        temp += "    _ += '      require([_module_id]);\\n';\n";
+        temp += "    _ += '    } else if (define.cmd && typeof seajs === \\'object\\') {\\n';\n";
+        temp += "    _ += '      seajs.use([_module_id]);\\n';\n";
+        temp += "    _ += '    }\\n';\n";
+        temp += "    _ += '  } else {\\n';\n";
+        temp += "    _ += '    _factory();\\n';\n";
+        temp += "    _ += '  }\\n';\n";
+        temp += "    _ += '})(window, document);';\n";
         temp += "    _ += '</script>\\n';\n";
       }
-      temp += '    $DATA && (N._data[dguid] = $DATA);\n';
+      temp += "    $DATA && (nodetpl._data[duid] = $DATA);\n";
       temp += "    return _;\n";
-      temp += '  }';
+      temp += "  }";
       list.push(temp);
     }
+
     html += "(function(root, factory) {\n";
     html += " if (typeof define === 'function') {\n";
-    html += "   if (define.amd){\n";
-    html += "     define(factory);\n";
-    html += "   } else if (define.cmd){\n";
     if (path.indexOf(this._docid) === 0) {
       // 非预编译模板，需要传递一个 id 给模块
-      html += "     define('" + path + "', function(require, exports, module) {\n";
-      html += "       return factory(require, exports, module);\n";
-      html += "     });\n";
+      html += "   define('" + path + "', factory);\n";
     } else {
       // 预编译模板，无需传递 id
-      html += "     define(function(require, exports, module) {\n";
-      html += "       return factory(require, exports, module);\n";
-      html += "     });\n";
+      html += "   define(factory);\n";
     }
-    html += "   }\n";
     html += " } else if (typeof exports === 'object') {\n";
-    html += "   module.exports = factory();\n";
+    html += "   module.exports = factory;\n";
     html += " } else {\n";
-    html += "   factory()(window.nodetpl);\n";
+    html += "   factory();\n";
     html += " }\n";
     html += "}(this, function(require, exports, module) {\n";
-    html += "return function(N, undefined){\n";
-    html += "  var PATH = '" + path + "';\n";
-    html += "  if(!N || !N._tpls) return false;\n";
-    html += "  if (PATH === '') {\n";
-    html += "    if (module && module.uri) {\n";
-    html += "      PATH = module.uri;\n";
-    html += "    } else if (N._getCurrentScript) {\n";
-    html += "      PATH = N._getCurrentScript();\n";
-    html += "    }\n";
-    html += "  }\n";
-    html += "  N._tpls[PATH] = N._tpls[PATH] ||\n{\n";
+    html += "  var nodetpl = typeof require === 'function' ? require('nodetpl') : window.nodetpl;\n";
+    if (path.indexOf(this._docid) === 0) {
+      html += "  var tpl_id = '" + path + "';\n";
+    } else {
+      html += "  var tpl_id = module && module.uri ? module.uri : nodetpl._getCurrentScript();\n";
+    }
+    html += "  nodetpl._tpls[tpl_id] = {\n";
     html += list.join(',\n');
-    html += "\n};";
     html += "\n};\n";
+    html += "  return nodetpl._tpls[tpl_id];\n";
     html += "}));";
     return html;
   };
-  return new NodeTpl();
+
+  nodetpl = new NodeTpl();
+  return nodetpl;
 }));

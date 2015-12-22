@@ -4,24 +4,21 @@
 <meta charset="UTF-8">
 <title></title>
 <link rel="stylesheet" type="text/css" href="http://www.nodetpl.com/static/css/vdialog.css">
-<script type="text/javascript" src="http://www.nodetpl.com/static/js/sea.js"></script>
+<script type="text/javascript" src="http://www.nodetpl.com/static/js/require.js"></script>
 </head>
 <body>
 <script>
-seajs.config({
-  alias: {
-    'es5-safe': 'lib/es5-sham.min',
+require.config({
+  baseUrl: '/static/js/',
+  paths: {
     'jquery': 'lib/jquery-1.10.2',
     'vDialog': 'lib/vDialog.min',
     'nodetpl': 'lib/nodetpl.client'
-  },
-  preload: [
-    Function.prototype.bind ? '' : 'es5-safe'
-  ]
+  }
 });
 </script>
 <script>
-seajs.use(['http://www.nodetpl.com/demo/js/seatest']);
+require(['http://www.nodetpl.com/demo/js/md-test.js']);
 </script>
 
 <script>
