@@ -1,5 +1,7 @@
-A powerful, efficient, easy to use, funny JavaScript template engine
+nodetpl
 ===
+
+A powerful, efficient, easy to use, funny JavaScript template engine.
 
 ## Why use nodetpl?
 
