@@ -20,7 +20,7 @@ define(function(require, exports, module) {
       <div><?=title?></div>\n\
       <ul>\n\
         <?for(var i=0; i<favor.length; i++){?>\n\
-          <li><?=i?>：<?=favor[i]?></li>\n\
+          <li><?=i?>: <?=favor[i]?></li>\n\
         <?}?>\n\
       </ul>\n\
     </div>';
