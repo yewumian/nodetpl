@@ -41,10 +41,10 @@
   <h4>像写 node.js 一样方便</h4>
   <p>在 <code>HTML</code> 或 <code>JavaScript</code> 中，直接 <code>require</code> 其它模块</p>
   <pre><code class="language-html">...
+&lt;?
+  var dateFormatter = require('dateFormatter');
+?&gt;
 &lt;div id="$ROOT"&gt;
-  &lt;?
-    var dateFormatter = require('dateFormatter');
-  ?&gt;
   ...
   &lt;p&gt;当前时间：&lt;? =dateFormatter.parse(new Date(), 'yyyy-MM-dd HH:mm:ss') ?&gt;&lt;/p&gt;
   ...
