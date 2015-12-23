@@ -109,6 +109,9 @@ header nav ul li.active:after {
   bottom: -8px;
   border-top-color: #000;
 }
+section {
+  line-height: 150%;
+}
 section h2 {
   font-size: 18px;
 }
