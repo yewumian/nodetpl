@@ -43,8 +43,8 @@
     <dd>
       <ul>
         <li>Optimization of a modular loading (CMD / AMD), improve compilation performance</li>
-        <li><code>$ROOT</code> / <code>$SUBROOT</code> waste, the use of <code>jQuery</code>, please use the <code>$(ROOT)</code> and <code>$(SUBROOT)</code> instead of <strong class="high-level">important changes</strong></li>
-        <li><code>config.vars</code> property abandoned</li>
+        <li><code>$ROOT</code> / <code>$SUBROOT</code> is deprecated, if you use <code>jQuery</code>, you can use <code>$(ROOT)</code> and <code>$(SUBROOT)</code> instead of <code>$ROOT</code>, <code>$SUBROOT</code> <strong class="high-level">important changes</strong></li>
+        <li><code>config.vars</code> property is deprecated</li>
       </ul>
     </dd>
   </dl>
@@ -60,7 +60,7 @@
     <dt>2.3.1<time>2015.12.02</time></dt>
     <dd>
       <ul>
-        <li>Increase <code>exec</code> method</li>
+        <li>Add <code>exec</code> method</li>
         <li>Perfect <code>CMD</code> support, improve operational efficiency at the scene of modular code</li>
         <li><code>render</code> method of increasing the synchronous, asynchronous two ways
           <p>Conventional usage (asynchronous):</p>
@@ -77,7 +77,7 @@
     <dt>2.2.6<time>2015.11.30</time></dt>
     <dd>
       <ul>
-        <li>Perfection <code>&lt;?=..?&gt;</code> Variable function, automatically determine whether the referenced <code>undefined</code></li>
+        <li>Perfection <code>&lt;?=..?&gt;</code> variable function, automatically determine whether the reference is <code>undefined</code></li>
       </ul>
     </dd>
   </dl>
@@ -93,7 +93,7 @@
     <dt>2.0 to 2.1</dt>
     <dd>
       <ul>
-        <li>Keyword "<code>@</code>" can be omitted, in a future version to be abandoned</li>
+        <li>Keyword "<code>@</code>" can be omitted, in a future version to be deprecated</li>
       </ul>
     </dd>
   </dl>
@@ -104,10 +104,10 @@
         <li>Support flexible configuration by <code>config</code> engine switch</li>
         <li>Built <code>_fixcss</code> method soon abandoned, compiled using version 1.x templates need to be recompiled</li>
         <li>Official support <code>CMD</code> modular development</li>
-        <li>Multiple templates referenced by the "<code>require</code>" keyword to "<code>include</code>", the original "<code>require</code>" keyword Waste</li>
-        <li>Increase keyword <code>ROOT</code>, on behalf of the native <code>DOM</code> nodes</li>
+        <li>Multiple templates referenced by the "<code>require</code>" keyword to "<code>include</code>", the original "<code>require</code>" keyword is deprecated</li>
+        <li>Add a keyword <code>ROOT</code>, on behalf of the native <code>DOM</code> nodes</li>
         <li>
-          Default <code>$ROOT</code> point of <code>jQuery</code> object (selector <code>$("#~")</code>), for the use of other libraries, manually <code>config</code> settings
+          By default, <code>$ROOT</code> point to a <code>jQuery</code> object (selector <code>$("#~")</code>), for the use of other libraries, manually <code>config</code> settings
           <pre><code class="language-javascript">nodetpl.config({
   vars: {
     root: '...'

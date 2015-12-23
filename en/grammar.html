@@ -61,7 +61,7 @@
     "Glass ball"
   ]
 }</code></pre>
-  <p>In the template, you can <code>title</code>, <code>favor</code> respectively referenced incoming <code>title</code>, <code>favor</code> value:</p>
+  <p>In the template, you can use <code>title</code>, <code>favor</code> respectively referenced incoming <code>title</code>, <code>favor</code> value:</p>
   <pre><code class="language-html">&lt;h1&gt;&lt;?=title?&gt;&lt;/h1&gt;
 &lt;ul&gt;
   &lt;?for(var i=0; i&lt;favor.length; i++){?&gt;
@@ -70,8 +70,8 @@
 &lt;/ul&gt;</code></pre>
   <p><a href="javascript:;" class="btn btn-try" id="btn-03">Have a try</a><a href="./demo/demo_4.html" class="btn" target="_blank">View demo</a></p>
   <h4>CSS</h4>
-  <p><code>nodetpl</code> allowed to define their own templates <code>CSS</code> styles, and you need not to worry about naming conflicts because <code>nodetpl</code> have a mechanism to resolve conflicts style inheritance.</p>
-  <p>To write the template styles, you need to define a template <code>HTML</code> part of an <code>id</code> of "<code>$ROOT</code>" root element, after writing style directly in the template to:</p>
+  <p><code>nodetpl</code> allowed to define it's own templates <code>CSS</code> styles, and you don't worry about naming conflicts, because <code>nodetpl</code> have a mechanism to resolve conflicts style inheritance.</p>
+  <p>If write a template <code>CSS</code>, you need to define a root  <code>HTML</code> element with a "<code>$ROOT</code>" <code>id</code>, then write the style directly in the template:</p>
   <pre><code class="language-html">&lt;style&gt;
   h1 {
     font-size: 20px;
@@ -89,10 +89,10 @@
 &lt;/div&gt;</code></pre>
   <p><a href="javascript:;" class="btn btn-try" id="btn-04">Have a try</a><a href="./demo/demo_5.html" class="btn" target="_blank">View demo</a></p>
   <p>Eh? Guards, so the style of writing would not have to overwrite the entire page?</p>
-  <p>It does not matter, <code>nodetpl</code> will not tolerate such low-level errors occur, eventually, <code>nodetpl</code>  will be before the output will be in front of each line styles are added "<code>#ROOT</code>" limited, so it will not lead to a conflict of style inheritance.</p>
+  <p>It does not matter, <code>nodetpl</code> will not tolerate such low-level errors occur, eventually, <code>nodetpl</code>  will add "<code>#ROOT</code>" id before each line styles, so it will not lead to a conflict of style inheritance.</p>
   <h4>JavaScript</h4>
-  <p><code>nodetpl</code> allow <code>JavaScript</code> script template calls itself, to facilitate you to do some work related event bindings.</p>
-  <p>In <code>JavaScript</code> code, <code>nodetpl</code> you preset the following variables:</p>
+  <p><code>nodetpl</code> allow to add <code>JavaScript</code> code calls itself, to facilitate you to do some work related event bindings.</p>
+  <p>In <code>JavaScript</code> code, <code>nodetpl</code> you can use the following variables:</p>
   <ul>
     <li><code>ROOT</code>: The root <code>DOM</code> elements, namely: <code>document.getElementById('ROOT ID')</code></li>
     <li><code>$DATA</code>: Incoming data</li>
@@ -113,7 +113,7 @@ console.log($DATA.title);
 &lt;/script&gt;</code></pre>
   <p><a href="javascript:;" class="btn btn-try" id="btn-05">Have a try</a><a href="./demo/demo_6.html" class="btn" target="_blank">View demo</a></p>
   <p>Yes, although here you define a <code>padding</code> variable, but it is not executed in the <code>window</code> object, it will not contaminate the <code>window</code>.</p>
-  <p>How? With HTML / CSS / JS, it is not to be able to write what you want the template?</p>
+  <p>How? With HTML / CSS / JS, it is not to be able to write what you want?</p>
   <p>Then see if you played O(∩_∩)O</p>
 </section>
 <footer>

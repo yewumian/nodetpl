@@ -38,7 +38,7 @@
 </div>
 <section class="wrap">
   <h2>Multiple Templates</h2>
-  <p>Seems learned earlier templates, we've been able to meet most developers want, but if a template that contains a lot of business scenarios, the amount of template code will appear huge and bloated, in order to solve this problem, <code>nodetpl</code> in a very clever way , we introduced the concept of multiple templates.</p>
+  <p>Seems learned before, we've been able to do most work we want, but if a template that contains a lot of business scenarios, the amount of template code will appear huge and bloated, in order to solve this problem, <code>nodetpl</code> has a very clever way , we introduced the concept of multiple templates.</p>
   <p><code>nodetpl</code> is defined as multi-template scenario: If a template that contains a lot of business logic and business logic are relatively independent of each piece, then we can put the entire template is divided into multiple blocks, each block represents a business Scenes;</p>
   <ul>
     <li>Multi-template includes a master template (<code>main</code>) and a plurality of sub-template, the master template is the entrance to the entire template</li>
@@ -46,7 +46,7 @@
     <li>Each template references between each other through the <code>include</code> keyword</li>
   </ul>
   <h4>The basic structure of a multi template</h4>
-  <p>And regular templates, multi-template is the main template and the child templates, each template is contained in a <code>&lt;template&gt;</code> tag:</p>
+  <p>Like regular templates, multi-template has a main template and several child templates, each template is wraped with a <code>&lt;template&gt;</code> tag:</p>
   <pre><code class="language-markup">&lt;template name="main"&gt;
   // Master template code
 &lt;/template&gt;
@@ -56,17 +56,17 @@
 &lt;template name="subname-2"&gt;
   // Sub-template code 2
 &lt;/template&gt;</code></pre>
-  <p>Each template has a <code>name</code> attribute, which is the main entrance to the entire template template, <code>name</code> is <code>main</code>, sub-template <code>name</code> can be named according to their needs.</p>
+  <p>Each template has a <code>name</code> attribute, which is the main entrance to the entire template template, <code>name</code> is <code>main</code>, sub-template <code>name</code> can be named according to your needs.</p>
   <h4>main entrance</h4>
-  <p>Master template <code>template name</code> is <code>main</code>, we can write the Normal template like to write code as the master template.</p>
+  <p>Master template <code>name</code> is <code>main</code>, we can write the normal template code in master template.</p>
   <p>To facilitate understanding, we assume this scenario:</p>
   <ul>
     <li>A card area, by default, displays the personal contact information, which we define as the "Browse" state</li>
-    <li>When you click 'Edit' link, display relevant personal cards to modify form fields, which we define as "modify" state</li>
-    <li>"Modify" within the interface, you can modify the information, click on the Save button, automatically saved and saved "Browse" screen</li>
+    <li>When you click 'Edit' link, display relevant personal cards to modify form fields, which we define as "Modify" state</li>
+    <li>"Modify" within the interface, you can modify the information, click on the Save button, automatically saved and go to "Browse" state</li>
   </ul>
   <p><a href="javascript:;" class="btn btn-try" id="btn-01">Have a try</a><a href="./demo/demo_9.html" class="btn" target="_blank">View demo</a></p>
-  <p>Thus, in addition to the main entrance of the template, we need to design an additional "Browse" state, and a template "modify" state.</p>
+  <p>Thus, in addition to the main entrance of the template, we need to design an additional "Browse" state template, and a "Modify" state template.</p>
   <pre><code class="language-markup">&lt;template name="main"&gt;
   &lt;style&gt;
   .title {
@@ -94,11 +94,11 @@
   <p>In <code>nodetpl</code> using keywords <code>include</code> redistributes a template.</p>
   <p>The above code indicates:</p>
   <ul>
-    <li>When you load the master template (<code>main</code>) will load the sub-template name for the "<code>view</code>" into the master template "<code>contentBox</code>" containers as the "Browse" display</li>
-    <li>When you click the title of the "<code>edit</code>" link when you load a child template name to "edit" to the master template "<code>contentBox</code>" container.</li>
+    <li>When you load the master template (<code>main</code>), it will load the sub-template named "<code>view</code>" into the master template's "<code>contentBox</code>" container, as the "Browse" view</li>
+    <li>When you click the "<code>edit</code>" link, it will load a child template named "edit" to the master template's "<code>contentBox</code>" container, as the "Modify" view.</li>
   </ul>
   <h4>Subtemplate</h4>
-  <p>Similarly, we can be like writing, like the Normal template to write code within the sub-template, but there will be slightly different:</p>
+  <p>Similarly, we can write the normal template code in sub-template, but there will be slightly different:</p>
   <p><strong>Browse state</strong></p>
   <pre><code class="language-markup">&lt;template name="view"&gt;
   &lt;style&gt;
@@ -148,7 +148,7 @@
   });
   &lt;/script&gt;
 &lt;/template&gt;</code></pre>
-  <p>You can see from the above code, the master template is different, the sub-template "root element" is no longer used "<code>ROOT</code>" says replaced by "<code>SUBROOT</code>" keyword.</p>
+  <p>From the code above, the master template has no different with normal, bug the sub-template "root element" is no longer used "<code>ROOT</code>", but "<code>SUBROOT</code>".</p>
 </section>
 <footer>
   <div class="wrap">

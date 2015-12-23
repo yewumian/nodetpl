@@ -38,9 +38,9 @@
 </div>
 <section class="wrap">
   <h2>Precompiled</h2>
-  <p>To make the template code in the browser to run faster, more economical memory, and we need to be more easily manage the template file, the template code we usually saved as a separate file (default extension is <code>.tpl</code>, according to their needs adjustment), and then precompiled during the development phase.</p>
-  <p>File is no longer pre-compiled template code, it is an executable file <code>.js</code> browser naturally can very quickly identify and run it.</p>
-  <p>After compiling a template, you can use node <code>nodetpl.get()</code> method references.</p>
+  <p>To make the template code to run faster, more economical memory in browser, and we need to be more easily manage the template file, the template code we usually saved as a separate file (default extension is <code>.tpl</code>, according to their needs adjustment), and then precompiled during the development phase.</p>
+  <p>File is no longer template code, it is an executable <code>.js</code> file, which the browser can naturally very quickly identify and run it.</p>
+  <p>After compiling a template, you can use <code>nodetpl.get()</code> method references.</p>
   <h4>Installation</h4>
   <p>Precompiled tools need <code>node.js</code> environmental support, if you have not installed <code>node.js</code>, please install it: <a href="https://nodejs.org/" target="_blank" rel="nofollow">https://nodejs.org/</a>.</p>
   <p>After installing <code>node.js</code>, enter the following statement on the command line to complete the installation:</p>
@@ -48,13 +48,13 @@
   <h4>Grammar</h4>
   <pre><code class="language-markup">nodetpl &lt;path&gt; <!-- -o &lt;relativePath&gt; -->--ext &lt;ext&gt; --look</code></pre>
   <ul>
-    <li><code>&lt;path&gt;</code>: The path to the template file or directory path where the template</li>
-    <li><code>--ext</code>: Template file extension, by default <code>.tpl</code></li>
-    <li><code>--look</code>: Whether to monitor file changes, the default is <code>false</code>, when you pass this parameter, modify the template content will sync automatically compile</li>
+    <li><code>&lt;path&gt;</code>: the path of the template file or directory path</li>
+    <li><code>--ext</code>: template file extension, by default <code>.tpl</code></li>
+    <li><code>--look</code>: whether to monitor file changes, the default is <code>false</code>, when you pass this parameter, modify the template will sync automatically compile it</li>
   </ul>
   <h4>Example</h4>
   <p><strong>Compiling a Single File</strong></p>
-  <p>First, our template file is saved in a directory (usually <code>tpls</code>), the template file extension <code>.tpl</code>, execute the following command:</p>
+  <p>First, our template file is saved in a directory (usually <code>tpls</code>), the template file extension is <code>.tpl</code>, execute the following command:</p>
   <pre><code class="language-markup">nodetpl /usr/local/testproject/tpls/demo/abc.tpl</code></pre>
   <p>The result:</p>
   <pre><code class="language-markup">&lt;? Hello, nodetpl is working... ?&gt;
@@ -64,7 +64,7 @@
 &gt;&gt; look mode: false
 &gt;&gt; from: /usr/local/testproject/tpls/demo/abc.tpl
 &gt;&gt; [1]  file: /usr/local/testproject/tpls/demo/abc.tpl</code></pre>
-  <p>We can see that in the template file under the same path, generated <code>.js</code> file of the same name, the file is compiled executable file.</p>
+  <p>We can see that in the template file under the same path, generated a <code>.js</code> file of the same name, the file is compiled executable file.</p>
   <p><strong>Mass compile the specified directory multiple template files</strong></p>
   <p>The <code>&lt;path&gt;</code> set to the directory where the template, you can get mass compile all template files in that directory:</p>
   <pre><code class="language-markup">nodetpl /usr/local/testproject/tpls</code></pre>
@@ -92,7 +92,7 @@
 [listening...]
 &gt;&gt; [3]  file: /usr/local/testproject/tpls/demo/abc.tpl
         Mon Nov 23 2015 15:46:20 GMT+0800 (CST)</code></pre>
-  <p>When you modify and save a template file, the file is automatically compiled.</p>
+  <p>When you modify and save a template file, the file will be automatically compiled.</p>
 </section>
 <footer>
   <div class="wrap">

@@ -58,16 +58,16 @@ vDialog.alert(...
 &lt;/script&gt;</code></pre>
   <h2>Diversification Support</h2>
   <p><code>nodetpl</code> can support a variety of conventional development and modular development, according to their project requirements you can choose any one development model.</p>
-  <p>Develop common pattern is relatively simple, the introduction <code>nodetpl</code> <code>js</code> file directly in the page can be, let's look at the modular development is used.</p>
+  <p>Develop common pattern is relatively simple, let's look at the modular development.</p>
   <h2><code>AMD</code>（requireJs）</h2>
   <h4><code>requireJs</code> basic configuration</h4>
-  <p>Configuring <code>requireJs</code> basic parameters, increase <code>nodetpl</code> have <code>paths</code> entry:</p>
+  <p>Configuring <code>requireJs</code> basic parameters, add a <code>nodetpl</code> entry to <code>paths</code>:</p>
   <pre><code class="language-javascript">require.config({
   paths: {
     'nodetpl': 'lib/nodetpl.client.min'
   }
 });</code></pre>
-  <p>By <code>require</code> the <code>nodetpl</code> Module introduced:</p>
+  <p>By <code>require</code> the <code>nodetpl</code> module introduced:</p>
   <pre><code class="language-javascript">define(function(require, exports, module) {
   var nodetpl = require('nodetpl');
 
