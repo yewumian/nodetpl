@@ -43,7 +43,7 @@
     <dd>
       <ul>
         <li>优化了模块化加载方式（CMD/AMD），提高编译性能</li>
-        <li><code>$ROOT</code> / <code>$SUBROOT</code> 废弃，若使用 <code>jQuery</code>，请用 <code>$(ROOT)</code> 和 <code>$(SUBROOT)</code> 代替</li>
+        <li><code>$ROOT</code> / <code>$SUBROOT</code> 废弃，若使用 <code>jQuery</code>，请用 <code>$(ROOT)</code> 和 <code>$(SUBROOT)</code> 代替<strong class="high-level">重要变更</strong></li>
         <li><code>config.vars</code> 属性废弃</li>
       </ul>
     </dd>
@@ -62,7 +62,7 @@
       <ul>
         <li>增加 <code>exec</code> 方法</li>
         <li>完善 <code>seaJs</code> 支持，提高模块化场景下代码的运行效率</li>
-        <li><code>render</code> 方法增加同步、异步两种方式<strong class="high-level">模块化加载只能使用异步方式</strong>
+        <li><code>render</code> 方法增加同步、异步两种方式
           <p>常规用法（异步）：</p>
           <pre><code class="language-javascript">nodetpl.render(..., data, function(d){
   // 这里是编译结果
