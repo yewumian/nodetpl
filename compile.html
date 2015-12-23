@@ -46,10 +46,10 @@
   <p>安装完 <code>node.js</code> 之后，在命令行中输入下面的语句，完成安装：</p>
   <pre><code class="language-markup">npm install nodetpl -g</code></pre>
   <h4>语法</h4>
-  <pre><code class="language-markup">nodetpl &lt;path&gt; -o &lt;relativePath&gt; --ext .tpl --look</code></pre>
+  <pre><code class="language-markup">nodetpl &lt;path&gt; <!-- -o &lt;relativePath&gt; -->--ext &lt;ext&gt; --look</code></pre>
   <ul>
     <li><code>&lt;path&gt;</code>：模板文件的路径，或模板所在的目录路径</li>
-    <li><code>-o</code>：模板文件相对于项目根路径的路径，以 <code>http</code> 或 <code>/</code> 开头，一般情况下不需要设置</li>
+    <!--li><code>-o</code>：模板文件相对于项目根路径的路径，以 <code>http</code> 或 <code>/</code> 开头，一般情况下不需要设置</li-->
     <li><code>--ext</code>：模板文件的扩展名，默认为 <code>.tpl</code></li>
     <li><code>--look</code>：是否监控文件变化，默认为 <code>false</code>，当传递该参数时，修改模板内容会同步自动编译</li>
   </ul>
@@ -94,7 +94,7 @@
 &gt;&gt; [3]  file: /usr/local/testproject/tpls/demo/abc.tpl
         Mon Nov 23 2015 15:46:20 GMT+0800 (CST)</code></pre>
   <p>当修改并保存某个模板文件时，该文件会被自动编译。</p>
-  <p><strong>配置相对路径</strong></p>
+  <!--p><strong>配置相对路径</strong></p>
   <p>通常情况下，<code>nodetpl</code> 会自动获取模板文件的引用路径，并用指定 <code>data</code> 进行渲染，但某些特殊的场景下，可能需要手动配置模板文件的引用路径（极少出现这样的情况），这种情况下我们需要配置 <code>-o</code> 属性来告诉编译工具</p>
   <p>模板引擎的工作原理包含这样的过程：为了保证模板和数据一一对应，并且能够更好的维护缓存，每一个模板文件都会分配自身一个唯一ID，这个ID可以确保该模板在运行过程中全局唯一，模板渲染过程也必然包含 <code>ID</code> 的匹配过程。</p>
   <p>一般情况下，模板的 <code>ID</code> 不需要我们手动指定，模板引擎会自动根据文件路径为每个模板分配一个 <code>ID</code>。</p>
@@ -104,7 +104,7 @@
   <p>编译单个文件：</p>
   <pre><code class="language-markup">nodetpl /usr/local/testproject/tpls/demo/abc.tpl -o /tpls/demo/abc.js</code></pre>
   <p>编译多个文件：</p>
-  <pre><code class="language-markup">nodetpl /usr/local/testproject/tpls -o /tpls</code></pre>
+  <pre><code class="language-markup">nodetpl /usr/local/testproject/tpls -o /tpls</code></pre-->
 </section>
 <footer>
   <div class="wrap">
