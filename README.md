@@ -1,70 +1,29 @@
-## 为什么使用 nodetpl ？
+A powerful, efficient, easy to use, funny JavaScript template engine
+===
 
-  * 完全免费
-  * 性能超群，运行速度超快，闪电一样的解析效率
-  * 扩展性强，支持自定义 tag，支持 AMD / CMD 模块化开发
-  * 支持预编译，提前编译成 js 文件，减轻浏览器运行负担
-  * 支持原生 js 语法，不再像学一门新语言一样痛苦
-  * 支持复杂的多模板，include 一步到位
-  * 支持模板自身CSS/JS，独创CSS/JS随包机制，独立的模板可以拥有自身CSS/JS，并可以有效解决命名冲突问题
-  * 兼容所有主流浏览器
-  * 可以运行在 node 端，支持 Express.js
-  * 学习成本低，从入门到精通仅需 10 分钟
+## Why use nodetpl?
 
-## 快速上手
+  * Free: Open source, free use under MIT license
+  * Superior performance: Super-fast run, like lightning analytical efficiency
+  * Native js syntax: Yes, it's HTML & JavaScript++, not like learning a new language as painful
+  * Precompiled: Js file compiled in advance, reducing the burden on the browser running
+  * Multiple templates: Support complex multi-template, include step
+  * Template leveled CSS/JS: Original CSS / JS with the package mechanism, independent of the template can have its own CSS / JS
+  * Modular: RequireJs (AMD) / seaJs (CMD) supported
+  * Node.js: The module can be used as a node.js package, and Express.js is supported
+  * Quick learning: Just 10 minutes from entry to proficient
+  * Good compatibility: Compatible with all major browsers, IE, Firefox, Chrome, Safari etc
+  * High praised: More than 200+ sites choose nodetpl as the template engine
 
-### 引入文件
 
-在页面 head 标签内，引入 nodetpl 客户端文件：
+### Detailed documentation
 
-```html
-<script src="./static/js/nodetpl.client.min.js"></script>
-```
+  Go to the official site: <http://www.nodetpl.com/>
 
-### 编写模板
+## Questions?
 
-最简单的，可以使用一个 type="text/template" 的 script 标签存放模板：
-
-```html
-<script id="favor-tpl" type="text/template">
-<h1><?=title?></h1>
-<ul>
-  <?for(var i=0; i<favor.length; i++){?>
-    <li><?=i?>：<?=favor[i]?></li>
-  <?}?>
-</ul>
-</script>
-```
-
-### 执行渲染
-
-```js
-var data = {
-  title: '个人爱好',
-  favor: ['足球', '篮球', '乒乓球', '琉璃球']
-};
-var content = document.getElementById('favor-tpl').innerHTML;
-nodetpl.render(content, data, function(d){
-  alert(d);
-});
-```
-
-### 运行结果
-
-```html
-<h1>个人爱好</h1>
-<ul>
-  <li>0：足球</li>
-  <li>1：篮球</li>
-  <li>2：乒乓球</li>
-  <li>3：琉璃球</li>
-</ul>
-```
-
-### 详细文档
-
-  http://www.nodetpl.com
+If you have any questions, please feel free to ask through [New Issue](https://github.com/pillys/nodetpl/issues/new).
 
 ### License
 
-  [MIT](LICENSE)
+  nodetpl is available under the terms of the [MIT](LICENSE) License.
