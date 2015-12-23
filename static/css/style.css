@@ -146,6 +146,12 @@ a.btn {
   vertical-align: middle;
   margin-right: .5em;
 }
+#index section.version-view a {
+  display: block;
+  line-height: 100px;
+  text-align: center;
+  font-size: 30px;
+}
 #index section.quick-look table {
   width: 100%;
 }
