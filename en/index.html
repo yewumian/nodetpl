@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NodeTpl - Fast, easy used and funny javascript template engine.</title>
+<link rel="stylesheet" href="/static/css/normalize.css">
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/vdialog.css">
+<link rel="stylesheet" href="/static/css/highlight/prism.css">
+<script type="text/javascript" src="/static/js/highlight/prism.js"></script>
+<script type="text/javascript" src="/static/js/require.js"></script>
+<script type="text/javascript" src="/static/js/require-config.js"></script>
+</head>
+<body id="index">
+<header class="en">
+  <div class="wrap">
+    <div class="logo">
+      <a href="./"><i class="iconfont">&#xe605;</i>NodeTpl</a>
+      <span>Fast, easy used and funny javascript template engine.</span>
+    </div>
+    <nav>
+      <ul class="clearfix">
+        <li class="active"><a href="./">Home</a></li>
+        <!--li><a href="./start.html">Start</a></li>
+        <li><a href="./grammar.html">Grammar</a></li>
+        <li><a href="./api.html">API</a></li>
+        <li><a href="./multi.html">Multi-template</a></li>
+        <li><a href="./compile.html">Pre-compile</a></li>
+        <li><a href="./module.html">Module</a></li>
+        <li><a href="./node.html">Node</a></li>
+        <li><a href="./changes.html">Changes</a></li-->
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="fixed-tools">
+  <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
+</div>
+<section class="wrap version-view">
+  <a href="https://github.com/pillys/nodetpl">NodeTpl v3.0 released</a>
+</section>
+<section class="wrap quick-look">
+  <h2>30 seconds, quick learn nodetpl</h2>
+  <table>
+    <thead>
+      <tr>
+        <th><i class="iconfont">&#xe618;</i>Data Modal</th>
+        <td></td>
+        <th><i class="iconfont">&#xe616;</i>Template Modal</th>
+        <td></td>
+        <th><i class="iconfont">&#xe617;</i>Render Modal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><pre class="code-data"></pre></td>
+        <td><i class="iconfont">&#xe610;</i></td>
+        <td><pre class="code-template"></pre></td>
+        <td><i class="iconfont">&#xe615;</i></td>
+        <td><div class="code-result"></div></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Render specific template code：</p>
+  <pre><code class="language-javascript">nodetpl.render(template, data, function(d){
+  // alert(d);
+});</code></pre>
+  <p>Render specific template file：</p>
+  <pre><code class="language-javascript">nodetpl.get(url, data, function(d){
+  // alert(d);
+});</code></pre>
+  <p><a href="javascript:;" class="btn btn-try">Have a try</a></p>
+</section>
+<section class="introduction">
+  <div class="wrap">
+    <h2>Why choose nodetpl ?</h2>
+    <ul class="clearfix">
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe609;</i>Free</dt>
+          <dd>Open license <a href="http://opensource.org/licenses/MIT" target="_blank">MIT</a></a></dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe607;</i>Run fast</dt>
+          <dd>Super fast compiling speed</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe60c;</i>native js grammar</dt>
+          <dd>You know js, then you can use it</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe614;</i>Pre-compile</dt>
+          <dd>Via pre-compile the template file to js, the browser can run it fastly</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe613;</i>Multi-template</dt>
+          <dd>If a template is very large, you can breack it up to few pieces, then use include to link them</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe60b;</i>template leveled CSS/JS</dt>
+          <dd>CSS/JS with template, a single template can use it's own CSS/JS</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe60e;</i>Module</dt>
+          <dd>requireJs (AMD) / seaJs (CMD) supported</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe60f;</i>node.js</dt>
+          <dd>Can be used as node.js package, Express.js supported</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe60a;</i>easy learn</dt>
+          <dd>Less than 10 min, you can use it</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe608;</i>Browser friendly</dt>
+          <dd>Can run based any browser</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><i class="iconfont">&#xe611;</i>Highly praised</dt>
+          <dd>More than 200 site choose nodetpl</dd>
+        </dl>
+      </li>
+    </ul>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <p>&copy; 2012 - 2015 nodetpl.com by <a href="http://www.qque.com/">pillys</a></p>
+  </div>
+</footer>
+<script>require(['view/en/index']);</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?55310397b78e4d3793e8b32711e7c487";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>

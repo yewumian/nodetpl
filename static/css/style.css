@@ -46,6 +46,10 @@ header .logo {
   float: left;
   opacity: .8;
 }
+header.en .logo {
+  float: none;
+  text-align: center;
+}
 header .logo a {
   color: #fff;
   text-decoration: none;
@@ -63,9 +67,19 @@ header .logo span {
   font-size: 12px;
   color: rgba(255, 255, 255, .3);
 }
+header.en .logo span {
+  display: block;
+}
 header nav {
   float: left;
   margin-left: 30px;
+}
+header.en nav {
+  float: none;
+  margin-left: 0;
+  margin-top: 5px;
+  padding-left: 130px;
+  border-top: 1px solid #333;
 }
 header nav ul {
   margin: 0;
@@ -134,6 +148,49 @@ a.btn {
 .fixed-tools i.iconfont {
   font-size: 2em;
   margin-right: -1em;
+}
+#index-cover {
+  background-color: #eee;
+}
+#index-cover .main {
+  text-align: center;
+}
+#index-cover .main .header {
+  color: #fff;
+  background-color: #333;
+  overflow: hidden;
+}
+#index-cover .main .header h1 {
+  margin-bottom: 50px;
+  font-size: 40px;
+}
+#index-cover .main .header h1 .iconfont {
+  font-size: 1.5em;
+  margin-right: .2em;
+}
+#index-cover .main .header h2 {
+  opacity: .5;
+}
+#index-cover .main .nav {
+  margin-top: 50px;
+  line-height: 40px;
+}
+#index-cover .main .nav a {
+  display: inline-block;
+  padding: 0 1.5em;
+  background-color: #3370ed;
+  color: #fff;
+  margin: 0 1em;
+  text-decoration: none;
+  border-radius: 3px;
+}
+#index-cover footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+#index-cover footer, #index-cover footer a {
+  color: #999;
 }
 #index section h2:before {
   position: relative;

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script src="http://www.nodetpl.com/static/js/lib/nodetpl.client.min.js"></script>
+</head>
+<body>
+<div id="result"></div>
+
+<script id="favor-tpl" type="text/template">
+<?for(var i=0; i<10; i++){?>
+  <p>hello, world, 第 <?=i?> 次</p>
+<?}?>
+</script>
+
+<script>
+var resultDom = document.getElementById('result');
+var content = document.getElementById('favor-tpl').innerHTML;
+
+nodetpl.render(content, function(d){
+  resultDom.innerHTML = d;
+  console.log(d);
+});
+</script>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?55310397b78e4d3793e8b32711e7c487";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>

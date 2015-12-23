@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>NodeTpl - 高效javascript模板引擎</title>
+<title>NodeTpl - Fast, easy used and funny javascript template engine.</title>
 <link rel="stylesheet" href="./static/css/normalize.css">
 <link rel="stylesheet" href="./static/css/style.css">
 <link rel="stylesheet" type="text/css" href="./static/css/vdialog.css">
@@ -11,159 +11,23 @@
 <script type="text/javascript" src="./static/js/require.js"></script>
 <script type="text/javascript" src="./static/js/require-config.js"></script>
 </head>
-<body id="index">
-<header>
-  <div class="wrap">
-    <div class="logo">
-      <a href="./"><i class="iconfont">&#xe605;</i>NodeTpl</a>
-      <span>一款强大、高效、易用、有趣儿的 JavaScript 模板引擎</span>
-    </div>
-    <nav>
-      <ul class="clearfix">
-        <li class="active"><a href="./">首页</a></li>
-        <li><a href="./start.html">开始</a></li>
-        <li><a href="./grammar.html">语法</a></li>
-        <li><a href="./api.html">API</a></li>
-        <li><a href="./multi.html">多模板</a></li>
-        <li><a href="./compile.html">预编译</a></li>
-        <li><a href="./module.html">模块化</a></li>
-        <li><a href="./node.html">Node</a></li>
-        <li><a href="./changes.html">升级日志</a></li>
-      </ul>
-    </nav>
+<body id="index-cover">
+<div class="main">
+  <div class="header">
+    <h1><i class="iconfont">&#xe605;</i>NodeTpl</h1>
+    <h2>Fast, easy used and funny javascript template engine.</h2>
+    <h2>一款强大、高效、易用、有趣儿的 JavaScript 模板引擎</h2>
   </div>
-</header>
-<div class="fixed-tools">
-  <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
+  <div class="nav">
+    <a href="./en/">English</a>
+    <a href="./cn/">中文版</a>
+  </div>
 </div>
-<section class="wrap version-view">
-  <a href="./start.html">NodeTpl v3.0 隆重发布</a>
-</section>
-<section class="wrap quick-look">
-  <h2>30 秒认识 nodetpl</h2>
-  <table>
-    <thead>
-      <tr>
-        <th><i class="iconfont">&#xe618;</i>数据层</th>
-        <td></td>
-        <th><i class="iconfont">&#xe616;</i>模板层</th>
-        <td></td>
-        <th><i class="iconfont">&#xe617;</i>渲染层</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><pre class="code-data"></pre></td>
-        <td><i class="iconfont">&#xe610;</i></td>
-        <td><pre class="code-template"></pre></td>
-        <td><i class="iconfont">&#xe615;</i></td>
-        <td><div class="code-result"></div></td>
-      </tr>
-    </tbody>
-  </table>
-  <p>渲染指定模板代码：</p>
-  <pre><code class="language-javascript">nodetpl.render(template, data, function(d){
-  // alert(d);
-});</code></pre>
-  <p>渲染指定模板文件：</p>
-  <pre><code class="language-javascript">nodetpl.get(url, data, function(d){
-  // alert(d);
-});</code></pre>
-  <p><a href="javascript:;" class="btn btn-try">试一试</a></p>
-</section>
-<section class="introduction">
-  <div class="wrap">
-    <h2>为什么选择 nodetpl ？</h2>
-    <ul class="clearfix">
-      <li>
-        <dl>
-          <dt><i class="iconfont">&#xe609;</i>完全免费</dt>
-          <dd>开源软件，免费使用 <a href="http://opensource.org/licenses/MIT" target="_blank">MIT许可</a></a></dd>
-        </dl>
-      </li>
-      <li>
-        <dl>
-          <dt><i class="iconfont">&#xe607;</i>性能超群</dt>
-          <dd>运行速度超快，闪电一样的解析效率</dd>
-        </dl>
-      </li>
-      <li>
-        <dl>
-          <dt><i class="iconfont">&#xe60c;</i>原生 js 语法</dt>
-          <dd>不再像学一门新语言一样痛苦</dd>
-        </dl>
-      </li>
-      <li>
-        <dl>
-          <dt><i class="iconfont">&#xe614;</i>支持预编译</dt>
-          <dd>提前编译成 js 文件，减轻浏览器运行负担 <a href="./compile.html">工具</a></dd>
-        </dl>
-      </li>
-      <li>
-        <dl>
-          <dt><i class="iconfont">&#xe613;</i>支持多模板</dt>
-          <dd>支持复杂的多模板，include 一步到位 <a href="./multi.html">书写规则</a></dd>
-        </dl>
-      </li>
-      <li>
-        <dl>
-          <dt><i class="iconfont">&#xe60b;</i>支持模块CSS/JS</dt>
-          <dd>独创CSS/JS随包机制，独立的模板可以拥有自身模块的CSS/JS，并可以有效解决命名冲突问题</dd>
-        </dl>
-      </li>
-      <li>
-        <dl>
-          <dt><i class="iconfont">&#xe60e;</i>支持模块化</dt>
-          <dd>完美支持 seaJs (CMD) / requireJs (AMD) <a href="./module.html">模块化</a>开发</dd>
-        </dl>
-      </li>
-      <li>
-        <dl>
-          <dt><i class="iconfont">&#xe60f;</i>支持 node.js</dt>
-          <dd>可以作为 node.js 的模块使用，同时支持 Express.js <a href="./node.html">引用说明</a></dd>
-        </dl>
-      </li>
-      <li>
-        <dl>
-          <dt><i class="iconfont">&#xe60a;</i>学习成本低</dt>
-          <dd>从入门到精通仅需 10 分钟</dd>
-        </dl>
-      </li>
-      <li>
-        <dl>
-          <dt><i class="iconfont">&#xe608;</i>兼容性好</dt>
-          <dd>兼容所有主流浏览器，可以运行在任何客户端</dd>
-        </dl>
-      </li>
-      <li>
-        <dl>
-          <dt><i class="iconfont">&#xe611;</i>好评度高</dt>
-          <dd>国内已有超过 200 家大型互联网项目使用</dd>
-        </dl>
-      </li>
-      <li>
-        <dl>
-          <dt><i class="iconfont">&#xe60d;</i>国人基因</dt>
-          <dd>国产代码，文档齐全，反馈迅速</dd>
-        </dl>
-      </li>
-    </ul>
-    <div class="share-box">
-      <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a></div>
-    </div>
-  </div>
-</section>
-<section class="wrap">
-  <h2>经典案例</h2>
-  <p>案例统计中，如果你想出现在这里，请加QQ联系作者</p>
-</section>
 <footer>
   <div class="wrap">
     <p>&copy; 2012 - 2015 nodetpl.com by <a href="http://www.qque.com/">pillys</a></p>
   </div>
 </footer>
-<script>require(['view/index']);</script>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["qzone","tsina","weixin","douban","sqq","fbook","twi","linkedin"],"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 <script>
 var _hmt = _hmt || [];
 (function() {

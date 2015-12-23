@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script src="http://www.nodetpl.com/static/js/lib/nodetpl.client.min.js"></script>
+</head>
+<body>
+<textarea id="favor-tpl" cols="60" rows="10">&lt;div id="$ROOT"&gt;
+  &lt;h1&gt;&lt;?=title?&gt;&lt;/h1&gt;
+  &lt;?for(var i=0; i&lt;10; i++){?&gt;
+    &lt;p&gt;hello, world, 第 &lt;?=i?&gt; 次&lt;/p&gt;
+  &lt;?}?&gt;
+&lt;/div&gt;
+&lt;script&gt;
+var padding = '20';
+ROOT.style.padding = padding + 'px';
+// OR use jQuery
+$(ROOT).css('color', '#f00');
+console.log($DATA.title);
+&lt;/script&gt;</textarea>
+
+<div id="result"></div>
+
+<script src="http://www.nodetpl.com/static/js/lib/jquery-1.10.2.js"></script>
+<script>
+var data = {
+  "title": "我是传入的标题",
+  "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
+};
+var resultDom = $('#result');
+var content = $('#favor-tpl').val();
+
+nodetpl.render(content, data, function(d){
+  resultDom.html(d);
+  console.log(d);
+});
+</script>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?55310397b78e4d3793e8b32711e7c487";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>
