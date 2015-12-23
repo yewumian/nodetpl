@@ -1,6 +1,8 @@
 nodetpl
 ===
 
+[![Build Status](https://secure.travis-ci.org/pillys/nodetpl.png?branch=master)](https://travis-ci.org/pillys/nodetpl)
+
 A powerful, efficient, easy to use, funny JavaScript template engine.
 
 ## Why use nodetpl?
