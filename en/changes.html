@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>NodeTpl - A powerful, efficient, easy to use, fun children's JavaScript template engine</title>
+<link rel="stylesheet" href="/static/css/normalize.css">
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/vdialog.css">
+<link rel="stylesheet" href="/static/css/highlight/prism.css">
+<script type="text/javascript" src="/static/js/highlight/prism.js"></script>
+<script type="text/javascript" src="/static/js/require.js"></script>
+<script type="text/javascript" src="/static/js/require-config.js"></script>
+</head>
+<body id="changes">
+<header class="en">
+  <div class="wrap">
+    <div class="logo">
+      <a href="/"><i class="iconfont">&#xe605;</i>NodeTpl</a>
+      <span>A powerful, efficient, easy to use, fun children's JavaScript template engine</span>
+    </div>
+    <nav>
+      <ul class="clearfix">
+        <li><a href="./">Home</a></li>
+        <li><a href="./start.html">Start</a></li>
+        <li><a href="./grammar.html">Grammar</a></li>
+        <li><a href="./api.html">API</a></li>
+        <li><a href="./multi.html">Multi-template</a></li>
+        <li><a href="./compile.html">Pre-compile</a></li>
+        <li><a href="./module.html">Modular</a></li>
+        <li><a href="./node.html">Node.js</a></li>
+        <li class="active"><a href="./changes.html">Changes</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="fixed-tools">
+  <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
+</div>
+<section class="wrap">
+  <h2>Upgrade log</h2>
+  <dl>
+    <dt>3.0.0<time>2015.12.22</time></dt>
+    <dd>
+      <ul>
+        <li>Optimization of a modular loading (CMD / AMD), improve compilation performance</li>
+        <li><code>$ROOT</code> / <code>$SUBROOT</code> waste, the use of <code>jQuery</code>, please use the <code>$(ROOT)</code> and <code>$(SUBROOT)</code> instead of <strong class="high-level">important changes</strong></li>
+        <li><code>config.vars</code> property abandoned</li>
+      </ul>
+    </dd>
+  </dl>
+  <dl>
+    <dt>2.3.3<time>2015.12.04</time></dt>
+    <dd>
+      <ul>
+        <li><code>get()</code> method enhanced to support direct read template code, suspend rendering</li>
+      </ul>
+    </dd>
+  </dl>
+  <dl>
+    <dt>2.3.1<time>2015.12.02</time></dt>
+    <dd>
+      <ul>
+        <li>Increase <code>exec</code> method</li>
+        <li>Perfect <code>CMD</code> support, improve operational efficiency at the scene of modular code</li>
+        <li><code>render</code> method of increasing the synchronous, asynchronous two ways
+          <p>Conventional usage (asynchronous):</p>
+          <pre><code class="language-javascript">nodetpl.render(..., data, function(d){
+  // Here is the compilation results
+});</code></pre>
+          <p>Synchronization method (insecure, consider adapting more scenes, does not support the use of such rendering method, use asynchronous):</p>
+          <del><pre><code class="language-javascript">var html = nodetpl.render(..., data);</code></pre></del>
+        </li>
+      </ul>
+    </dd>
+  </dl>
+  <dl>
+    <dt>2.2.6<time>2015.11.30</time></dt>
+    <dd>
+      <ul>
+        <li>Perfection <code>&lt;?=..?&gt;</code> Variable function, automatically determine whether the referenced <code>undefined</code></li>
+      </ul>
+    </dd>
+  </dl>
+  <dl>
+    <dt>2.1 to 2.2</dt>
+    <dd>
+      <ul>
+        <li>Compilation tools to do a major upgrade, no longer asked to enter <code>-o</code> attribute, supporting documents monitor, supports the specified template suffixes</li>
+      </ul>
+    </dd>
+  </dl>
+  <dl>
+    <dt>2.0 to 2.1</dt>
+    <dd>
+      <ul>
+        <li>Keyword "<code>@</code>" can be omitted, in a future version to be abandoned</li>
+      </ul>
+    </dd>
+  </dl>
+  <dl>
+    <dt>1.x to 2.0</dt>
+    <dd>
+      <ul>
+        <li>Support flexible configuration by <code>config</code> engine switch</li>
+        <li>Built <code>_fixcss</code> method soon abandoned, compiled using version 1.x templates need to be recompiled</li>
+        <li>Official support <code>CMD</code> modular development</li>
+        <li>Multiple templates referenced by the "<code>require</code>" keyword to "<code>include</code>", the original "<code>require</code>" keyword Waste</li>
+        <li>Increase keyword <code>ROOT</code>, on behalf of the native <code>DOM</code> nodes</li>
+        <li>
+          Default <code>$ROOT</code> point of <code>jQuery</code> object (selector <code>$("#~")</code>), for the use of other libraries, manually <code>config</code> settings
+          <pre><code class="language-javascript">nodetpl.config({
+  vars: {
+    root: '...'
+  }
+});</code></pre>
+        </li>
+      </ul>
+    </dd>
+  </dl>
+</section>
+<footer>
+  <div class="wrap">
+    <p>&copy; 2012 - 2015 nodetpl.com by <a href="http://www.qque.com/">pillys</a></p>
+  </div>
+</footer>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?55310397b78e4d3793e8b32711e7c487";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>

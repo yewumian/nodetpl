@@ -7,16 +7,22 @@ define(function(require, exports, module) {
 
   $('#btn-01').on('click', function() {
     var data = {
-      "name": "张三丰",
-      "gender": "男",
-      "age": 108
+      "title": "Favor",
+      "favor": [
+        "Football",
+        "Basketball",
+        "Table tennis",
+        "Glass ball"
+      ]
     };
-    nodetpl.get('/cn/demo/tpls/2.js', data, function(d) {
+    var content = document.getElementById('favor-tpl').innerHTML;
+    nodetpl.render(content, data, function(d) {
       vDialog({
-        title: '运行结果',
+        title: 'Result',
         content: d,
         width: 400,
-        ok: true
+        ok: true,
+        okValue: 'Ok'
       }).showModal();
     });
   });

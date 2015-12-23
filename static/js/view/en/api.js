@@ -7,46 +7,64 @@ define(function(require, exports, module) {
 
   $('#btn-01').on('click', function() {
     var data = {
-      "title": "个人爱好",
-      "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
+      "title": "Favor",
+      "favor": [
+        "Football",
+        "Basketball",
+        "Table tennis",
+        "Glass ball"
+      ]
     };
-    nodetpl.get('/cn/demo/tpls/1.js', data, function(d) {
+    nodetpl.get('/en/demo/tpls/1.js', data, function(d) {
       vDialog({
-        title: '运行结果',
+        title: 'Result',
         content: d,
         width: 400,
-        ok: true
+        ok: true,
+        okValue: 'Ok'
       }).showModal();
     });
   });
 
   $('#btn-02').on('click', function() {
     var data = {
-      "title": "个人爱好",
-      "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
+      "title": "Favor",
+      "favor": [
+        "Football",
+        "Basketball",
+        "Table tennis",
+        "Glass ball"
+      ]
     };
-    nodetpl.get('http://www.nodetpl.com/cn/demo/tpls/1.tpl', data, function(d) {
+    nodetpl.get('http://www.nodetpl.com/en/demo/tpls/1.tpl', data, function(d) {
       vDialog({
-        title: '运行结果',
+        title: 'Result',
         content: d,
         width: 400,
-        ok: true
+        ok: true,
+        okValue: 'Ok'
       }).showModal();
     });
   });
 
   $('#btn-03').on('click', function() {
     var data = {
-      "title": "个人爱好",
-      "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
+      "title": "Favor",
+      "favor": [
+        "Football",
+        "Basketball",
+        "Table tennis",
+        "Glass ball"
+      ]
     };
     var content = document.getElementById('favor-tpl').innerHTML;
     nodetpl.render(content, data, function(d) {
       vDialog({
-        title: '运行结果',
+        title: 'Result',
         content: d,
         width: 400,
-        ok: true
+        ok: true,
+        okValue: 'Ok'
       }).showModal();
     });
   });

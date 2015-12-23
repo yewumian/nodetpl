@@ -19,7 +19,7 @@
     _ += nodetpl.css(css);
 with($DATA || {}){
 
-    _ += '<div id="'+ guid +'">\n    <div class="title">个人名片 [<a class="link-modify" href="javascript:;">修改</a>]</div>\n    <div class="content"></div>\n  </div>';
+    _ += '<div id="'+ guid +'">\n    <div class="title">Personal Business Card [<a class="link-modify" href="javascript:;">modify</a>]</div>\n    <div class="content"></div>\n  </div>';
 
 }
     _ += '\n<script>\n';
@@ -65,17 +65,17 @@ with($DATA || {}){
     _ += nodetpl.css(css);
 with($DATA || {}){
 
-    _ += '<div id="'+ guid + duid +'">\n    <ul>\n      <li>姓名：';
+    _ += '<div id="'+ guid + duid +'">\n    <ul>\n      <li>Name: ';
     if (typeof name !== "undefined") {
       _ += (name);
     }
 
-    _ += '</li>\n      <li>性别：';
+    _ += '</li>\n      <li>Gender: ';
     if (typeof gender !== "undefined") {
       _ += (gender);
     }
 
-    _ += '</li>\n      <li>年龄：';
+    _ += '</li>\n      <li>Age:';
     if (typeof age !== "undefined") {
       _ += (age);
     }
@@ -95,22 +95,22 @@ with($DATA || {}){
     _ += nodetpl.css(css);
 with($DATA || {}){
 
-    _ += '<div id="'+ guid + duid +'">\n    <form action="">\n      <ul>\n        <li>姓名：<input type="text" name="name" value="';
+    _ += '<div id="'+ guid + duid +'">\n    <form action="">\n      <ul>\n        <li>Name: <input type="text" name="name" value="';
     if (typeof name !== "undefined") {
       _ += (name);
     }
 
-    _ += '" /></li>\n        <li>性别：<input type="text" name="gender" value="';
+    _ += '" /></li>\n        <li>Gender: <input type="text" name="gender" value="';
     if (typeof gender !== "undefined") {
       _ += (gender);
     }
 
-    _ += '" /></li>\n        <li>年龄：<input type="text" name="age" value="';
+    _ += '" /></li>\n        <li>Age: <input type="text" name="age" value="';
     if (typeof age !== "undefined") {
       _ += (age);
     }
 
-    _ += '" /></li>\n      </ul>\n      <div class="form-actions">\n        <button type="submit">保存</button>\n      </div>\n    </form>\n  </div>';
+    _ += '" /></li>\n      </ul>\n      <div class="form-actions">\n        <button type="submit">Save</button>\n      </div>\n    </form>\n  </div>';
 
 }
     _ += '\n<script>\n';

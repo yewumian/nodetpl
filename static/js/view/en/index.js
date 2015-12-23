@@ -12,7 +12,7 @@ define(function(require, exports, module) {
       "Football",
       "Basketball",
       "Table tennis",
-      "Glass ball."
+      "Glass ball"
     ]
   };
   var template = '\

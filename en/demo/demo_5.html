@@ -21,15 +21,20 @@
 <div id="$ROOT">
   <h1><?=title?></h1>
   <?for(var i=0; i<10; i++){?>
-    <p>hello, world, 第 <?=i?> 次</p>
+    <p>hello, world, <?=i?></p>
   <?}?>
 </div>
 </script>
 
 <script>
 var data = {
-  "title": "我是传入的标题",
-  "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
+  "title": "I'm the title",
+  "favor": [
+    "Football",
+    "Basketball",
+    "Table tennis",
+    "Glass ball"
+  ]
 };
 var resultDom = document.getElementById('result');
 var content = document.getElementById('favor-tpl').innerHTML;

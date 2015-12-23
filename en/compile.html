@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>NodeTpl - A powerful, efficient, easy to use, fun children's JavaScript template engine</title>
+<link rel="stylesheet" href="/static/css/normalize.css">
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/vdialog.css">
+<link rel="stylesheet" href="/static/css/highlight/prism.css">
+<script type="text/javascript" src="/static/js/highlight/prism.js"></script>
+<script type="text/javascript" src="/static/js/require.js"></script>
+<script type="text/javascript" src="/static/js/require-config.js"></script>
+</head>
+<body id="compile">
+<header class="en">
+  <div class="wrap">
+    <div class="logo">
+      <a href="/"><i class="iconfont">&#xe605;</i>NodeTpl</a>
+      <span>A powerful, efficient, easy to use, fun children's JavaScript template engine</span>
+    </div>
+    <nav>
+      <ul class="clearfix">
+        <li><a href="./">Home</a></li>
+        <li><a href="./start.html">Start</a></li>
+        <li><a href="./grammar.html">Grammar</a></li>
+        <li><a href="./api.html">API</a></li>
+        <li><a href="./multi.html">Multi-template</a></li>
+        <li class="active"><a href="./compile.html">Pre-compile</a></li>
+        <li><a href="./module.html">Modular</a></li>
+        <li><a href="./node.html">Node.js</a></li>
+        <li><a href="./changes.html">Changes</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="fixed-tools">
+  <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
+</div>
+<section class="wrap">
+  <h2>Precompiled</h2>
+  <p>To make the template code in the browser to run faster, more economical memory, and we need to be more easily manage the template file, the template code we usually saved as a separate file (default extension is <code>.tpl</code>, according to their needs adjustment), and then precompiled during the development phase.</p>
+  <p>File is no longer pre-compiled template code, it is an executable file <code>.js</code> browser naturally can very quickly identify and run it.</p>
+  <p>After compiling a template, you can use node <code>nodetpl.get()</code> method references.</p>
+  <h4>Installation</h4>
+  <p>Precompiled tools need <code>node.js</code> environmental support, if you have not installed <code>node.js</code>, please install it: <a href="https://nodejs.org/" target="_blank" rel="nofollow">https://nodejs.org/</a>.</p>
+  <p>After installing <code>node.js</code>, enter the following statement on the command line to complete the installation:</p>
+  <pre><code class="language-markup">npm install nodetpl -g</code></pre>
+  <h4>Grammar</h4>
+  <pre><code class="language-markup">nodetpl &lt;path&gt; <!-- -o &lt;relativePath&gt; -->--ext &lt;ext&gt; --look</code></pre>
+  <ul>
+    <li><code>&lt;path&gt;</code>: The path to the template file or directory path where the template</li>
+    <li><code>--ext</code>: Template file extension, by default <code>.tpl</code></li>
+    <li><code>--look</code>: Whether to monitor file changes, the default is <code>false</code>, when you pass this parameter, modify the template content will sync automatically compile</li>
+  </ul>
+  <h4>Example</h4>
+  <p><strong>Compiling a Single File</strong></p>
+  <p>First, our template file is saved in a directory (usually <code>tpls</code>), the template file extension <code>.tpl</code>, execute the following command:</p>
+  <pre><code class="language-markup">nodetpl /usr/local/testproject/tpls/demo/abc.tpl</code></pre>
+  <p>The result:</p>
+  <pre><code class="language-markup">&lt;? Hello, nodetpl is working... ?&gt;
+
+&gt;&gt; dist: auto
+&gt;&gt; extname: .tpl
+&gt;&gt; look mode: false
+&gt;&gt; from: /usr/local/testproject/tpls/demo/abc.tpl
+&gt;&gt; [1]  file: /usr/local/testproject/tpls/demo/abc.tpl</code></pre>
+  <p>We can see that in the template file under the same path, generated <code>.js</code> file of the same name, the file is compiled executable file.</p>
+  <p><strong>Mass compile the specified directory multiple template files</strong></p>
+  <p>The <code>&lt;path&gt;</code> set to the directory where the template, you can get mass compile all template files in that directory:</p>
+  <pre><code class="language-markup">nodetpl /usr/local/testproject/tpls</code></pre>
+  <p>The result:</p>
+  <pre><code class="language-markup">&lt;? Hello, nodetpl is working... ?&gt;
+
+&gt;&gt; dist: auto
+&gt;&gt; extname: .tpl
+&gt;&gt; look mode: false
+&gt;&gt; from: /usr/local/testproject/tpls
+&gt;&gt; [1]  file: /usr/local/testproject/tpls/demo/abc.tpl
+&gt;&gt; [2]  file: /usr/local/testproject/tpls/demo/def.tpl</code></pre>
+  <h4>Advanced Configuration</h4>
+  <p><strong>Monitor file changes automatically compile templates</strong></p>
+  <pre><code class="language-markup">nodetpl /usr/local/testproject/tpls --look</code></pre>
+  <p>The result:</p>
+  <pre><code class="language-markup">&lt;? Hello, nodetpl is working... ?&gt;
+
+&gt;&gt; dist: auto
+&gt;&gt; extname: .tpl
+&gt;&gt; look mode: false
+&gt;&gt; from: /usr/local/testproject/tpls
+&gt;&gt; [1]  file: /usr/local/testproject/tpls/demo/abc.tpl
+&gt;&gt; [2]  file: /usr/local/testproject/tpls/demo/def.tpl
+[listening...]
+&gt;&gt; [3]  file: /usr/local/testproject/tpls/demo/abc.tpl
+        Mon Nov 23 2015 15:46:20 GMT+0800 (CST)</code></pre>
+  <p>When you modify and save a template file, the file is automatically compiled.</p>
+</section>
+<footer>
+  <div class="wrap">
+    <p>&copy; 2012 - 2015 nodetpl.com by <a href="http://www.qque.com/">pillys</a></p>
+  </div>
+</footer>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?55310397b78e4d3793e8b32711e7c487";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>

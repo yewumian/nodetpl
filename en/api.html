@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>NodeTpl - A powerful, efficient, easy to use, fun children's JavaScript template engine</title>
+<link rel="stylesheet" href="/static/css/normalize.css">
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/vdialog.css">
+<link rel="stylesheet" href="/static/css/highlight/prism.css">
+<script type="text/javascript" src="/static/js/highlight/prism.js"></script>
+<script type="text/javascript" src="/static/js/require.js"></script>
+<script type="text/javascript" src="/static/js/require-config.js"></script>
+</head>
+<body id="api">
+<header class="en">
+  <div class="wrap">
+    <div class="logo">
+      <a href="/"><i class="iconfont">&#xe605;</i>NodeTpl</a>
+      <span>A powerful, efficient, easy to use, fun children's JavaScript template engine</span>
+    </div>
+    <nav>
+      <ul class="clearfix">
+        <li><a href="./">Home</a></li>
+        <li><a href="./start.html">Start</a></li>
+        <li><a href="./grammar.html">Grammar</a></li>
+        <li class="active"><a href="./api.html">API</a></li>
+        <li><a href="./multi.html">Multi-template</a></li>
+        <li><a href="./compile.html">Pre-compile</a></li>
+        <li><a href="./module.html">Modular</a></li>
+        <li><a href="./node.html">Node.js</a></li>
+        <li><a href="./changes.html">Changes</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="fixed-tools">
+  <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
+</div>
+<section class="wrap">
+  <h2>nodetpl methods</h2>
+  <p><code>nodetpl</code> methods are the following:</p>
+  <aside>
+    <ul>
+      <li><a href="#nodetpl_config">nodetpl.config</a>: Basic configuration, non-essential</li>
+      <li><a href="#nodetpl_get">nodetpl.get</a>: Get a template</li>
+      <li><a href="#nodetpl_render">nodetpl.render</a>: Rendering a template</li>
+      <li><a href="#nodetpl_exec">nodetpl.exec</a>: Js code execution inside the template, use less</li>
+    </ul>
+  </aside>
+  <p>Just common methods <code>get()</code> and <code>render()</code>, mastered these two methods, you will master the <code>nodetpl</code>.</p>
+  <h4 id="nodetpl_config">nodetpl.config(options)</h4>
+  <p>Configuration <code>nodetpl</code> basic parameters</p>
+  <p><code>config</code> is not necessary, generally you do not need to do any configuration</p>
+  <p>The following are examples of parameters that can be configured:</p>
+  <pre><code class="language-javascript">nodetpl.config({
+  base: 'http://www.nodetpl.com/static/tpl/',   // Forced specify a template root directory
+  openTag: '&lt;?',
+  closeTag: '?&gt;',
+  cache: true
+});</code></pre>
+  <ul>
+    <li>base: Root path where the template can be omitted. If you configure the parameters, use the <code>.get()</code> method to fill in the path will be relative to the path to find</li>
+    <li>openTag: Start tag template delimiters, by default: <code>&lt;?</code></li>
+    <li>closeTag: Template delimiter end tag, the default is: <code>?&gt;</code></li>
+    <li>cache: cache is turned on by default to open</li>
+  </ul>
+  <p>Here most of the default values can be used, so that this method can be omitted. Only in a handful of scenes, you can make adjustments according to their own needs.</p>
+  <h4 id="nodetpl_get">nodetpl.get(url, [data, ] callback)</h4>
+  <p>This method has the double-sided nature, it can directly load the file compiled, you can also load a template source code is compiled.</p>
+  <ul>
+    <li>
+      <p><strong>Specify the <code>url</code> no suffix or suffix <code>.js</code></strong></p>
+      <p>Loads the specified executable file template (see <a href="./compile.html" target="_blank">precompiled</a> compilation mode, .js suffix may be omitted), and render with <code>data</code>, the results rendered back to the <code>callback</code>.</p>
+      <ul>
+        <li>url: Js file path template compiled</li>
+        <li>data: Data into the template, if <code>data</code> is false, suspend rendering</li>
+        <li>callback: After the template compilation, the callback function is executed, the callback function will be compiled HTML as a parameter</li>
+      </ul>
+      <pre><code class="language-javascript">var data = {
+  "title": "Favor",
+  "favor": [
+    "Football",
+    "Basketball",
+    "Table tennis",
+    "Glass ball"
+  ]
+};
+nodetpl.get('http://www.nodetpl.com/demo/tpls/1.js', data, function(d){
+  // console.log(d);
+});</code></pre>
+      <p><a href="javascript:;" class="btn btn-try" id="btn-01">Have a try</a><a href="./demo/demo_8.html" class="btn" target="_blank">View demo</a></p>
+      <p>If "suspend rendering", the incoming data is no longer a <code>callback</code> <code>html</code> rendered, but the following structure:</p>
+      <pre><code class="language-javascript">{
+  render: function(data) {...}
+  toString: function() {...}
+}</code></pre>
+      <p>The need to render the place, the implementation of this parameter directly <code>render()</code> method can be:</p>
+      <pre><code class="language-javascript">nodetpl.get('http://www.nodetpl.com/demo/tpls/1.js', false, function(tpl){
+  var data = {
+    "title": "Favor",
+    "favor": [
+      "Football",
+      "Basketball",
+      "Table tennis",
+      "Glass ball"
+    ]
+  };
+  // Here tpl not rendered code, but an object, use render(data) method to render the template
+  // var d = tpl.render(data);
+  // console.log(d);
+});</code></pre>
+    </li>
+    <li>
+      <p><strong>Specify the <code>url</code> to the corresponding source file template</strong></p>
+      <p>Loads the specified template source file (not pre-compiled), and render with <code>data</code>, rendering the results returned to the <code>callback</code>.</p>
+      <ul>
+        <li>url: Template source file path</li>
+        <li>data: data into the template, if <code>data</code> is <code>false</code>, suspend rendering</li>
+        <li>callback: After loading the template objects, callbacks executed pass a callback function that contains <code>render()</code> and <code>toString()</code> method</li>
+      </ul>
+      <p>Usage above, except that the incoming <code>url</code> path here is the template source address, usually <code>.tpl</code> or <code>.html</code></p>
+      <pre><code class="language-javascript">var data = {
+  "title": "Favor",
+  "favor": [
+    "Football",
+    "Basketball",
+    "Table tennis",
+    "Glass ball"
+  ]
+};
+nodetpl.get('http://www.nodetpl.com/demo/tpls/1.tpl', data, function(d){
+  // console.log(d);
+});</code></pre>
+      <p><a href="javascript:;" class="btn btn-try" id="btn-02">Have a try</a><a href="./demo/demo_7.html" class="btn" target="_blank">View demo</a></p>
+      <p>When get  <code>tpl</code>, you can at any scene, repeatedly calling tpl.render() method, passing different objects, in order to achieve the purpose of the template reuse.</p>
+      <p>If you want to simply read the template source files directly whine with tpl.toString () method can be.</p>
+    </li>
+  </ul>
+  <h4 id="nodetpl_render">nodetpl.render(tplcontent[, data][, callback]);</h4>
+  <ul>
+    <li>
+      <p>Use <code>data</code>, direct rendering template code tpl content.</p>
+      <p>This method does not contain precompiled links, usually used in artificial splicing or <code>&lt;script type="text/template"...</code> the scene.</p>
+      <p>HTML</p>
+      <pre><code class="language-html">&lt;script id="favor-tpl" type="text/template"&gt;
+&lt;h1&gt;&lt;?=title?&gt;&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;?for(var i=0; i&lt;favor.length; i++){?&gt;
+    &lt;li&gt;&lt;?=i?&gt;：&lt;?=favor[i]?&gt;&lt;/li&gt;
+  &lt;?}?&gt;
+&lt;/ul&gt;
+&lt;/script&gt;</code></pre>
+      <p>JS</p>
+      <pre><code class="language-javascript">var data = {
+    "title": "Favor",
+    "favor": [
+      "Football",
+      "Basketball",
+      "Table tennis",
+      "Glass ball"
+    ]
+};
+var content = document.getElementById('favor-tpl').innerHTML;
+nodetpl.render(content, data, function(d){
+  console.log(d);
+});
+</code></pre>
+      <p>Or, do not write <code>HTML</code>, do string concatenation directly in the <code>js</code> also:</p>
+      <pre><code class="language-javascript">var template = '\
+&lt;script id="favor-tpl" type="text/template"&gt;\
+&lt;h1&gt;&lt;?=title?&gt;&lt;/h1&gt;\
+&lt;ul&gt;\
+  &lt;?for(var i=0; i&lt;favor.length; i++){?&gt;\
+    &lt;li&gt;&lt;?=i?&gt;：&lt;?=favor[i]?&gt;&lt;/li&gt;\
+  &lt;?}?&gt;\
+&lt;/ul&gt;\
+&lt;/script&gt;';
+nodetpl.render(template, ...</code></pre>
+      <p><a href="javascript:;" class="btn btn-try" id="btn-03">Have a try</a><a href="./demo/demo_1.html" class="btn" target="_blank">View demo</a></p>
+    </li>
+    <li>
+      <p>If you just want to get the template, temporarily without rendering, at the appropriate scene only to render, you can <code>render()</code> method of the incoming <code>data</code> is set to <code>false</code>.</p>
+      <p>In this scenario, the result is such a structure:</p>
+      <pre><code class="language-javascript">{
+  render: function(data) {...}
+  toString: function() {...}
+}</code></pre>
+      <p>In the scene we needed to directly call the object's <code>render()</code> method can be:</p>
+      <pre><code class="language-javascript">var tpl = nodetpl.render(content, false);
+var html = tpl.render(data);
+console.log(html);</code></pre>
+      <p>This mechanism is referred to as the <code>nodetpl</code> "suspend rendering."</p>
+    </li>
+  </ul>
+  <h4 id="nodetpl_exec">nodetpl.exec(content);</h4>
+  <p><code>HTML</code> execution of <code>JavaScript</code>, which in rare scene (for example native <code>innerHTML</code>), because most of the <code>js</code> library already contains the method performed automatically.</p>
+  <p>For example the following passage <code>HTML</code>, by adding to a <code>DOM</code> <code>innerHTML</code> in conventional, <code>JavaScript</code> will not be executed, you can manually run the <code>exec</code> method After complete.</p>
+  <pre><code class="language-javascript">&lt;h1&gt;hello&lt;/h1&gt;
+&lt;script&gt;
+  alert(0);
+&lt;/script&gt;</code></pre>
+  <pre><code class="language-javascript">nodetpl.exec(content);</code></pre>
+</section>
+<footer>
+  <div class="wrap">
+    <p>&copy; 2012 - 2015 nodetpl.com by <a href="http://www.qque.com/">pillys</a></p>
+  </div>
+</footer>
+<script id="favor-tpl" type="text/template">
+<h1><?=title?></h1>
+<ul>
+  <?for(var i=0; i<favor.length; i++){?>
+    <li><?=i?>：<?=favor[i]?></li>
+  <?}?>
+</ul>
+</script>
+<script>require(['view/en/api']);</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?55310397b78e4d3793e8b32711e7c487";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>

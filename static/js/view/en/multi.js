@@ -7,16 +7,17 @@ define(function(require, exports, module) {
 
   $('#btn-01').on('click', function() {
     var data = {
-      "name": "张三丰",
-      "gender": "男",
+      "name": "Tom",
+      "gender": "Male",
       "age": 108
     };
-    nodetpl.get('/cn/demo/tpls/2.js', data, function(d) {
+    nodetpl.get('/en/demo/tpls/2.js', data, function(d) {
       vDialog({
-        title: '运行结果',
+        title: 'Result',
         content: d,
         width: 400,
-        ok: true
+        ok: true,
+        okValue: 'Ok'
       }).showModal();
     });
   });

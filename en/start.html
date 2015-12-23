@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>NodeTpl - A powerful, efficient, easy to use, fun children's JavaScript template engine</title>
+<link rel="stylesheet" href="/static/css/normalize.css">
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/vdialog.css">
+<link rel="stylesheet" href="/static/css/highlight/prism.css">
+<script type="text/javascript" src="/static/js/highlight/prism.js"></script>
+<script type="text/javascript" src="/static/js/require.js"></script>
+<script type="text/javascript" src="/static/js/require-config.js"></script>
+</head>
+<body id="start">
+<header class="en">
+  <div class="wrap">
+    <div class="logo">
+      <a href="/"><i class="iconfont">&#xe605;</i>NodeTpl</a>
+      <span>A powerful, efficient, easy to use, fun children's JavaScript template engine</span>
+    </div>
+    <nav>
+      <ul class="clearfix">
+        <li><a href="./">Home</a></li>
+        <li class="active"><a href="./start.html">Start</a></li>
+        <li><a href="./grammar.html">Grammar</a></li>
+        <li><a href="./api.html">API</a></li>
+        <li><a href="./multi.html">Multi-template</a></li>
+        <li><a href="./compile.html">Pre-compile</a></li>
+        <li><a href="./module.html">Modular</a></li>
+        <li><a href="./node.html">Node.js</a></li>
+        <li><a href="./changes.html">Changes</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="fixed-tools">
+  <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
+</div>
+<section class="wrap">
+  <h2>Basic Introduction</h2>
+  <p>Version: v3.0.0</p>
+  <p>Project url:<a href="https://github.com/pillys/nodetpl" target="_blank">https://github.com/pillys/nodetpl</a></p>
+  <p>Download url: <a href="https://github.com/pillys/nodetpl/archive/master.zip">https://github.com/pillys/nodetpl/archive/master.zip</a></p>
+  <p>BUG feedback: <a href="https://github.com/pillys/nodetpl/issues" target="_blank">https://github.com/pillys/nodetpl/issues</a></p>
+  <h2>Quick Start</h2>
+  <h4>Import file</h4>
+  <p>Download and unzip the <code>nodetpl</code> package</p>
+  <p>Link the <code>nodetpl</code> files in header tag (package <code>/dist/nodetpl.client.min.js</code>):</p>
+  <pre><code class="language-html">&lt;script src="./static/js/nodetpl.client.min.js"&gt;&lt;/script&gt;</code></pre>
+  <h4>Coding Templates</h4>
+  <p>Easiest way, you can use <code>type="text/template"</code> marked <code>script</code> tag to stored template code:</p>
+  <pre><code class="language-html">&lt;script id="testid" type="text/template"&gt;
+&lt;h1&gt;&lt;?=title?&gt;&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;?for(var i=0; i&lt;favor.length; i++){?&gt;
+    &lt;li&gt;&lt;?=i?&gt;：&lt;?=favor[i]?&gt;&lt;/li&gt;
+  &lt;?}?&gt;
+&lt;/ul&gt;
+&lt;/script&gt;</code></pre>
+  <h4>Perform rendering</h4>
+  <pre><code class="language-javascript">var data = {
+  "title": "Favor",
+  "favor": [
+    "Football",
+    "Basketball",
+    "Table tennis",
+    "Glass ball"
+  ]
+};
+var content = document.getElementById('testid').innerHTML;
+nodetpl.render(content, data, function(d){
+  console.log(d);
+});
+</code></pre>
+  <h4>Result</h4>
+  <pre><code class="language-html">&lt;h1&gt;Favor&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;0: Football&lt;/li&gt;
+  &lt;li&gt;1: Basketball&lt;/li&gt;
+  &lt;li&gt;2: Table tennis&lt;/li&gt;
+  &lt;li&gt;3: Glass ball&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+  <p><a href="javascript:;" class="btn btn-try" id="btn-01">Have a try</a><a href="./demo/demo_1.html" class="btn" target="_blank">View demo</a></p>
+</section>
+<section class="wrap">
+  <h2>Keywords</h2>
+  <p><code>nodetpl</code> will involve the following keywords will be contacted individually to the next study:</p>
+  <ul class="clearfix key-list">
+    <li>&lt;? ?&gt;</li>
+    <li>ROOT</li>
+    <li>SUBROOT</li>
+    <li>$DATA</li>
+    <li>=</li>
+    <li>include</li>
+    <li>template</li>
+    <li>main</li>
+    <li>config()</li>
+    <li>get()</li>
+    <li>render()</li>
+    <li>exec()</li>
+    <li>nodetpl &lt;path&gt; -look</li>
+  </ul>
+</section>
+<footer>
+  <div class="wrap">
+    <p>&copy; 2012 - 2015 nodetpl.com by <a href="http://www.qque.com/">pillys</a></p>
+  </div>
+</footer>
+<script id="favor-tpl" type="text/template">
+<h1><?=title?></h1>
+<ul>
+  <?for(var i=0; i<favor.length; i++){?>
+    <li><?=i?>：<?=favor[i]?></li>
+  <?}?>
+</ul>
+</script>
+<script>require(['view/en/start']);</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?55310397b78e4d3793e8b32711e7c487";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>

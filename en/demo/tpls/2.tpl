@@ -9,7 +9,7 @@
   }
   </style>
   <div id="$ROOT">
-    <div class="title">个人名片 [<a class="link-modify" href="javascript:;">修改</a>]</div>
+    <div class="title">Personal Business Card [<a class="link-modify" href="javascript:;">modify</a>]</div>
     <div class="content"></div>
   </div>
   <script>
@@ -31,9 +31,9 @@
   </style>
   <div id="$SUBROOT">
     <ul>
-      <li>姓名：<?=name?></li>
-      <li>性别：<?=gender?></li>
-      <li>年龄：<?=age?></li>
+      <li>Name: <?=name?></li>
+      <li>Gender: <?=gender?></li>
+      <li>Age:<?=age?></li>
     </ul>
   </div>
 </template>
@@ -48,12 +48,12 @@
   <div id="$SUBROOT">
     <form action="">
       <ul>
-        <li>姓名：<input type="text" name="name" value="<?=name?>" /></li>
-        <li>性别：<input type="text" name="gender" value="<?=gender?>" /></li>
-        <li>年龄：<input type="text" name="age" value="<?=age?>" /></li>
+        <li>Name: <input type="text" name="name" value="<?=name?>" /></li>
+        <li>Gender: <input type="text" name="gender" value="<?=gender?>" /></li>
+        <li>Age: <input type="text" name="age" value="<?=age?>" /></li>
       </ul>
       <div class="form-actions">
-        <button type="submit">保存</button>
+        <button type="submit">Save</button>
       </div>
     </form>
   </div>

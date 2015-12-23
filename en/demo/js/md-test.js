@@ -4,13 +4,19 @@ define(function(require, exports, module) {
   var vDialog = require('vDialog');
 
   nodetpl.get('/demo/tpls/1', {
-    title: '个人爱好',
-    favor: ['足球', '篮球', '乒乓球', '琉璃球']
+    "title": "Favor",
+    "favor": [
+      "Football",
+      "Basketball",
+      "Table tennis",
+      "Glass ball"
+    ]
   }, function(d) {
     vDialog({
-      title: '运行结果',
+      title: 'Result',
       content: d,
-      width: 400
+      width: 400,
+      okValue: 'Ok'
     }).showModal();
   });
 });

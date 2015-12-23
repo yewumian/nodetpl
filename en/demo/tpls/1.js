@@ -30,7 +30,7 @@ for(var i=0; i<favor.length; i++){
       _ += (i);
     }
 
-    _ += '：';
+    _ += ': ';
     if (typeof favor !== "undefined") {
       _ += (favor[i]);
     }
