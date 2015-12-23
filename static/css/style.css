@@ -276,7 +276,8 @@ a.btn {
 }
 #index section.introduction ul li dl dd {
   margin-left: 50px;
-  height: 3em;
+  height: 4.5em;
+  line-height: 1.5em;
 }
 #index section.introduction .share-box {
   position: absolute;
