@@ -344,7 +344,7 @@
    */
   NodeTpl.prototype.get = function(url, data, callback) {
     var that = this;
-    if (/\/[^\/\.]+$|\.js$/.test(url.replace(/(\?#).*$/, ''))) {
+    if (/\/[^\/\.]+$|\.js$/.test(url.replace(/#.*$/, ''))) {
       // 编译后的 js 文件
       that._getJs(url, data, callback);
     } else {
