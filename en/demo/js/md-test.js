@@ -3,7 +3,7 @@ define(function(require, exports, module) {
   var nodetpl = require('nodetpl');
   var vDialog = require('vDialog');
 
-  nodetpl.get('/demo/tpls/1', {
+  nodetpl.get('/en/demo/tpls/1', {
     "title": "Favor",
     "favor": [
       "Football",
