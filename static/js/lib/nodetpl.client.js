@@ -1,5 +1,5 @@
 /*!
- * nodetpl v3.2.0
+ * nodetpl v3.3.0
  * Best javascript template engine
  * https://www.nodetpl.com
  *
@@ -37,7 +37,7 @@
   }
 
   function NodeTpl() {
-    this.version = '3.2.0';
+    this.version = '3.3.0';
     this.ie6 = window.VBArray && !window.XMLHttpRequest;
     this.guid = function() {
       return 'NTGUID__' + (this.guid._counter++).toString(36);
