@@ -55,7 +55,7 @@ fs.readFile(filepath, 'utf-8', function(err, content) {
   if (err) {
     throw err;
   } else {
-    content = nodetpl.render(content, data, function(d){
+    nodetpl.render(content, data, function(d){
       console.log(d);
     });
   }
