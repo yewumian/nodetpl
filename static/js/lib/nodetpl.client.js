@@ -1,5 +1,5 @@
 /*!
- * nodetpl v3.1.0
+ * nodetpl v3.2.0
  * Best javascript template engine
  * https://www.nodetpl.com
  *
@@ -37,7 +37,7 @@
   }
 
   function NodeTpl() {
-    this.version = '3.1.0';
+    this.version = '3.2.0';
     this.ie6 = window.VBArray && !window.XMLHttpRequest;
     this.guid = function() {
       return 'NTGUID__' + (this.guid._counter++).toString(36);
@@ -259,13 +259,15 @@
     if (typeof window !== 'undefined') {
       (new Function(this.compile(path, html)))();
     } else {
-      var vm = require('vm');
       var context = new vm.createContext({
         console: console,
         require: require,
-        exports: {}
+        exports: {},
+        module: {
+          uri: path
+        }
       });
-      new vm.Script(this.compile(path, html)).runInContext(context);
+      new vm.Script(that.compile(filepath, content)).runInContext(context);
     }
     return this._getJs(path, data, callback);
   };
@@ -376,17 +378,19 @@
   NodeTpl.prototype._getUrl = function(url) {
     url = url.trim();
     if (url.indexOf(this._docid) !== 0) {
-      if (!/^(https?:|\/{2})/.test(url)) {
-        url = this.options.base + url;
-      }
-      if (/^\/[^\/]/.test(url)) {
-        url = '//' + location.host + url;
-      }
-      if (/^\/{2}/.test(url)) {
-        url = location.protocol + url;
-      }
-      if (!/\.js$/.test(url)) {
-        url = url + '.js';
+      if (typeof location !== 'undefined') {
+        if (!/^(https?:|\/{2})/.test(url)) {
+          url = this.options.base + url;
+        }
+        if (/^\/[^\/]/.test(url)) {
+          url = '//' + location.host + url;
+        }
+        if (/^\/{2}/.test(url)) {
+          url = location.protocol + url;
+        }
+        if (!/\.js$/.test(url)) {
+          url = url + '.js';
+        }
       }
     }
     return url;
@@ -705,7 +709,7 @@
       html += "   define(factory);\n";
     }
     html += " } else if (typeof require === 'function' && typeof exports === 'object') {\n";
-    html += "   factory(require, exports);\n";
+    html += "   factory(require, exports, module);\n";
     html += " } else {\n";
     html += "   factory();\n";
     html += " }\n";
