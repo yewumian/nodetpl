@@ -1,5 +1,5 @@
 /*!
- * nodetpl v3.0.1
+ * nodetpl v3.1.0
  * Best javascript template engine
  * https://www.nodetpl.com
  *
@@ -37,7 +37,7 @@
   }
 
   function NodeTpl() {
-    this.version = '3.0.1';
+    this.version = '3.1.0';
     this.ie6 = window.VBArray && !window.XMLHttpRequest;
     this.guid = function() {
       return 'NTGUID__' + (this.guid._counter++).toString(36);
@@ -256,7 +256,17 @@
       throw new TypeError();
     }
     path = this._docid + Math.random().toString();
-    (new Function(this.compile(path, html)))();
+    if (typeof window !== 'undefined') {
+      (new Function(this.compile(path, html)))();
+    } else {
+      var vm = require('vm');
+      var context = new vm.createContext({
+        console: console,
+        require: require,
+        exports: {}
+      });
+      new vm.Script(this.compile(path, html)).runInContext(context);
+    }
     return this._getJs(path, data, callback);
   };
   /**
@@ -694,8 +704,8 @@
       // 预编译模板，无需传递 id
       html += "   define(factory);\n";
     }
-    html += " } else if (typeof exports === 'object') {\n";
-    html += "   module.exports = factory;\n";
+    html += " } else if (typeof require === 'function' && typeof exports === 'object') {\n";
+    html += "   factory(require, exports);\n";
     html += " } else {\n";
     html += "   factory();\n";
     html += " }\n";
