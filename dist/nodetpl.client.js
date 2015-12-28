@@ -1,5 +1,5 @@
 /*!
- * nodetpl v3.3.0
+ * nodetpl v3.3.1
  * Best javascript template engine
  * https://www.nodetpl.com
  *
@@ -622,7 +622,9 @@
       content = content.replace(/\$ROOT/igm, '\'+ guid +\'');
       content = content.replace(/\$SUBROOT/igm, '\'+ guid + duid +\'');
     }
-    content = '\nwith($DATA || {}){\n' + content + '\n}\n';
+    content = 'try{\n' +
+      'with($DATA || {}){\n' + content + '\n}' +
+      '} catch(e){ console.log(e.stack); }\n';
     return content;
   };
   /**
