@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>NodeTpl - 高效javascript模板引擎</title>
+<link rel="stylesheet" href="/static/css/normalize.css">
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/vdialog.css">
+<link rel="stylesheet" href="/static/css/highlight/prism.css">
+<script type="text/javascript" src="/static/js/highlight/prism.js"></script>
+<script type="text/javascript" src="/static/js/require.js"></script>
+<script type="text/javascript" src="/static/js/require-config.js"></script>
+</head>
+<body id="api">
+<header>
+  <div class="wrap">
+    <div class="logo">
+      <a href="/"><i class="iconfont">&#xe605;</i>NodeTpl</a>
+      <span>一款强大、高效、易用、有趣儿的 JavaScript 模板引擎</span>
+    </div>
+    <nav>
+      <ul class="clearfix">
+        <li><a href="./">首页</a></li>
+        <li><a href="./start.html">开始</a></li>
+        <li><a href="./grammar.html">语法</a></li>
+        <li><a href="./api.html">API</a></li>
+        <li><a href="./multi.html">多模板</a></li>
+        <li><a href="./compile.html">预编译</a></li>
+        <li><a href="./module.html">模块化</a></li>
+        <li><a href="./node.html">Node</a></li>
+        <li><a href="./changes.html">升级日志</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="fixed-tools">
+  <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
+</div>
+<section class="wrap">
+  <h2>nodetpl-es<sup>beta</sup></h2>
+  <p>无拘无束，<code>nodetpl-es</code> 是专门为 <code>ES6</code> 而生的模板引擎，它能完美地支持 70% 以上的 <code>ES6/ES7</code> 语法。</p>
+  <p>有了 <code>nodetpl-es</code>，在开发过程中再也不用拘泥于浏览器的兼容性，大胆开始你的 <code>ES6</code> 之旅吧！</p>
+  <h3>模板示例</h3>
+  <p>下面 <code>nodetpl</code> 模板中多处使用了 ES6 的语法，<code>nodetpl-es</code> 能够完美支持。</p>
+  <pre><code class="language-html">import $ from 'jquery';
+import { getAge, getGender } from './userProfile';
+
+&lt;template name="main"&gt;
+&lt;style&gt;
+h1{color: #f00;}
+h2{font-size: 12px;}
+&lt;/style&gt;
+&lt;div id="$ROOT"&gt;
+  &lt;h1&gt;hello &lt;?=@name?&gt;&lt;/h1&gt;
+  &lt;?for(let i=0; i&lt;10; i++){?&gt;
+    &lt;p&gt;&lt;?=i?&gt;&lt;/p&gt;
+  &lt;?}?&gt;
+&lt;/div&gt;
+&lt;script&gt;
+let age = getAge('12345');
+let gender = getGender('12345');
+let arr = [1, 2, 3];
+arr = arr.map(v =&gt; v + 1);
+let p = new Promise(function(resolve, reject){
+  //...
+});
+p.then(function(){
+  //...
+}).catch(function(e){
+  //...
+});
+console.log(include('sub'));
+&lt;/script&gt;
+&lt;/template&gt;
+&lt;template name="sub"&gt;
+&lt;div id="$SUBROOT"&gt;
+  &lt;h3&gt;test sub&lt;/h3&gt;
+&lt;/div&gt;
+&lt;/template&gt;</code></pre>
+  <h3>语法变更</h3>
+  <p>在 <code>nodetpl</code> 的基础上，<code>nodetpl-es</code> 为实现 <code>ES6</code> 的支持，做了下面的调整：</p>
+  <ul>
+    <li>模板中引用传入数据的某个属性，不能直接使用属性名，改为 <code>@属性名</code> 引用。注意例子中的 <code>&lt;h1&gt;hello &lt;?=@name?&gt;&lt;/h1&gt;</code></li>
+    <li>需要引入某个 <code>ES</code> 模块，直接在模板中使用 <code>import</code> 语法即可</li>
+  </ul>
+  <h3>特别说明</h3>
+  <p>目前 <code>nodetpl-es</code> 只支持输出 commonjs 模块，可以完美地通过 webpack 等工具进行打包，暂时还不支持其他格式，在未来的版本中会给予支持。</p>
+  <h3>安装</h3>
+  <h4>安装 <code>nodetpl-es-cli</code></h4>
+  <pre><code class="language-markup">npm install nodetpl-es-cli -g</code></pre>
+  <p>安装完成后，运行 <code class="language-markup">nodetpl-es-cli -h</code>，可以看到下面的帮助信息：</p>
+  <pre><code class="language-markup">&lt;?  NodeTplES Precompile Tools  ?&gt;
+
+  version: v1.0.0
+
+  grammar:
+    nodetpl-es-cli &lt;path&gt; --extname .tpl --es5 --watch
+
+  arguments:
+    &lt;path&gt;   : template file or directory path.
+    --extname: the template extention name, default is ".tpl".
+    --es5    : transform es6 code to es5, default is false.
+    --watch  : watch the file, automatically compile if changed.</code></pre>
+  <h3>参数</h3>
+  <h4>&lt;path&gt;</h4>
+  <p>要编译的模板文件路径，或模板文件所在的目录</p>
+  <h4>--extname</h4>
+  <p>模板文件的扩展名，默认为“.tpl”</p>
+  <h4>--es5</h4>
+  <p>是否将 es6 代码编译成 es5 代码，默认为 false</p>
+  <h4>--watch</h4>
+  <p>是否监听文件变化，如果设置成 true，则当模板文件改动时，自动编译该模板</p>
+  <h3>示例</h3>
+  <h4>编译某个文件</h4>
+  <pre><code class="language-markup">nodetpl-es-cli ../test/test1.tpl</code></pre>
+  <pre><code class="language-markup">&lt;?
+  Hello, NodeTpl-ES
+  extname: .tpl
+  es5    : false
+  watch  : false
+  version: 1.0.0
+?&gt;
+&gt;&gt; File: /Volumes/data/git/test/test1.tpl
+&gt;&gt; [1]  /Volumes/data/git/test/test1.js</code></pre>
+  <h4>编译某个目录</h4>
+  <pre><code class="language-markup">nodetpl-es-cli ../test</code></pre>
+  <pre><code class="language-markup">&lt;?
+  Hello, NodeTpl-ES
+  extname: .tpl
+  es5    : false
+  watch  : false
+  version: 1.0.0
+?&gt;
+&gt;&gt; Directory: /Volumes/data/git/test
+&gt;&gt; [1]  /Volumes/data/git/test/test1.js
+&gt;&gt; [2]  /Volumes/data/git/test/test2.js</code></pre>
+  <h4>监听文件变化</h4>
+  <pre><code class="language-markup">nodetpl-es-cli ../test --watch</code></pre>
+  <h4>将文件编译成 ES5 的语法</h4>
+  <pre><code class="language-markup">nodetpl-es-cli ../test --es5</code></pre>
+  <h2>引用</h2>
+  <p>编译完成之后，就可以像加载一般模块一样来进行引入了。</p>
+  <p>引入的 <code>es</code> 模块拥有一个 <code>render()</code> 方法，用来传入数据编译模板：</p>
+  <pre><code class="language-javascript">import a from './test/test1';
+var b = require('./test/test2');
+//...
+var result = a.render(data);
+console.log(result);</code></pre>
+</section>
+<footer>
+  <div class="wrap">
+    <p>&copy; 2012 - 2015 nodetpl.com by <a href="http://www.qque.com/">pillys</a></p>
+  </div>
+</footer>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?55310397b78e4d3793e8b32711e7c487";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>
