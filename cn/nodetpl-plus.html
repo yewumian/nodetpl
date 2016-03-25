@@ -44,6 +44,7 @@
   <p>下面 <code>nodetpl</code> 模板中多处使用了 ES6 的语法，<code>nodetpl-plus</code> 能够完美支持。</p>
   <pre><code class="language-html">import $ from 'jquery';
 import { getAge, getGender } from './userProfile';
+let abc = require('abc');
 
 &lt;template name="main"&gt;
 &lt;style&gt;
@@ -84,17 +85,17 @@ console.log(include('sub'));
     <li>需要引入某个 <code>ES</code> 模块，直接在模板顶部使用 <code>import</code> 或 <code>require</code> 语法即可</li>
   </ul>
   <h3>特别说明</h3>
-  <p>目前 <code>nodetpl-plus</code> 只支持输出 commonjs、CMD、AMD 等模块，可以完美地通过 webpack 等工具进行打包，同时还能用在 node 端）。</p>
+  <p>目前 <code>nodetpl-plus</code> 支持输出 commonjs、CMD、AMD 等模块，可以完美地通过 webpack 等工具进行打包，同时还能用在 node 端。</p>
   <h3>安装</h3>
   <h4>安装 <code>nodetpl-plus-cli</code></h4>
   <pre><code class="language-markup">npm install nodetpl-plus-cli -g</code></pre>
   <p>安装完成后，运行 <code class="language-markup">nodetpl-plus-cli -h</code>，可以看到下面的帮助信息：</p>
   <pre><code class="language-markup">&lt;?  NodeTplES Precompile Tools  ?&gt;
 
-  version: v1.0.0
+  version: v1.2.3
 
   grammar:
-    nodetpl-plus-cli &lt;path&gt; --extname .tpl --es5 --watch
+    nodetpl-plus-cli &lt;path&gt; --extname .tpl --transform --library &lt;library&gt; --watch
 
   arguments:
     &lt;path&gt;     : template file or directory path.
