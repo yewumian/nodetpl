@@ -78,14 +78,23 @@ console.log(include('sub'));
   &lt;h3&gt;test sub&lt;/h3&gt;
 &lt;/div&gt;
 &lt;/template&gt;</code></pre>
+  <p>将上面文件保存为 <code>test.tpl</code>，运行 <code>nodetpl-plus-cli ./test.tpl --transform </code> 试试看？</p>
   <h3>语法变更</h3>
-  <p>在 <code>nodetpl</code> 的基础上，<code>nodetpl-plus</code> 为实现 <code>ES6</code> 的支持，做了下面的调整：</p>
+  <p>在 <code>nodetpl</code> 的基础上，<code>nodetpl-plus</code> 为实现 <code>ES6+</code> 的支持（<code>strict mode</code>），做了下面的调整：</p>
   <ul>
-    <li>模板中引用传入数据的某个属性，不能直接使用属性名，改为 <code>@属性名</code> 引用。注意例子中的 <code>&lt;h1&gt;hello &lt;?=@name?&gt;&lt;/h1&gt;</code></li>
-    <li>需要引入某个 <code>ES</code> 模块，直接在模板顶部使用 <code>import</code> 或 <code>require</code> 语法即可</li>
+    <li>模板中引用传入数据的某个属性，不能直接使用属性名，改为 “<code>@属性名</code>” 引用。注意例子中的 <code>&lt;h1&gt;hello &lt;?=@name?&gt;&lt;/h1&gt;</code></li>
+    <li>需要引入某个模块，直接在模板顶部使用 <code>import</code> 或 <code>require</code> 语法即可</li>
+    <li>模板只能通过预编译才能使用，不再支持浏览器端实时编译</li>
+    <li>浏览器端不再引用任何 <code>nodetpl</code> 解释文件，生成的内容为标准的 <code>JavaScript</code> 代码</li>
+    <li>直接通过 <code>require</code> 语句引入模板文件，调用 <code>render</code> 方法即可取得渲染后的数据</li>
   </ul>
-  <h3>特别说明</h3>
-  <p>目前 <code>nodetpl-plus</code> 支持输出 commonjs、CMD、AMD 等模块，可以完美地通过 webpack 等工具进行打包，同时还能用在 node 端。</p>
+  <h2>引用</h2>
+  <p>通过 <code>nodetpl-plus-cli</code> 编译之后，可以像加载一般模块一样来引入。</p>
+  <p>引入的模板拥有一个 <code>render()</code> 方法，用来接收传入的数据以编译模板：</p>
+  <pre><code class="language-javascript">var tplMessage = require('./tpls/test2');
+//...
+var result = tplMessage.render(data);
+console.log(result);</code></pre>
   <h3>安装</h3>
   <h4>安装 <code>nodetpl-plus-cli</code></h4>
   <pre><code class="language-markup">npm install nodetpl-plus-cli -g</code></pre>
@@ -130,14 +139,8 @@ console.log(include('sub'));
   <pre><code class="language-markup">nodetpl-plus-cli ../test --transform</code></pre>
   <h4>编译成 AMD 模块</h4>
   <pre><code class="language-markup">nodetpl-plus-cli ../test --library amd</code></pre>
-  <h2>引用</h2>
-  <p>编译完成之后，就可以像加载一般模块一样来进行引入了。</p>
-  <p>引入的 <code>es</code> 模块拥有一个 <code>render()</code> 方法，用来传入数据编译模板：</p>
-  <pre><code class="language-javascript">import a from './test/test1';
-var b = require('./test/test2');
-//...
-var result = a.render(data);
-console.log(result);</code></pre>
+  <h3>特别说明</h3>
+  <p>目前 <code>nodetpl-plus</code> 支持输出 commonjs、CMD、AMD 等模块，可以完美地通过 webpack 等工具进行打包，同时还能用在 node 端。</p>
 </section>
 <footer>
   <div class="wrap">
