@@ -139,8 +139,20 @@ console.log(result);</code></pre>
   <pre><code class="language-markup">nodetpl-plus-cli ../test --transform</code></pre>
   <h4>编译成 AMD 模块</h4>
   <pre><code class="language-markup">nodetpl-plus-cli ../test --library amd</code></pre>
-  <h3>特别说明</h3>
-  <p>目前 <code>nodetpl-plus</code> 支持输出 commonjs、CMD、AMD 等模块，可以完美地通过 webpack 等工具进行打包，同时还能用在 node 端。</p>
+  <h3>打包</h3>
+  <p>目前 <code>nodetpl-plus</code> 支持输出 commonjs、CMD、AMD 等模块，可以完美地通过 webpack 等工具进行打包，同时还能用在 node 端，下面是一个使用 webpack 打包的示例：</p>
+  <h4>安装 <a href="https://github.com/pillys/nodetpl-loader" target="_blank">nodetpl-loader</a></h4>
+  <pre><code class="language-markup">npm install nodetpl-loader --save</code></pre>
+  <h4>配置 webpack</h4>
+  <pre><code class="language-javascript">loaders: [{
+  test: /\.(jsx?|tpl)$/,
+  loader: 'babel',
+  ...
+}],
+preLoaders: [{
+  test: /\.tpl?$/,
+  loader: 'nodetpl'
+}</code></pre>
 </section>
 <footer>
   <div class="wrap">
