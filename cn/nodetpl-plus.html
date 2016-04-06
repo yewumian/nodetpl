@@ -153,6 +153,36 @@ preLoaders: [{
   test: /\.tpl?$/,
   loader: 'nodetpl'
 }]</code></pre>
+  <h3>User Express.js</h3>
+  <p>手动配置 Express 的模板解析器</p>
+  <pre><code class="language-markup">app.set('view engine', 'tpl');
+app.set('views', path.join(__dirname, '../', 'views'));
+app.engine('tpl', function(tplpath, data, callback) {
+  if (typeof data === 'function') {
+    data = callback;
+    callback = null;
+  }
+  if (typeof callback !== 'function') {
+    callback = function() {};
+  }
+  try {
+    callback(null, require(tplpath.replace(/\.[^.]+$/, '')).render(data));
+  } catch (e) {
+    callback(e);
+  }
+});</code></pre>
+  <p>添加 <code>nodetpl-plus-cli</code> 到当前项目：</p>
+  <pre><code class="language-markup">npm install nodetpl-plus-cli --save-dev</code></pre>
+  <h4>修改 package.json</h4>
+  <pre><code class="language-markup">...
+  "scripts": {
+    "build": "nodetpl-plus-cli ./views --transform",
+    "postinstall": "npm run build",
+  }
+  ...</code></pre>
+  <p>当模板有变动时，需要重新编译模板：</p>
+  <pre><code class="language-markup">npm run build</code></pre>
+
 </section>
 <footer>
   <div class="wrap">
