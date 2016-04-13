@@ -121,6 +121,45 @@ footer {
   padding: 1em 0;
   text-align: right;
 }
+footer .wrap {
+  position: relative;
+}
+footer .donate {
+  display: none;
+  position: absolute;
+  width: 100px;
+  bottom: 20px;
+  right: 0;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  padding: 2px;
+  background-color: #fff;
+  color: #666;
+}
+footer .donate:before, footer .donate:after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -10px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+}
+footer .donate:before {
+  border-top-color: #ccc;
+}
+footer .donate:after {
+  bottom: -9px;
+  border-top-color: #fff;
+}
+footer .donate img {
+  width: 100px;
+  display: block;
+}
+footer:hover .donate {
+  display: block;
+}
 a.btn {
   display: inline-block;
   vertical-align: middle;
