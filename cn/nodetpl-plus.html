@@ -82,6 +82,7 @@ console.log(include('sub'));
   <h3>语法变更</h3>
   <p>在 <code>nodetpl</code> 的基础上，<code>nodetpl-plus</code> 为实现 <code>ES6+</code> 的支持（<code>strict mode</code>），做了下面的调整：</p>
   <ul>
+    <li>模板中的样式，对于根节点，需要使用 <code>$ROOT</code> 声明，如：<code>$ROOT{font-size:12px;}</code>，不再支持省略（原来可以直接这样写：<code>{font-size:12px;}</code>）</li>
     <li>模板中引用传入数据的某个属性，不能直接使用属性名，改为 “<code>@属性名</code>” 引用。注意例子中的 <code>&lt;h1&gt;hello &lt;?=@name?&gt;&lt;/h1&gt;</code></li>
     <li>需要引入某个模块，直接在模板顶部使用 <code>import</code> 或 <code>require</code> 语法即可</li>
     <li>模板只能通过预编译才能使用，不再支持浏览器端实时编译</li>
