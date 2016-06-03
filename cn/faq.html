@@ -42,6 +42,26 @@
 <section class="wrap faq-list">
   <h2>nodetpl</h2>
   <dl>
+    <dt><a href="javascript:;">nodetpl 能运行在哪些平台？</a></dt>
+    <dd>PC浏览器端（包括IE6+、Chrome、Safari、Firefox、Opera等）、手机端、服务端，只要是支持 js 的地方，都能非常完美地运行起来。</dd>
+  </dl>
+  <dl>
+    <dt><a href="javascript:;">nodetpl 的性能如何？</a></dt>
+    <dd>经常听到有些人对模板引擎性能的担忧，由于 nodetpl 处理模板的机制做了非常细致的优化，经历过服务端高并发的考验，未编译的文件也能够非常高效地通过浏览器解析，编译后的模板文件更是性能超群，几乎不耗浏览器或服务端资源。</dd>
+  </dl>
+  <dl>
+    <dt><a href="javascript:;">nodetpl 与业界其他模板引擎相比的优势是什么？</a></dt>
+    <dd>学习成本、性能、多模板、模块化、ES6、node.js、样式沙箱、js沙箱、预编译等等。</dd>
+  </dl>
+  <dl>
+    <dt><a href="javascript:;">模板为什么要进行预编译？</a></dt>
+    <dd>浏览器加载并解析模板是需要耗费一定资源的，而预编译是将模板代码直接编译成原生的 js 文件，从而浏览器可以直接识别，大大提高模板的执行性能。另外，预编译后的文件可以完美运行在 AMD/CMD、Node等项目中。</dd>
+  </dl>
+  <dl>
+    <dt><a href="javascript:;">如何通过 nodetpl.get 方法跨域获取远程模板文件？</a></dt>
+    <dd>tpl 或 html 模板文件是不允许跨域获取的，但是 js 文件可以，因此我们若希望在跨域的情况下使用 nodetpl，需要将模板文件进行预编译，然后再通过 nodetpl.get 或 require 等方法进行引用。</dd>
+  </dl>
+  <dl>
     <dt><a href="javascript:;">使用 AMD/CMD/CommonJs/ES6 规范进行前端开发，如何引入 nodetpl 模板？</a></dt>
     <dd>
       <p>对于 AMD/CMD/CommonJs/ES6，nodetpl 能够给予非常完美的支持，作者推荐对模板进行预编译，这样能大大提高模板执行的效率。</p>
@@ -54,7 +74,7 @@ var html = tpl.render({
     </dd>
   </dl>
   <dl>
-    <dt><a href="javascript:;">AMD/CMD 项目需要引入 nodetpl.min.js 文件吗？</a></dt>
+    <dt><a href="javascript:;">AMD/CMD/CommonJs/ES6 项目需要引入 nodetpl.js 文件吗？</a></dt>
     <dd>
       <p>不需要。</p>
       <p>nodetpl 针对 AMD/CMD/CommonJs/ES6 进行了优化，编译后的文件可以直接使用，而不再依赖 nodetpl 库，所以你可以直接 require 对应的可执行文件即可，如需引用 nodetpl 核心模块。</p>
