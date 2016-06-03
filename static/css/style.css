@@ -192,6 +192,10 @@ a.btn {
   font-size: 2em;
   margin-right: -1em;
 }
+#cyReward {
+  margin-top: 20px;
+  text-align: center;
+}
 #index-cover {
   background-color: #eee;
 }
