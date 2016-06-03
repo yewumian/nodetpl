@@ -1,36 +1,31 @@
 {
-  "author": {
-    "name": "pillys",
-    "email": "pillys@163.com",
-    "url": "http://www.qque.com"
-  },
-  "dependencies": {},
+  "name": "nodetpl-plus",
+  "version": "4.0.0",
   "description": "A powerful, efficient, easy to use, funny JavaScript template engine.",
-  "dependencies": {
-    "minimist": "~1.2.0",
-    "async": "~1.5.0",
-    "fs-path": "~0.0.22"
-  },
+  "readmeFilename": "README.md",
   "keywords": [
     "js template",
     "javascript template",
     "template engine"
   ],
   "main": "index.js",
-  "name": "nodetpl",
   "bin": {
     "nodetpl": "./bin/nodetpl"
   },
+  "author": "pillys@163.com",
   "repository": {
     "url": "https://github.com/pillys/nodetpl",
     "type": "git"
   },
-  "version": "3.3.3",
-  "readmeFilename": "README.md",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/pillys/nodetpl/issues"
   },
   "homepage": "https://github.com/pillys/nodetpl",
-  "scripts": {}
+  "license": "MIT",
+  "dependencies": {
+    "async": "^2.0.0-rc.5",
+    "fs-path": "0.0.22",
+    "minimist": "^1.2.0",
+    "js-beautify": "^1.6.2"
+  }
 }

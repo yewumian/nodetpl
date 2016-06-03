@@ -13,7 +13,7 @@ A powerful, efficient, easy to use, funny JavaScript template engine.
   * Precompiled: Js file compiled in advance, reducing the burden on the browser running
   * Multiple templates: Support complex multi-template, include step
   * Template leveled CSS/JS: Original CSS / JS with the package mechanism, independent of the template can have its own CSS / JS
-  * Modular: RequireJs (AMD) / seaJs (CMD) supported
+  * Modular: RequireJs (AMD) / seaJs (CMD) / CommonJs/ ES6 supported
   * Node.js: The module can be used as a node.js package, and Express.js is supported
   * Quick learning: Just 10 minutes from entry to proficient
   * Good compatibility: Compatible with all major browsers, IE, Firefox, Chrome, Safari etc

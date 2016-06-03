@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="https://concat.lietou-static.com/core/pc/revs/js/common/jquery-1.7.1.min_16deb800.js"></script>
+  <script src="http://www.nodetpl.com/static/js/require.js"></script>
+  <!--script src="./src/index.js"></script-->
+</head>
+<body>
+<script>
+var html = `
+<style>
+{
+  font-weight: bold;
+}
+$ROOT{
+  font-size:12px;
+}
+h1{
+  color: #f00;
+}
+</style>
+<div id="$ROOT">
+  <h1><?=@name?></h1>
+</div>
+<sc` + `ript>
+console.log(ROOT);
+console.log($DATA);
+$('h1', ROOT).on('click', function() {
+  alert($DATA.name);
+});
+</sc` + `ript>
+`;
+/*var result = nodetpl.render(html, {
+  name: 'zhangsan'
+});
+$(result).appendTo('body');*/
+/*nodetpl.get('./test/test.tpl', {
+  name: 'zhangsan'
+}, function(d) {
+  $(d).appendTo('body');
+});*/
+require(['./test/page']);
+</script>
+</body>
+</html>
