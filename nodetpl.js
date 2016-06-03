@@ -354,7 +354,7 @@
           html[i] = html[i].replace(tagExp, '$1');
           html[i] = html[i].replace(/@([a-zA-Z\$_]+)/igm, '$DATA.$1');
           html[i] = html[i].replace(/echo\s+(.*?);/igm, '    _ += $1 || \'\';\n');
-          if (html[i].startsWith('=')) {
+          if (html[i].indexOf('=') === 0) {
             // undefined or not
             html[i] = html[i].substring(1).trim();
             if (!/^\d/.test(html[i])) {
