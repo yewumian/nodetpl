@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
-<script src="http://www.nodetpl.com/static/js/lib/nodetpl.client.min.js"></script>
+<script src="http://www.nodetpl.com/static/js/lib/nodetpl.min.js"></script>
 </head>
 <body>
 <div id="result"></div>
@@ -14,13 +14,11 @@ var data = {
   "title": "个人爱好",
   "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
 };
-
 nodetpl.get('http://www.nodetpl.com/cn/demo/tpls/1.js', data, function(d){
   $('#result').html(d);
   console.log(d);
 });
 </script>
-
 <script>
 var _hmt = _hmt || [];
 (function() {

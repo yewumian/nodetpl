@@ -33,6 +33,12 @@
   </div>
 </footer>
 <script>
+var iszh = (navigator.language || '').split('-')[0] === 'zh';
+if(iszh) {
+  location.href = './cn/';
+} else {
+  location.href = './en/';
+}
 var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");

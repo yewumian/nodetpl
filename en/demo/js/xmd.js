@@ -3,7 +3,8 @@ define(function(require, exports, module) {
   var nodetpl = require('nodetpl');
   var vDialog = require('vDialog');
 
-  nodetpl.get('/en/demo/tpls/1', {
+  var tpl = require('/en/demo/tpls/1');
+  var html = tpl.render({
     "title": "Favor",
     "favor": [
       "Football",
@@ -11,12 +12,11 @@ define(function(require, exports, module) {
       "Table tennis",
       "Glass ball"
     ]
-  }, function(d) {
-    vDialog({
-      title: 'Result',
-      content: d,
-      width: 400,
-      okValue: 'Ok'
-    }).showModal();
   });
+  vDialog({
+    title: 'Result',
+    content: html,
+    width: 400,
+    okValue: 'Ok'
+  }).showModal();
 });

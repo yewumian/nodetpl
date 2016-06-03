@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title></title>
 <link rel="stylesheet" type="text/css" href="http://www.nodetpl.com/static/css/vdialog.css">
-<script src="http://www.nodetpl.com/static/js/lib/nodetpl.client.min.js"></script>
+<script src="http://www.nodetpl.com/static/js/lib/nodetpl.min.js"></script>
 <!--[if lt IE 9]><script type="text/javascript" src="http://www.nodetpl.com/static/js/html5shiv.js"></script><![endif]-->
 <script src="http://www.nodetpl.com/static/js/lib/es5-shim.min.js"></script>
 <style>
@@ -80,9 +80,9 @@ a.btn {
   }
 &lt;/style&gt;
 &lt;div id="$ROOT"&gt;
-  &lt;h1&gt;&lt;?=title?&gt;&lt;/h1&gt;
-  &lt;?if(user !== ''){?&gt;
-    &lt;?=user?&gt;
+  &lt;h1&gt;&lt;?=@title?&gt;&lt;/h1&gt;
+  &lt;?if(@user !== ''){?&gt;
+    &lt;?=@user?&gt;
   &lt;?} else {?&gt;
     新来的朋友
   &lt;?}?&gt;
@@ -120,7 +120,6 @@ $('#btn-run').on('click', function(){
   }
 });
 </script>
-
 <script>
 var _hmt = _hmt || [];
 (function() {

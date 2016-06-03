@@ -17,10 +17,10 @@ define(function(require, exports, module) {
   };
   var template = '\
     <div>\n\
-      <div><?=title?></div>\n\
+      <div><?=@title?></div>\n\
       <ul>\n\
-        <?for(var i=0; i<favor.length; i++){?>\n\
-          <li><?=i?>：<?=favor[i]?></li>\n\
+        <?for(var i=0; i<@favor.length; i++){?>\n\
+          <li><?=i?>：<?=@favor[i]?></li>\n\
         <?}?>\n\
       </ul>\n\
     </div>';

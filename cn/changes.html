@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <title>NodeTpl - 高效javascript模板引擎</title>
@@ -32,12 +32,26 @@
       </ul>
     </nav>
   </div>
+  <div class="language"><a href="../en/">English</a></div>
 </header>
 <div class="fixed-tools">
   <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
 </div>
 <section class="wrap">
   <h2>升级日志</h2>
+  <dl>
+    <dt>4.0.0<time>2016.06.03</time></dt>
+    <dd>
+      <ul>
+        <li>重构大部分代码，优化渲染机制，提高渲染性能</li>
+        <li>css 中，根元素选择器不能再使用空白表示，如：{dispay:block;} 应当写成 $ROOT{display:block;}</li>
+        <li>模板中的属性引用，不再推荐直接书写属性名，需要在属性名前面添加“@”，如：&lt;?=@title?&gt;，但非 strict 模式下仍然允许</li>
+        <li>调整了命令行工具相关输入参数名称</li>
+        <li>AMD/CMD/CommonJs/ES6 模式下，可以不依赖 nodetpl 直接运行</li>
+        <li>优化了模板中js代码的算法</li>
+      </ul>
+    </dd>
+  </dl>
   <dl>
     <dt>(p)2.0.0<time>2016.4.22</time></dt>
     <dd>
@@ -153,7 +167,7 @@
 </section>
 <footer>
   <div class="wrap">
-    <p>&copy; 2012 - 2016 nodetpl.com by pillys</p>
+    <p>&copy; 2012 - 2016 nodetpl.com by <a href="javascript:;">pillys</a></p>
     <div class="donate">
       <img src="/static/images/donate.png" />
       打赏作者一杯咖啡

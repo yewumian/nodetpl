@@ -1,156 +1,202 @@
 (function(root, factory) {
- if (typeof define === 'function') {
-   define(factory);
- } else if (typeof require === 'function' && typeof exports === 'object') {
-   factory(require, exports, module);
- } else {
-   factory();
- }
-}(this, function(require, exports, module) {
-  var nodetpl = typeof require === 'function' ? require('nodetpl') : window.nodetpl;
-  var tpl_id = module && module.uri ? module.uri : nodetpl._getCurrentScript();
-  nodetpl._tpls[tpl_id] = {
-  "main": function($DATA, guid){
-    var _ = '';
-    var css = '';
-    var duid = nodetpl.duid();
-    guid = guid || nodetpl.guid();
-    css += '\n#' + guid + ' .title{    font-size: 14px;    font-weight: bold;  }\n#' + guid + ' .content{    padding: 10px;  }';
-    _ += nodetpl.css(css);
-with($DATA || {}){
-
-    _ += '<div id="'+ guid +'">\n    <div class="title">个人名片 [<a class="link-modify" href="javascript:;">修改</a>]</div>\n    <div class="content"></div>\n  </div>';
-
-}
-    _ += '\n<script>\n';
-    _ += '(function(window, document, undefined){\n';
-    _ += '  var _module_id = Math.random().toString();\n';
-    _ += '  var _factory = function(require, exports, module){\n';
-    _ += '    var nodetpl = typeof require === \'function\' ? require(\'nodetpl\') : window.nodetpl;\n';
-    _ += '    var ROOT, $ROOT, SUBROOT, $SUBROOT, $TPLS, $DATA;\n';
-    _ += '    var guid = \''+ guid + '\', duid = \''+ duid + '\';\n';
-    _ += '    ROOT = document.getElementById(guid);\n';
-    _ += '    SUBROOT = document.getElementById(guid + duid);\n';
-    _ += '    $TPLS = nodetpl._tpls["'+ tpl_id +'"];\n';
-    _ += '    $DATA = nodetpl._data[duid];\n';
-    _ += 'var contentBox = $(ROOT).find(\'.content\');\n';
-    _ += '  var viewHtml = $TPLS[\'view\']($DATA, guid);\n';
-    _ += '  contentBox.html(viewHtml);\n';
-    _ += '  $(ROOT).find(\'.title a.link-modify\').on(\'click\', function(){\n';
-    _ += '    var editHtml = $TPLS[\'edit\']($DATA, guid);\n';
-    _ += '    contentBox.html(editHtml);\n';
-    _ += '  });\n';
-    _ += '  }\n';
-    _ += '  if(typeof define === \'function\'){\n';
-    _ += '    define(_module_id, _factory);\n';
-    _ += '    if (define.amd && typeof require === \'function\') {\n';
-    _ += '      require([_module_id]);\n';
-    _ += '    } else if (define.cmd && typeof seajs === \'object\') {\n';
-    _ += '      seajs.use([_module_id]);\n';
-    _ += '    }\n';
-    _ += '  } else {\n';
-    _ += '    _factory();\n';
-    _ += '  }\n';
-    _ += '})(window, document);';
-    _ += '</script>\n';
-    $DATA && (nodetpl._data[duid] = $DATA);
-    return _;
-  },
-  "view": function($DATA, guid){
-    var _ = '';
-    var css = '';
-    var duid = nodetpl.duid();
-    guid = guid || nodetpl.guid();
-    css += '\n#' + guid + duid + ' ul li{    border: 1px solid #ccc;  }';
-    _ += nodetpl.css(css);
-with($DATA || {}){
-
-    _ += '<div id="'+ guid + duid +'">\n    <ul>\n      <li>姓名：';
-    if (typeof name !== "undefined") {
-      _ += (name);
+  if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof callback === 'function' && typeof iife !== 'undefined' && iife === true) {
+      var module_id = 'nodetpl_' + Math.random();
+      define(module_id, factory);
+      if (define.amd) {
+        require([module_id], callback);
+      } else if (define.cmd) {
+        seajs.use([module_id], callback);
+      } else {
+        throw new Error('nodetpl cannot guess what the define means.');
+      }
+    } else {
+      define(factory);
     }
-
-    _ += '</li>\n      <li>性别：';
-    if (typeof gender !== "undefined") {
-      _ += (gender);
+  } else if (typeof require === 'function' && typeof exports === 'object') {
+    module.exports = factory(require, exports, module);
+  } else {
+    if (root.nodetpl) {
+      var result = factory();
+      if (typeof callback === 'function' && typeof iife !== 'undefined' && iife === true) {
+        callback(result);
+      } else {
+        var url = root.nodetpl.getCurrentScript();
+        if (url) {
+          root.nodetpl.cache[url] = result;
+        }
+      }
+      return result;
+    } else {
+      throw new Error('nodetpl not found.');
     }
-
-    _ += '</li>\n      <li>年龄：';
-    if (typeof age !== "undefined") {
-      _ += (age);
-    }
-
-    _ += '</li>\n    </ul>\n  </div>';
-
-}
-    $DATA && (nodetpl._data[duid] = $DATA);
-    return _;
-  },
-  "edit": function($DATA, guid){
-    var _ = '';
-    var css = '';
-    var duid = nodetpl.duid();
-    guid = guid || nodetpl.guid();
-    css += '\n#' + guid + duid + ' ul li{    margin: 0 10px;    background-color: #eee;  }';
-    _ += nodetpl.css(css);
-with($DATA || {}){
-
-    _ += '<div id="'+ guid + duid +'">\n    <form action="">\n      <ul>\n        <li>姓名：<input type="text" name="name" value="';
-    if (typeof name !== "undefined") {
-      _ += (name);
-    }
-
-    _ += '" /></li>\n        <li>性别：<input type="text" name="gender" value="';
-    if (typeof gender !== "undefined") {
-      _ += (gender);
-    }
-
-    _ += '" /></li>\n        <li>年龄：<input type="text" name="age" value="';
-    if (typeof age !== "undefined") {
-      _ += (age);
-    }
-
-    _ += '" /></li>\n      </ul>\n      <div class="form-actions">\n        <button type="submit">保存</button>\n      </div>\n    </form>\n  </div>';
-
-}
-    _ += '\n<script>\n';
-    _ += '(function(window, document, undefined){\n';
-    _ += '  var _module_id = Math.random().toString();\n';
-    _ += '  var _factory = function(require, exports, module){\n';
-    _ += '    var nodetpl = typeof require === \'function\' ? require(\'nodetpl\') : window.nodetpl;\n';
-    _ += '    var ROOT, $ROOT, SUBROOT, $SUBROOT, $TPLS, $DATA;\n';
-    _ += '    var guid = \''+ guid + '\', duid = \''+ duid + '\';\n';
-    _ += '    ROOT = document.getElementById(guid);\n';
-    _ += '    SUBROOT = document.getElementById(guid + duid);\n';
-    _ += '    $TPLS = nodetpl._tpls["'+ tpl_id +'"];\n';
-    _ += '    $DATA = nodetpl._data[duid];\n';
-    _ += '$(SUBROOT).find(\'form\').on(\'submit\', function(){\n';
-    _ += '    var name = $(this).find(\'input[name="name"]\').val(),\n';
-    _ += '      gender = $(this).find(\'input[name="gender"]\').val(),\n';
-    _ += '      age = $(this).find(\'input[name="age"]\').val();\n';
-    _ += '    $DATA.name = name;\n';
-    _ += '    $DATA.gender = gender;\n';
-    _ += '    $DATA.age = age;\n';
-    _ += '    var viewHtml = $TPLS[\'view\']($DATA, guid);\n';
-    _ += '    $(ROOT).find(\'.content\').html(viewHtml);\n';
-    _ += '    return false;\n';
-    _ += '  });\n';
-    _ += '  }\n';
-    _ += '  if(typeof define === \'function\'){\n';
-    _ += '    define(_module_id, _factory);\n';
-    _ += '    if (define.amd && typeof require === \'function\') {\n';
-    _ += '      require([_module_id]);\n';
-    _ += '    } else if (define.cmd && typeof seajs === \'object\') {\n';
-    _ += '      seajs.use([_module_id]);\n';
-    _ += '    }\n';
-    _ += '  } else {\n';
-    _ += '    _factory();\n';
-    _ += '  }\n';
-    _ += '})(window, document);';
-    _ += '</script>\n';
-    $DATA && (nodetpl._data[duid] = $DATA);
-    return _;
   }
-};
-  return nodetpl._tpls[tpl_id];
+}(this, function(require, exports, module) {
+  'use strict';
+
+  function NodeTpl() {
+    this.tpls = {};
+    this.scripts = {};
+    this.datas = {};
+    this._initTpls()._initScripts();
+    return this;
+  }
+  NodeTpl.prototype._generate = function() {
+    return Math.random().toString().replace('.', '');
+  };
+  NodeTpl.prototype._initTpls = function() {
+    var that = this;
+    this.tpls = {
+      "main": function($DATA, guid) {
+        var _ = '';
+        var duid = that.duid();
+        guid = guid || that.guid();
+        _ += '<style>#' + guid + ' .title {    font-size: 14px;    font-weight: bold;  }#' + guid + '   .content {    padding: 10px;  }</style>';
+        try {
+          _ += '<div id="' + guid + '">\n    <div class="title">个人名片 [<a class="link-modify" href="javascript:;">修改</a>]</div>\n    <div class="content"></div>\n  </div>';
+        } catch (e) {
+          console.log(e, e.stack);
+        }
+        if ($DATA) {
+          that.datas[duid] = $DATA;
+        }
+        (function(scripts) {
+          var cache = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : {};
+          cache._nodetpl_ = cache._nodetpl_ || {};
+          cache._nodetpl_[guid + '-' + duid] = scripts['main'];
+        })(that.scripts);
+        _ += '<script>\n';
+        _ += '(function(){\n';
+        _ += '  var cache = typeof window !== \'undefined\' ? window : typeof global !== \'undefined\' ? global : {};\n';
+        _ += '  cache._nodetpl_[\'' + guid + '-' + duid + '\'](\'' + guid + '\', \'' + duid + '\');\n';
+        _ += '  delete cache._nodetpl_[\'' + guid + '-' + duid + '\'];\n';
+        _ += '})();\n';
+        _ += '</script>\n';
+        return _;
+      },
+      "view": function($DATA, guid) {
+        var _ = '';
+        var duid = that.duid();
+        guid = guid || that.guid();
+        _ += '<style>#' + guid + duid + ' ul li{    border: 1px solid #ccc;  }</style>';
+        try {
+          _ += '<div id="' + guid + duid + '">\n    <ul>\n      <li>姓名：';
+          if (typeof $DATA.name !== 'undefined') {
+            _ += ($DATA.name);
+          }
+
+          _ += '</li>\n      <li>性别：';
+          if (typeof $DATA.gender !== 'undefined') {
+            _ += ($DATA.gender);
+          }
+
+          _ += '</li>\n      <li>年龄：';
+          if (typeof $DATA.age !== 'undefined') {
+            _ += ($DATA.age);
+          }
+
+          _ += '</li>\n    </ul>\n  </div>';
+        } catch (e) {
+          console.log(e, e.stack);
+        }
+        if ($DATA) {
+          that.datas[duid] = $DATA;
+        }
+        return _;
+      },
+      "edit": function($DATA, guid) {
+        var _ = '';
+        var duid = that.duid();
+        guid = guid || that.guid();
+        _ += '<style>#' + guid + duid + ' ul li{    margin: 0 10px;    background-color: #eee;  }</style>';
+        try {
+          _ += '<div id="' + guid + duid + '">\n    <form action="">\n      <ul>\n        <li>姓名：<input type="text" name="name" value="';
+          if (typeof $DATA.name !== 'undefined') {
+            _ += ($DATA.name);
+          }
+
+          _ += '" /></li>\n        <li>性别：<input type="text" name="gender" value="';
+          if (typeof $DATA.gender !== 'undefined') {
+            _ += ($DATA.gender);
+          }
+
+          _ += '" /></li>\n        <li>年龄：<input type="text" name="age" value="';
+          if (typeof $DATA.age !== 'undefined') {
+            _ += ($DATA.age);
+          }
+
+          _ += '" /></li>\n      </ul>\n      <div class="form-actions">\n        <button type="submit">保存</button>\n      </div>\n    </form>\n  </div>';
+        } catch (e) {
+          console.log(e, e.stack);
+        }
+        if ($DATA) {
+          that.datas[duid] = $DATA;
+        }
+        (function(scripts) {
+          var cache = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : {};
+          cache._nodetpl_ = cache._nodetpl_ || {};
+          cache._nodetpl_[guid + '-' + duid] = scripts['edit'];
+        })(that.scripts);
+        _ += '<script>\n';
+        _ += '(function(){\n';
+        _ += '  var cache = typeof window !== \'undefined\' ? window : typeof global !== \'undefined\' ? global : {};\n';
+        _ += '  cache._nodetpl_[\'' + guid + '-' + duid + '\'](\'' + guid + '\', \'' + duid + '\');\n';
+        _ += '  delete cache._nodetpl_[\'' + guid + '-' + duid + '\'];\n';
+        _ += '})();\n';
+        _ += '</script>\n';
+        return _;
+      }
+    };
+    return that;
+  };
+  NodeTpl.prototype._initScripts = function() {
+    var that = this;
+    this.scripts = {
+      "main": function(guid, duid) {
+        var ROOT = document.getElementById(guid);
+        var SUBROOT = document.getElementById(guid + duid);
+        var $TPLS = that.tpls;
+        var $DATA = that.datas[duid];
+        var contentBox = $(ROOT).find('.content');
+        var viewHtml = $TPLS['view']($DATA, guid);
+        contentBox.html(viewHtml);
+        $(ROOT).find('.title a.link-modify').on('click', function() {
+          var editHtml = $TPLS['edit']($DATA, guid);
+          contentBox.html(editHtml);
+        });
+      },
+      "edit": function(guid, duid) {
+        var ROOT = document.getElementById(guid);
+        var SUBROOT = document.getElementById(guid + duid);
+        var $TPLS = that.tpls;
+        var $DATA = that.datas[duid];
+        $(SUBROOT).find('form').on('submit', function() {
+          var name = $(this).find('input[name="name"]').val(),
+            gender = $(this).find('input[name="gender"]').val(),
+            age = $(this).find('input[name="age"]').val();
+          $DATA.name = name;
+          $DATA.gender = gender;
+          $DATA.age = age;
+          var viewHtml = $TPLS['view']($DATA, guid);
+          $(ROOT).find('.content').html(viewHtml);
+          return false;
+        });
+      }
+    };
+    return that;
+  };
+  NodeTpl.prototype.duid = function() {
+    return 'nodetpl_d_' + this._generate();
+  };
+  NodeTpl.prototype.guid = function() {
+    return 'nodetpl_g_' + this._generate();
+  };
+  NodeTpl.prototype.render = function(data, guid) {
+    return this.tpls.main(data, guid || this.guid());
+  };
+  return {
+    render: function(data) {
+      return new NodeTpl().render(data);
+    }
+  };
 }));

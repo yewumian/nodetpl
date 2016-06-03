@@ -6,6 +6,7 @@ define(function(require, exports, module) {
   var vDialog = require('vDialog');
 
   $('#btn-01,#btn-02').on('click', function() {
+    var tpl = require('/en/demo/tpls/1.js');
     var data = {
       "title": "Favor",
       "favor": [
@@ -15,22 +16,13 @@ define(function(require, exports, module) {
         "Glass ball"
       ]
     };
-    nodetpl.get('/en/demo/tpls/1', {
-      "title": "Favor",
-      "favor": [
-        "Football",
-        "Basketball",
-        "Table tennis",
-        "Glass ball"
-      ]
-    }, function(d) {
-      vDialog({
-        title: 'Result',
-        content: d,
-        width: 400,
-        ok: true,
-        okValue: 'Ok'
-      }).showModal();
-    });
+    var html = tpl.render(data);
+    vDialog({
+      title: 'Result',
+      content: html,
+      width: 400,
+      ok: true,
+      okValue: 'Ok'
+    }).showModal();
   });
 });

@@ -41,10 +41,10 @@ define(function(require, exports, module) {
       "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
     };
     var template = '\
-      <h1><?=title?></h1>\
+      <h1><?=@title?></h1>\
       <ul>\
-        <?for(var i=0; i<favor.length; i++){?>\
-          <li><?=i?>：<?=favor[i]?></li>\
+        <?for(var i=0; i<@favor.length; i++){?>\
+          <li><?=i?>：<?=@favor[i]?></li>\
         <?}?>\
       </ul>';
     nodetpl.render(template, data, function(d) {
@@ -73,7 +73,7 @@ define(function(require, exports, module) {
         }\
       </style>\
       <div id="$ROOT">\
-        <h1><?=title?></h1>\
+        <h1><?=@title?></h1>\
         <?for(var i=0; i<10; i++){?>\
           <p>hello, world, 第 <?=i?> 次</p>\
         <?}?>\
@@ -95,7 +95,7 @@ define(function(require, exports, module) {
     };
     var template = '\
       <div id="$ROOT">\n\
-        <h1><?=title?></h1>\n\
+        <h1><?=@title?></h1>\n\
         <?for(var i=0; i<10; i++){?>\n\
           <p>hello, world, 第 <?=i?> 次</p>\n\
         <?}?>\n\

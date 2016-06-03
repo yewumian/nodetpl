@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
-<script src="http://www.nodetpl.com/static/js/lib/nodetpl.client.min.js"></script>
+<script src="http://www.nodetpl.com/static/js/lib/nodetpl.min.js"></script>
 </head>
 <body>
 <textarea id="favor-tpl" cols="60" rows="10">&lt;div id="$ROOT"&gt;
-  &lt;h1&gt;&lt;?=title?&gt;&lt;/h1&gt;
+  &lt;h1&gt;&lt;?=@title?&gt;&lt;/h1&gt;
   &lt;?for(var i=0; i&lt;10; i++){?&gt;
     &lt;p&gt;hello, world, &lt;?=i?&gt;&lt;/p&gt;
   &lt;?}?&gt;
@@ -41,7 +41,6 @@ nodetpl.render(content, data, function(d){
   console.log(d);
 });
 </script>
-
 <script>
 var _hmt = _hmt || [];
 (function() {

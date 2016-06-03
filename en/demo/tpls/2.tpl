@@ -31,9 +31,9 @@
   </style>
   <div id="$SUBROOT">
     <ul>
-      <li>Name: <?=name?></li>
-      <li>Gender: <?=gender?></li>
-      <li>Age:<?=age?></li>
+      <li>Name: <?=@name?></li>
+      <li>Gender: <?=@gender?></li>
+      <li>Age:<?=@age?></li>
     </ul>
   </div>
 </template>
@@ -48,9 +48,9 @@
   <div id="$SUBROOT">
     <form action="">
       <ul>
-        <li>Name: <input type="text" name="name" value="<?=name?>" /></li>
-        <li>Gender: <input type="text" name="gender" value="<?=gender?>" /></li>
-        <li>Age: <input type="text" name="age" value="<?=age?>" /></li>
+        <li>Name: <input type="text" name="name" value="<?=@name?>" /></li>
+        <li>Gender: <input type="text" name="gender" value="<?=@gender?>" /></li>
+        <li>Age: <input type="text" name="age" value="<?=@age?>" /></li>
       </ul>
       <div class="form-actions">
         <button type="submit">Save</button>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <title>NodeTpl - 高效javascript模板引擎</title>
@@ -32,6 +32,7 @@
       </ul>
     </nav>
   </div>
+  <div class="language"><a href="../en/">English</a></div>
 </header>
 <div class="fixed-tools">
   <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
@@ -41,12 +42,10 @@
   <h4>像写 node.js 一样方便</h4>
   <p>在 <code>HTML</code> 或 <code>JavaScript</code> 中，直接 <code>require</code> 其它模块</p>
   <pre><code class="language-html">...
-&lt;?
-  var dateFormatter = require('dateFormatter');
-?&gt;
+var dateFormatter = require('dateFormatter');
 &lt;div id="$ROOT"&gt;
   ...
-  &lt;p&gt;当前时间：&lt;? =dateFormatter.parse(new Date(), 'yyyy-MM-dd HH:mm:ss') ?&gt;&lt;/p&gt;
+  &lt;p&gt;当前时间：&lt;?=dateFormatter.parse(new Date(), 'yyyy-MM-dd HH:mm:ss') ?&gt;&lt;/p&gt;
   ...
 &lt;/div&gt;
 &lt;script&gt;
@@ -59,50 +58,43 @@ vDialog.alert(...
   <h2>多元化支持</h2>
   <p><code>nodetpl</code> 能够支持常规开发及各种模块化开发，你可以根据自身项目需求，选择任意一种开发模式。</p>
   <p>普通模式的开发比较简单，直接在页面中引入 <code>nodetpl</code> 的 <code>js</code> 文件即可，下面来了解一下模块化开发的使用方式。</p>
-  <h2><code>CMD</code>（seaJs）</h2>
-  <h4><code>seaJs</code> 基本配置</h4>
-  <p>配置 <code>seaJs</code> 基本参数，增加 <code>nodetpl</code> 的 <code>alias</code> 项：</p>
-  <pre><code class="language-javascript">seajs.config({
-  alias: {
-    'nodetpl': 'lib/nodetpl.client.min'
-  }
-});</code></pre>
+  <h2><code>CMD</code>（seaJs）、<code>AMD</code>（requireJs）</h2>
+  <h4>不执行预编译的情景（不推荐）：</h4>
   <p>通过 <code>require</code> 将 <code>nodetpl</code> 模块引入：</p>
   <pre><code class="language-javascript">define(function(require, exports, module) {
   var nodetpl = require('nodetpl');
-
-  nodetpl.get('/demo/tpls/1', {
+  var data = {
     title: '个人爱好',
     favor: ['足球', '篮球', '乒乓球', '琉璃球']
-  }, function(d) {
+  };
+  nodetpl.get('/demo/tpls/1.tpl', data, function(d) {
     // d
   });
 });</code></pre>
-  <p><a href="javascript:;" class="btn btn-try" id="btn-01">试一试</a><a href="./demo/demo_sea.html" class="btn" target="_blank">查看DEMO</a></p>
-  <h2><code>AMD</code>（requireJs）</h2>
-  <h4><code>requireJs</code> 基本配置</h4>
-  <p>配置 <code>requireJs</code> 基本参数，增加 <code>nodetpl</code> 的 <code>paths</code> 项：</p>
-  <pre><code class="language-javascript">require.config({
-  paths: {
-    'nodetpl': 'lib/nodetpl.client.min'
-  }
-});</code></pre>
-  <p>通过 <code>require</code> 将 <code>nodetpl</code> 模块引入：</p>
+  <h4>模板预编译后，无需再引用 nodetpl：</h4>
   <pre><code class="language-javascript">define(function(require, exports, module) {
-  var nodetpl = require('nodetpl');
-
-  nodetpl.get('/demo/tpls/1', {
+  //var nodetpl = require('nodetpl');
+  var tpl = require('./demo/tpls/1');
+  var data = {
     title: '个人爱好',
     favor: ['足球', '篮球', '乒乓球', '琉璃球']
-  }, function(d) {
-    // d
-  });
+  };
+  var result = tpl.render(data);
+  console.log(result);
 });</code></pre>
-  <p><a href="javascript:;" class="btn btn-try" id="btn-02">试一试</a><a href="./demo/demo_require.html" class="btn" target="_blank">查看DEMO</a></p>
+  <p><a href="javascript:;" class="btn btn-try" id="btn-01">试一试</a><a href="./demo/demo_require.html" class="btn" target="_blank">查看DEMO</a></p>
+  <h2>CommonJs（node.js）</h2>
+  <pre><code class="language-javascript">var tpl = require('./demo/tpls/1');
+var data = {
+  title: '个人爱好',
+  favor: ['足球', '篮球', '乒乓球', '琉璃球']
+};
+var result = tpl.render(data);
+console.log(result);</code></pre>
 </section>
 <footer>
   <div class="wrap">
-    <p>&copy; 2012 - 2016 nodetpl.com by pillys</p>
+    <p>&copy; 2012 - 2016 nodetpl.com by <a href="javascript:;">pillys</a></p>
     <div class="donate">
       <img src="/static/images/donate.png" />
       打赏作者一杯咖啡

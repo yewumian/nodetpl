@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>NodeTpl - A powerful, efficient, easy to use, fun children's JavaScript template engine</title>
@@ -12,7 +12,7 @@
 <script type="text/javascript" src="/static/js/require-config.js"></script>
 </head>
 <body id="changes">
-<header class="en">
+<header>
   <div class="wrap">
     <div class="logo">
       <a href="/"><i class="iconfont">&#xe605;</i>NodeTpl</a>
@@ -32,12 +32,26 @@
       </ul>
     </nav>
   </div>
+  <div class="language"><a href="../cn/">简体中文</a></div>
 </header>
 <div class="fixed-tools">
   <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
 </div>
 <section class="wrap">
   <h2>Upgrade log</h2>
+  <dl>
+    <dt>4.0.0<time>2016.06.03</time></dt>
+    <dd>
+      <ul>
+        <li>Most of the code refactoring, optimize the rendering mechanism to improve rendering performance</li>
+        <li>css, the root element selectors can no longer use the blank expressed as: {dispay: block;} should be written $ ROOT {display: block;}</li>
+        <li>Template attribute references, it is no longer recommended to write directly attribute name, you need to add the attribute name in front of the "@", such as: &lt;?=@title?&gt;, but still be allowed non-strict mode</li>
+        <li>Adjust the command line tools related input parameter names</li>
+        <li>Under AMD / CMD / CommonJs / ES6 mode, you can not run directly dependent node tpl</li>
+        <li>Optimization algorithm template js code</li>
+      </ul>
+    </dd>
+  </dl>
   <dl>
     <dt>3.3.2<time>2015.12.30</time></dt>
     <dd>

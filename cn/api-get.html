@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>NodeTpl - 高效javascript模板引擎</title>
+<link rel="stylesheet" href="/static/css/normalize.css">
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/vdialog.css">
+<link rel="stylesheet" href="/static/css/highlight/prism.css">
+<script type="text/javascript" src="/static/js/highlight/prism.js"></script>
+<script type="text/javascript" src="/static/js/require.js"></script>
+<script type="text/javascript" src="/static/js/require-config.js"></script>
+</head>
+<body id="api">
+<header>
+  <div class="wrap">
+    <div class="logo">
+      <a href="/"><i class="iconfont">&#xe605;</i>NodeTpl</a>
+      <span>一款强大、高效、易用、有趣儿的 JavaScript 模板引擎</span>
+    </div>
+    <nav>
+      <ul class="clearfix">
+        <li><a href="./">首页</a></li>
+        <li><a href="./start.html">开始</a></li>
+        <li><a href="./grammar.html">语法</a></li>
+        <li class="active"><a href="./api.html">API</a></li>
+        <li><a href="./multi.html">多模板</a></li>
+        <li><a href="./compile.html">预编译</a></li>
+        <li><a href="./module.html">模块化</a></li>
+        <li><a href="./node.html">Node</a></li>
+        <li><a href="./changes.html">升级日志</a></li>
+        <li><a href="./faq.html">常见问题</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="language"><a href="../en/">English</a></div>
+</header>
+<div class="fixed-tools">
+  <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
+</div>
+<section class="wrap">
+  <div class="api-list">
+    <h2>nodetpl 方法</h2>
+    <ul>
+      <li><a href="./api-config.html">nodetpl.config</a>：基本配置，非必须</li>
+      <li><a href="./api-get.html"><strong>nodetpl.get</strong></a>：获取某个模板或编译后的模板文件</li>
+      <li><a href="./api-render.html">nodetpl.render</a>：渲染某个模板</li>
+      <li><a href="./api-exec.html">nodetpl.exec</a>：执行模板里面的 js 代码，较少使用</li>
+    </ul>
+    <h2>NodeTplClass 方法</h2>
+    <ul>
+      <li><a href="./api-tplrender.html">tpl.render</a>：渲染模板</li>
+    </ul>
+  </div>
+  <h3>nodetpl.get(url, [data, ] callback)</h3>
+  <p>该方法非常强大，它可以直接加载编译后的文件，也可以加载模板源代码进行编译。</p>
+  <h4>1. <code>url</code> 没有后缀，或后缀为 <code>.js</code></h4>
+  <p>加载指定的模板可执行文件（编译方式参见<a href="./compile.html" target="_blank">预编译</a>，后缀 .js 可以省略），并用 <code>data</code> 渲染，渲染后的结果返回给 <code>callback</code>。</p>
+  <ul>
+    <li>url：模板编译后的 js 文件路径</li>
+    <li>data：传入模板的数据，若 <code>data</code> 为 <code>false</code>，则暂缓渲染</li>
+    <li>callback：模板编译后，执行的回调函数，回调函数会将渲染后的 HTML 作为参数传入</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <td>
+          <p>浏览器直接引用：</p>
+          <pre><code class="language-html">&lt;script src="./js/nodetpl.min.js"&gt;&lt;/script&gt;</code></pre>
+        </td>
+        <td>
+          <p>AMD/CMD/CommonJs/ES6：</p>
+          <pre><code class="language-javascript">//不需要引入 nodetpl 库，直接引入编译后的 js 文件即可</code></pre>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <pre><code class="language-javascript">var data = {
+  "title": "个人爱好",
+  "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
+};</code></pre>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <pre><code class="language-javascript">nodetpl.get('http://www.nodetpl.com/demo/tpls/1', data, function(d){
+  // console.log(d);
+});</code></pre>
+        </td>
+        <td>
+          <pre><code class="language-javascript">var tpl = require('./tpls/1');
+var html = tpl.render(data);
+// console.log(html);</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p><a href="javascript:;" class="btn btn-try" id="btn-01">试一试</a><a href="./demo/demo_8.html" class="btn" target="_blank">查看DEMO</a></p>
+  <p>上面 <code>AMD/CMD/CommonJs/ES6</code> 开发模式下，<code>require(...)</code> 返回的是一个 <code>NodeTplClass</code> 实例，该实例拥有一个 <code>render()</code> 方法（参考 <a href="./api-tplrender.html"><code>tpl.render</code></a>），用来用指定数据渲染模板，它和 <a href="./api-render.html">nodetpl.render</a> 并不是同一个方法。</p>
+  <p>若不想立即渲染模板（暂缓渲染），则传入的 <code>data</code> 需要设置为 <code>false</code>， <code>callback</code> 传入的数据不再是渲染后的 <code>html</code>，而是 <code>NodeTplClass</code> 实例：</p>
+  <pre><code class="language-javascript">//[NodeTplClass]
+{
+  render: function(data) {
+    //...
+  }
+}</code></pre>
+  <p>在需要渲染的地方，直接调用该参数的 <code>render()</code> 方法即可：</p>
+  <pre><code class="language-javascript">nodetpl.get('http://www.nodetpl.com/demo/tpls/1', false, function(tpl){
+  var data = {
+    "title": "个人爱好",
+    "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
+  };
+  // 这里的 tpl 不是渲染后的代码，而是一个 NodeTplClass 实例，调用该实例的 render(data) 方法可以渲染模板
+  // var d = tpl.render(data);
+  // console.log(d);
+});</code></pre>
+  <p><code>tpl</code> 是一个 <code>NodeTplClass</code> 实例，当得到 <code>tpl</code> 之后，你可以在任何场景下，反复调用 <code>tpl.render()</code> 方法，传入不同对象，以达到模板复用的目的。</p>
+  <h4>2. <code>url</code> 为对应的模板源文件</h4>
+  <p>加载指定的模板源文件（未经过预编译），并用 <code>data</code> 渲染，渲染的结果返回给 <code>callback</code>。</p>
+  <p>用法同上，但不同的是这里传入的 <code>url</code> 路径是模板源文件地址，通常为 <code>.tpl</code> 或 <code>.html</code></p>
+  <pre><code class="language-javascript">var data = {
+  "title": "个人爱好",
+  "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
+};
+nodetpl.get('http://www.nodetpl.com/demo/tpls/1.tpl', data, function(d){
+  // console.log(d);
+});</code></pre>
+  <p><a href="javascript:;" class="btn btn-try" id="btn-02">试一试</a><a href="./demo/demo_7.html" class="btn" target="_blank">查看DEMO</a></p>
+</section>
+<footer>
+  <div class="wrap">
+    <p>&copy; 2012 - 2016 nodetpl.com by <a href="javascript:;">pillys</a></p>
+    <div class="donate">
+      <img src="/static/images/donate.png" />
+      打赏作者一杯咖啡
+    </div>
+  </div>
+</footer>
+<script>require(['view/cn/api-get']);</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?55310397b78e4d3793e8b32711e7c487";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>

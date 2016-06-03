@@ -11,13 +11,13 @@ define(function(require, exports, module) {
       "gender": "男",
       "age": 108
     };
-    nodetpl.get('/cn/demo/tpls/2.js', data, function(d) {
-      vDialog({
-        title: '运行结果',
-        content: d,
-        width: 400,
-        ok: true
-      }).showModal();
-    });
+    var tpl = require('/cn/demo/tpls/2.js');
+    var html = tpl.render(data);
+    vDialog({
+      title: '运行结果',
+      content: html,
+      width: 400,
+      ok: true
+    }).showModal();
   });
 });

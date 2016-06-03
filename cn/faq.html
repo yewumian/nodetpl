@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>NodeTpl - 高效javascript模板引擎</title>
+<link rel="stylesheet" href="/static/css/normalize.css">
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/vdialog.css">
+<link rel="stylesheet" href="/static/css/highlight/prism.css">
+<script type="text/javascript" src="/static/js/highlight/prism.js"></script>
+<script type="text/javascript" src="/static/js/require.js"></script>
+<script type="text/javascript" src="/static/js/require-config.js"></script>
+</head>
+<body id="faq">
+<header>
+  <div class="wrap">
+    <div class="logo">
+      <a href="/"><i class="iconfont">&#xe605;</i>NodeTpl</a>
+      <span>一款强大、高效、易用、有趣儿的 JavaScript 模板引擎</span>
+    </div>
+    <nav>
+      <ul class="clearfix">
+        <li><a href="./">首页</a></li>
+        <li><a href="./start.html">开始</a></li>
+        <li><a href="./grammar.html">语法</a></li>
+        <li><a href="./api.html">API</a></li>
+        <li><a href="./multi.html">多模板</a></li>
+        <li><a href="./compile.html">预编译</a></li>
+        <li><a href="./module.html">模块化</a></li>
+        <li><a href="./node.html">Node</a></li>
+        <li><a href="./changes.html">升级日志</a></li>
+        <li class="active"><a href="./faq.html">常见问题</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="language"><a href="../en/">English</a></div>
+</header>
+<div class="fixed-tools">
+  <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
+</div>
+<section class="wrap faq-list">
+  <h2>nodetpl</h2>
+  <dl>
+    <dt><a href="javascript:;">使用 AMD/CMD/CommonJs/ES6 规范进行前端开发，如何引入 nodetpl 模板？</a></dt>
+    <dd>
+      <p>对于 AMD/CMD/CommonJs/ES6，nodetpl 能够给予非常完美的支持，作者推荐对模板进行预编译，这样能大大提高模板执行的效率。</p>
+      <p>引入模板非常方便，直接使用 “require” 引入对应的模板编译文件即可。假如模板文件为 ./tpls/myfavor.tpl，编译后的js文件为：./tpls/myfavor.js：</p>
+      <pre><code class="language-javascript">var tpl = require('./tpls/myfavor'); // 引入模块：./tpls/myfavor.js
+var html = tpl.render({
+  title: '个人爱好'
+});
+// html</code></pre>
+    </dd>
+  </dl>
+  <dl>
+    <dt><a href="javascript:;">AMD/CMD 项目需要引入 nodetpl.min.js 文件吗？</a></dt>
+    <dd>
+      <p>不需要。</p>
+      <p>nodetpl 针对 AMD/CMD/CommonJs/ES6 进行了优化，编译后的文件可以直接使用，而不再依赖 nodetpl 库，所以你可以直接 require 对应的可执行文件即可，如需引用 nodetpl 核心模块。</p>
+    </dd>
+  </dl>
+  <dl>
+    <dt><a href="javascript:;">业界有的模板引擎可以直接使用数据对象的属性名称进行引用，nodetpl 可以吗？</a></dt>
+    <dd>
+      <p>对于 v3.x 版本，nodetpl 是支持直接使用属性名来对数据进行引用的，但是考虑到未来 ECMAScript 规范对语法严谨性的要求，nodetpl 从 v4.0 版本开始，默认不再推荐这种写法。</p>
+      <p>假如传入的数据为：</p>
+      <pre><code class="language-javascript">{
+  title: '个人爱好'
+}</code></pre>
+      <p>在 v3.x 版本，可以用下面的语法对数据进行引用：</p>
+      <pre><code class="language-html">&lt;h2&gt;&lt;?=title?&gt;&lt;/h2&gt;</code></pre>
+      <p>从 v4.0 版本开始，需要在属性名前面添加 “@” 才能引到对应数据：</p>
+      <pre><code class="language-html">&lt;h2&gt;&lt;?=@title?&gt;&lt;/h2&gt;</code></pre>
+      <p>若希望 v4.0 仍然支持这种引用方式，需要指定 nodetpl 的 strict 属性为 “false”：</p>
+      <pre><code class="language-javascript">nodetpl.config({
+  strict: false
+});</code></pre>
+      <p>或者在预编译环节，传递 --no-strict 参数：</p>
+      <pre><code class="language-html">nodetpl ./tpls/ --no-strict</code></pre>
+    </dd>
+  </dl>
+</section>
+<footer>
+  <div class="wrap">
+    <p>&copy; 2012 - 2016 nodetpl.com by <a href="javascript:;">pillys</a></p>
+    <div class="donate">
+      <img src="/static/images/donate.png" />
+      打赏作者一杯咖啡
+    </div>
+  </div>
+</footer>
+<script>require(['view/cn/faq']);</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?55310397b78e4d3793e8b32711e7c487";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>

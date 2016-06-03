@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
-<script src="http://www.nodetpl.com/static/js/lib/nodetpl.client.min.js"></script>
+<script src="http://www.nodetpl.com/static/js/lib/nodetpl.min.js"></script>
 </head>
 <body>
 <div id="result"></div>
 
 <script id="favor-tpl" type="text/template">
-<h1><?=title?></h1>
+<h1><?=@title?></h1>
 <ul>
-  <?for(var i=0; i<favor.length; i++){?>
-    <li><?=i?>：<?=favor[i]?></li>
+  <?for(var i=0; i<@favor.length; i++){?>
+    <li><?=i?>：<?=@favor[i]?></li>
   <?}?>
 </ul>
 </script>
@@ -35,7 +35,6 @@ nodetpl.render(content, data, function(d){
   console.log(d);
 });
 </script>
-
 <script>
 var _hmt = _hmt || [];
 (function() {

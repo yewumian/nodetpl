@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
-<script src="http://www.nodetpl.com/static/js/lib/nodetpl.client.min.js"></script>
+<script src="http://www.nodetpl.com/static/js/lib/nodetpl.min.js"></script>
 </head>
 <body>
 <div id="result"></div>
@@ -19,7 +19,7 @@
   }
 </style>
 <div id="$ROOT">
-  <h1><?=title?></h1>
+  <h1><?=@title?></h1>
   <?for(var i=0; i<10; i++){?>
     <p>hello, world, <?=i?></p>
   <?}?>
@@ -44,7 +44,6 @@ nodetpl.render(content, data, function(d){
   console.log(d);
 });
 </script>
-
 <script>
 var _hmt = _hmt || [];
 (function() {

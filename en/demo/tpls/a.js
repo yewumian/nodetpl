@@ -1,74 +1,126 @@
 (function(root, factory) {
- if (typeof define === 'function') {
-   define(factory);
- } else if (typeof require === 'function' && typeof exports === 'object') {
-   factory(require, exports, module);
- } else {
-   factory();
- }
-}(this, function(require, exports, module) {
-  var nodetpl = typeof require === 'function' ? require('nodetpl') : window.nodetpl;
-  var tpl_id = module && module.uri ? module.uri : nodetpl._getCurrentScript();
-  nodetpl._tpls[tpl_id] = {
-  "main": function($DATA, guid){
-    var _ = '';
-    var css = '';
-    var duid = nodetpl.duid();
-    guid = guid || nodetpl.guid();
-    css += '\n#' + guid + ' a{  font-size: 12px;}';
-    _ += nodetpl.css(css);
-with($DATA || {}){
-
-    _ += '<div id="'+ guid +'">\n  <h1>';
-    if (typeof title !== "undefined") {
-      _ += (title);
+  if (typeof define === 'function' && (define.amd || define.cmd)) {
+    if (typeof callback === 'function' && typeof iife !== 'undefined' && iife === true) {
+      var module_id = 'nodetpl_' + Math.random();
+      define(module_id, factory);
+      if (define.amd) {
+        require([module_id], callback);
+      } else if (define.cmd) {
+        seajs.use([module_id], callback);
+      } else {
+        throw new Error('nodetpl cannot guess what the define means.');
+      }
+    } else {
+      define(factory);
     }
-
-    _ += '</h1>\n  <ul>\n    ';
-for(var i=0; i<favor.length; i++){
-    _ += '\n      <li>';
-    if (typeof i !== "undefined") {
-      _ += (i);
+  } else if (typeof require === 'function' && typeof exports === 'object') {
+    module.exports = factory(require, exports, module);
+  } else {
+    if (root.nodetpl) {
+      var result = factory();
+      if (typeof callback === 'function' && typeof iife !== 'undefined' && iife === true) {
+        callback(result);
+      } else {
+        var url = root.nodetpl.getCurrentScript();
+        if (url) {
+          root.nodetpl.cache[url] = result;
+        }
+      }
+      return result;
+    } else {
+      throw new Error('nodetpl not found.');
     }
-
-    _ += ': ';
-    if (typeof favor !== "undefined") {
-      _ += (favor[i]);
-    }
-
-    _ += '</li>\n    ';
-}
-    _ += '\n  </ul>\n</div>';
-
-}
-    _ += '\n<script>\n';
-    _ += '(function(window, document, undefined){\n';
-    _ += '  var _module_id = Math.random().toString();\n';
-    _ += '  var _factory = function(require, exports, module){\n';
-    _ += '    var nodetpl = typeof require === \'function\' ? require(\'nodetpl\') : window.nodetpl;\n';
-    _ += '    var ROOT, $ROOT, SUBROOT, $SUBROOT, $TPLS, $DATA;\n';
-    _ += '    var guid = \''+ guid + '\', duid = \''+ duid + '\';\n';
-    _ += '    ROOT = document.getElementById(guid);\n';
-    _ += '    SUBROOT = document.getElementById(guid + duid);\n';
-    _ += '    $TPLS = nodetpl._tpls["'+ tpl_id +'"];\n';
-    _ += '    $DATA = nodetpl._data[duid];\n';
-    _ += 'console.log($(ROOT));\n';
-    _ += '  }\n';
-    _ += '  if(typeof define === \'function\'){\n';
-    _ += '    define(_module_id, _factory);\n';
-    _ += '    if (define.amd && typeof require === \'function\') {\n';
-    _ += '      require([_module_id]);\n';
-    _ += '    } else if (define.cmd && typeof seajs === \'object\') {\n';
-    _ += '      seajs.use([_module_id]);\n';
-    _ += '    }\n';
-    _ += '  } else {\n';
-    _ += '    _factory();\n';
-    _ += '  }\n';
-    _ += '})(window, document);';
-    _ += '</script>\n';
-    $DATA && (nodetpl._data[duid] = $DATA);
-    return _;
   }
-};
-  return nodetpl._tpls[tpl_id];
+}(this, function(require, exports, module) {
+  'use strict';
+
+  function NodeTpl() {
+    this.tpls = {};
+    this.scripts = {};
+    this.datas = {};
+    this._initTpls()._initScripts();
+    return this;
+  }
+  NodeTpl.prototype._generate = function() {
+    return Math.random().toString().replace('.', '');
+  };
+  NodeTpl.prototype._initTpls = function() {
+    var that = this;
+    this.tpls = {
+      "main": function($DATA, guid) {
+        var _ = '';
+        var duid = that.duid();
+        guid = guid || that.guid();
+        _ += '<style>#' + guid + ' a{  font-size: 12px;}</style>';
+        try {
+          _ += '<div id="' + guid + '">\n  <h1>';
+          if (typeof $DATA.title !== 'undefined') {
+            _ += ($DATA.title);
+          }
+
+          _ += '</h1>\n  <ul>\n    ';
+          for (var i = 0; i < $DATA.favor.length; i++) {
+            _ += '\n      <li>';
+            if (typeof i !== 'undefined') {
+              _ += (i);
+            }
+
+            _ += ': ';
+            if (typeof $DATA.favor !== 'undefined') {
+              _ += ($DATA.favor[i]);
+            }
+
+            _ += '</li>\n    ';
+          }
+          _ += '\n  </ul>\n</div>';
+        } catch (e) {
+          console.log(e, e.stack);
+        }
+        if ($DATA) {
+          that.datas[duid] = $DATA;
+        }
+        (function(scripts) {
+          var cache = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : {};
+          cache._nodetpl_ = cache._nodetpl_ || {};
+          cache._nodetpl_[guid + '-' + duid] = scripts['main'];
+        })(that.scripts);
+        _ += '<script>\n';
+        _ += '(function(){\n';
+        _ += '  var cache = typeof window !== \'undefined\' ? window : typeof global !== \'undefined\' ? global : {};\n';
+        _ += '  cache._nodetpl_[\'' + guid + '-' + duid + '\'](\'' + guid + '\', \'' + duid + '\');\n';
+        _ += '  delete cache._nodetpl_[\'' + guid + '-' + duid + '\'];\n';
+        _ += '})();\n';
+        _ += '</script>\n';
+        return _;
+      }
+    };
+    return that;
+  };
+  NodeTpl.prototype._initScripts = function() {
+    var that = this;
+    this.scripts = {
+      "main": function(guid, duid) {
+        var ROOT = document.getElementById(guid);
+        var SUBROOT = document.getElementById(guid + duid);
+        var $TPLS = that.tpls;
+        var $DATA = that.datas[duid];
+        console.log($(ROOT));
+      }
+    };
+    return that;
+  };
+  NodeTpl.prototype.duid = function() {
+    return 'nodetpl_d_' + this._generate();
+  };
+  NodeTpl.prototype.guid = function() {
+    return 'nodetpl_g_' + this._generate();
+  };
+  NodeTpl.prototype.render = function(data, guid) {
+    return this.tpls.main(data, guid || this.guid());
+  };
+  return {
+    render: function(data) {
+      return new NodeTpl().render(data);
+    }
+  };
 }));

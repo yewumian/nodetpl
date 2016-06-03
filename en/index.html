@@ -12,7 +12,7 @@
 <script type="text/javascript" src="/static/js/require-config.js"></script>
 </head>
 <body id="index">
-<header class="en">
+<header>
   <div class="wrap">
     <div class="logo">
       <a href="/"><i class="iconfont">&#xe605;</i>NodeTpl</a>
@@ -32,12 +32,13 @@
       </ul>
     </nav>
   </div>
+  <div class="language"><a href="../cn/">简体中文</a></div>
 </header>
 <div class="fixed-tools">
   <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
 </div>
 <section class="wrap version-view">
-  <a href="./start.html">NodeTpl v3.3.2 released</a>
+  <a href="./start.html">NodeTpl v4.0 released</a>
 </section>
 <section class="wrap quick-look">
   <h2>30 seconds, awareness nodetpl</h2>
@@ -61,14 +62,30 @@
       </tr>
     </tbody>
   </table>
-  <p>Render specify template code:</p>
-  <pre><code class="language-javascript">nodetpl.render(template, data, function(d){
+  <table>
+    <tbody>
+      <tr>
+        <td>
+          <p>Render specify template code:</p>
+          <pre><code class="language-javascript">nodetpl.render(code, data, function(d){
   // alert(d);
 });</code></pre>
-  <p>Render specify template file:</p>
-  <pre><code class="language-javascript">nodetpl.get(url, data, function(d){
+        </td>
+        <td>
+          <p>Render specify template file:</p>
+          <pre><code class="language-javascript">nodetpl.get(url, data, function(d){
   // alert(d);
 });</code></pre>
+        </td>
+        <td>
+          <p>AMD / ES6 / Node.js：</p>
+          <pre><code class="language-javascript">var tpl = require('path/of/tpl');
+var html = tpl.render(data);
+// html</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
   <p><a href="javascript:;" class="btn btn-try">Have a try</a></p>
 </section>
 <section class="introduction">
@@ -113,8 +130,8 @@
       </li>
       <li>
         <dl>
-          <dt><i class="iconfont">&#xe60e;</i>Modular</dt>
-          <dd>RequireJs (AMD) / seaJs (CMD) supported</dd>
+          <dt><i class="iconfont">&#xe60e;</i>Modular / ES6</dt>
+          <dd>RequireJs (AMD) / ES6 / CommonJs supported</dd>
         </dl>
       </li>
       <li>
@@ -132,7 +149,7 @@
       <li>
         <dl>
           <dt><i class="iconfont">&#xe608;</i>Good compatibility</dt>
-          <dd>Compatible with all major browsers, IE, Firefox, Chrome, Safari etc</dd>
+          <dd>Compatible with all major browsers, IE6+, Firefox, Chrome, Safari etc</dd>
         </dl>
       </li>
       <li>

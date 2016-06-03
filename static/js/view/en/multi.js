@@ -11,14 +11,14 @@ define(function(require, exports, module) {
       "gender": "Male",
       "age": 108
     };
-    nodetpl.get('/en/demo/tpls/2.js', data, function(d) {
-      vDialog({
-        title: 'Result',
-        content: d,
-        width: 400,
-        ok: true,
-        okValue: 'Ok'
-      }).showModal();
-    });
+    var tpl = require('/cn/demo/tpls/2.js');
+    var html = tpl.render(data);
+    vDialog({
+      title: 'Result',
+      content: html,
+      width: 400,
+      ok: true,
+      okValue: 'Ok'
+    }).showModal();
   });
 });

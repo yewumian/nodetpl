@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>NodeTpl - 高效javascript模板引擎</title>
+<link rel="stylesheet" href="/static/css/normalize.css">
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/vdialog.css">
+<link rel="stylesheet" href="/static/css/highlight/prism.css">
+<script type="text/javascript" src="/static/js/highlight/prism.js"></script>
+<script type="text/javascript" src="/static/js/require.js"></script>
+<script type="text/javascript" src="/static/js/require-config.js"></script>
+</head>
+<body id="api">
+<header>
+  <div class="wrap">
+    <div class="logo">
+      <a href="/"><i class="iconfont">&#xe605;</i>NodeTpl</a>
+      <span>一款强大、高效、易用、有趣儿的 JavaScript 模板引擎</span>
+    </div>
+    <nav>
+      <ul class="clearfix">
+        <li><a href="./">首页</a></li>
+        <li><a href="./start.html">开始</a></li>
+        <li><a href="./grammar.html">语法</a></li>
+        <li class="active"><a href="./api.html">API</a></li>
+        <li><a href="./multi.html">多模板</a></li>
+        <li><a href="./compile.html">预编译</a></li>
+        <li><a href="./module.html">模块化</a></li>
+        <li><a href="./node.html">Node</a></li>
+        <li><a href="./changes.html">升级日志</a></li>
+        <li><a href="./faq.html">常见问题</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="language"><a href="../en/">English</a></div>
+</header>
+<div class="fixed-tools">
+  <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
+</div>
+<section class="wrap">
+  <div class="api-list">
+    <h2>nodetpl 方法</h2>
+    <ul>
+      <li><a href="./api-config.html"><strong>nodetpl.config</strong></a>：基本配置，非必须</li>
+      <li><a href="./api-get.html">nodetpl.get</a>：获取某个模板或编译后的模板文件</li>
+      <li><a href="./api-render.html">nodetpl.render</a>：渲染某个模板</li>
+      <li><a href="./api-exec.html">nodetpl.exec</a>：执行模板里面的 js 代码，较少使用</li>
+    </ul>
+    <h2>NodeTplClass 方法</h2>
+    <ul>
+      <li><a href="./api-tplrender.html">tpl.render</a>：渲染模板</li>
+    </ul>
+  </div>
+  <h3>nodetpl.config(options)</h3>
+  <p>配置 <code>nodetpl</code> 基本参数</p>
+  <p><code>config</code> 不是必须的，一般不需要做任何配置</p>
+  <p>下面是可以配置的参数示例：</p>
+  <pre><code class="language-javascript">nodetpl.config({
+  base: 'http://www.nodetpl.com/static/tpl/',   // 强制指定模板根目录
+  openTag: '&lt;?',
+  closeTag: '?&gt;',
+  strict: true
+});</code></pre>
+  <ul>
+    <li>base：模板所在的根路径，可以省略。若配置该参数，则使用 <code>.get()</code> 方法填写的路径会相对于该路径进行查找</li>
+    <li>openTag：模板定界符开始标签，默认为：<code>&lt;?</code></li>
+    <li>closeTag：模板定界符结束标签，默认为：<code>?&gt;</code></li>
+    <li>strict：是否开启严格模式，默认开启</li>
+  </ul>
+  <p>对于参数 strict，如果不启用严格模式，则模板中引用数据时的“@”可以省略，如：</p>
+  <pre><code class="language-html">&lt;h2&gt;&lt;?=@title?&gt;&lt;/h2&gt;</code></pre>
+  <p>在非“strict mode”下可以书写为：</p>
+  <pre><code class="language-html">&lt;h2&gt;&lt;?=title?&gt;&lt;/h2&gt;</code></pre>
+  <p>但，随着 ES6 的发展，我们并不推荐这样。</p>
+  <p>这里大部分是可以采用默认值的，所以该方法可以省略。只是在极少数的场景下，你可能根据自己的需要做调整。</p>
+</section>
+<footer>
+  <div class="wrap">
+    <p>&copy; 2012 - 2016 nodetpl.com by <a href="javascript:;">pillys</a></p>
+    <div class="donate">
+      <img src="/static/images/donate.png" />
+      打赏作者一杯咖啡
+    </div>
+  </div>
+</footer>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?55310397b78e4d3793e8b32711e7c487";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>

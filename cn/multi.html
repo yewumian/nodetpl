@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <title>NodeTpl - 高效javascript模板引擎</title>
@@ -32,6 +32,7 @@
       </ul>
     </nav>
   </div>
+  <div class="language"><a href="../en/">English</a></div>
 </header>
 <div class="fixed-tools">
   <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
@@ -108,9 +109,9 @@
   &lt;/style&gt;
   &lt;div id="$SUBROOT"&gt;
     &lt;ul&gt;
-      &lt;li&gt;姓名：&lt;?=name?&gt;&lt;/li&gt;
-      &lt;li&gt;性别：&lt;?=gender?&gt;&lt;/li&gt;
-      &lt;li&gt;年龄：&lt;?=age?&gt;&lt;/li&gt;
+      &lt;li&gt;姓名：&lt;?=@name?&gt;&lt;/li&gt;
+      &lt;li&gt;性别：&lt;?=@gender?&gt;&lt;/li&gt;
+      &lt;li&gt;年龄：&lt;?=@age?&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/div&gt;
 &lt;/template&gt;</code></pre>
@@ -125,9 +126,9 @@
   &lt;div id="$SUBROOT"&gt;
     &lt;form action=""&gt;
       &lt;ul&gt;
-        &lt;li&gt;姓名：&lt;input type="text" name="name" value="&lt;?=name?&gt;" /&gt;&lt;/li&gt;
-        &lt;li&gt;性别：&lt;input type="text" name="gender" value="&lt;?=gender?&gt;" /&gt;&lt;/li&gt;
-        &lt;li&gt;年龄：&lt;input type="text" name="age" value="&lt;?=age?&gt;" /&gt;&lt;/li&gt;
+        &lt;li&gt;姓名：&lt;input type="text" name="name" value="&lt;?=@name?&gt;" /&gt;&lt;/li&gt;
+        &lt;li&gt;性别：&lt;input type="text" name="gender" value="&lt;?=@gender?&gt;" /&gt;&lt;/li&gt;
+        &lt;li&gt;年龄：&lt;input type="text" name="age" value="&lt;?=@age?&gt;" /&gt;&lt;/li&gt;
       &lt;/ul&gt;
       &lt;div class="form-actions"&gt;
         &lt;button type="submit"&gt;保存&lt;/button&gt;
@@ -152,7 +153,7 @@
 </section>
 <footer>
   <div class="wrap">
-    <p>&copy; 2012 - 2016 nodetpl.com by pillys</p>
+    <p>&copy; 2012 - 2016 nodetpl.com by <a href="javascript:;">pillys</a></p>
     <div class="donate">
       <img src="/static/images/donate.png" />
       打赏作者一杯咖啡

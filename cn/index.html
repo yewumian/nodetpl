@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <title>NodeTpl - 高效javascript模板引擎</title>
@@ -29,19 +29,18 @@
         <li><a href="./module.html">模块化</a></li>
         <li><a href="./node.html">Node</a></li>
         <li><a href="./changes.html">升级日志</a></li>
+        <li><a href="./faq.html">常见问题</a></li>
       </ul>
     </nav>
   </div>
+  <div class="language"><a href="../en/">English</a></div>
 </header>
 <div class="fixed-tools">
   <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
 </div>
 <section class="wrap version-view">
-  <a href="./start.html">NodeTpl v3.3.2 隆重发布</a>
+  <a href="./start.html">NodeTpl v4.0 抢先体验</a>
 </section>
-<div class="wrap">
-  <p>想要尝试 ES6/ES7 开发？苦于浏览器支持不够？赶快来了解 <a href="./nodetpl-plus.html">nodetpl-plus</a> <sup>beta</sup> 吧！</p>
-</div>
 <section class="wrap quick-look">
   <h2>30 秒认识 nodetpl</h2>
   <table>
@@ -64,16 +63,35 @@
       </tr>
     </tbody>
   </table>
-  <p>渲染指定模板代码：</p>
-  <pre><code class="language-javascript">nodetpl.render(template, data, function(d){
+  <table>
+    <tbody>
+      <tr>
+        <td>
+          <p>渲染指定模板代码：</p>
+          <pre><code class="language-javascript">nodetpl.render(code, data, function(d){
   // alert(d);
 });</code></pre>
-  <p>渲染指定模板文件：</p>
-  <pre><code class="language-javascript">nodetpl.get(url, data, function(d){
+        </td>
+        <td>
+          <p>渲染指定模板文件：</p>
+          <pre><code class="language-javascript">nodetpl.get(url, data, function(d){
   // alert(d);
 });</code></pre>
+        </td>
+        <td>
+          <p>AMD / CMD / ES6 / Node.js：</p>
+          <pre><code class="language-javascript">var tpl = require('path/of/tpl');
+var html = tpl.render(data);
+// html</code></pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
   <p><a href="javascript:;" class="btn btn-try">试一试</a></p>
 </section>
+<div class="wrap">
+  <p>想要尝试 ES6/ES7 开发？苦于浏览器支持不够？赶快来了解 <a href="./nodetpl-plus.html">nodetpl-plus</a> <sup>beta</sup> 吧！</p>
+</div>
 <section class="introduction">
   <div class="wrap">
     <h2>为什么选择 nodetpl ？</h2>
@@ -111,13 +129,13 @@
       <li>
         <dl>
           <dt><i class="iconfont">&#xe60b;</i>支持模块CSS/JS</dt>
-          <dd>独创CSS/JS随包机制，独立的模板可以拥有自身模块的CSS/JS，并可以有效解决命名冲突问题</dd>
+          <dd>独创CSS/JS跟包机制，独立的模板可以拥有自身模块的CSS/JS，并可以有效解决命名冲突问题</dd>
         </dl>
       </li>
       <li>
         <dl>
-          <dt><i class="iconfont">&#xe60e;</i>支持模块化</dt>
-          <dd>完美支持 seaJs (CMD) / requireJs (AMD) <a href="./module.html">模块化</a>开发</dd>
+          <dt><i class="iconfont">&#xe60e;</i>支持模块化，ES6</dt>
+          <dd>完美支持 seaJs (CMD) / requireJs (AMD) <a href="./module.html">模块化</a>开发，支持 ES6 开发</dd>
         </dl>
       </li>
       <li>
@@ -129,13 +147,13 @@
       <li>
         <dl>
           <dt><i class="iconfont">&#xe60a;</i>学习成本低</dt>
-          <dd>从入门到精通仅需 10 分钟</dd>
+          <dd>从入门到精通仅需 10 分钟，团队技术选型不再苦恼</dd>
         </dl>
       </li>
       <li>
         <dl>
           <dt><i class="iconfont">&#xe608;</i>兼容性好</dt>
-          <dd>兼容所有主流浏览器，可以运行在任何客户端</dd>
+          <dd>兼容所有浏览器 IE6+、Safari、Firefox、Chrome 等</dd>
         </dl>
       </li>
       <li>
@@ -146,8 +164,8 @@
       </li>
       <li>
         <dl>
-          <dt><i class="iconfont">&#xe60d;</i>中国特色</dt>
-          <dd>国产代码，文档齐全，国内首发</dd>
+          <dt><i class="iconfont">&#xe60d;</i>中文首发</dt>
+          <dd>国产代码，文档齐全，版本更新中文第一时间发布</dd>
         </dl>
       </li>
     </ul>
@@ -158,23 +176,23 @@
 </section>
 <section class="partners">
   <div class="wrap">
-    <h2>经典案例</h2>
+    <h2>技术合作伙伴</h2>
     <ul class="clearfix">
-      <li><a href="http://www.youtube.com" target="_blank"><img src="/static/images/partners/youtube.png" alt="youtube" height="30"></a></li>
-      <li><a href="http://www.godaddy.com" target="_blank"><img src="/static/images/partners/godaddy.png" alt="godaddy" height="30"></a></li>
-      <li><a href="http://www.alibaba.com" target="_blank"><img src="/static/images/partners/alibaba.png" alt="alibaba" height="30"></a></li>
-      <li><a href="http://www.weibo.com" target="_blank"><img src="/static/images/partners/weibo.png" alt="weibo" height="30"></a></li>
-      <li><a href="http://www.qq.com" target="_blank"><img src="/static/images/partners/qq.png" alt="qq" height="30"></a></li>
-      <li><a href="http://www.alipay.com" target="_blank"><img src="/static/images/partners/alipay.png" alt="alipay" height="30"></a></li>
-      <li><a href="http://www.liepin.com" target="_blank"><img src="/static/images/partners/liepin.png" alt="liepin" height="30"></a></li>
-      <li><a href="http://www.jd.com" target="_blank"><img src="/static/images/partners/jd.png" alt="jd" height="30"></a></li>
-      <li><a href="http://www.zhihu.com" target="_blank"><img src="/static/images/partners/zhihu.png" alt="zhihu" height="30"></a></li>
+      <li><a href="http://www.youtube.com" target="_blank"><img src="/static/images/partners/youtube.png" alt="youtube"></a></li>
+      <li><a href="http://www.godaddy.com" target="_blank"><img src="/static/images/partners/godaddy.png" alt="godaddy"></a></li>
+      <li><a href="http://www.alibaba.com" target="_blank"><img src="/static/images/partners/alibaba.png" alt="alibaba"></a></li>
+      <li><a href="http://www.weibo.com" target="_blank"><img src="/static/images/partners/weibo.png" alt="weibo"></a></li>
+      <li><a href="http://www.qq.com" target="_blank"><img src="/static/images/partners/qq.png" alt="qq"></a></li>
+      <li><a href="http://www.alipay.com" target="_blank"><img src="/static/images/partners/alipay.png" alt="alipay"></a></li>
+      <li><a href="http://www.liepin.com" target="_blank"><img src="/static/images/partners/liepin.png" alt="liepin"></a></li>
+      <li><a href="http://www.jd.com" target="_blank"><img src="/static/images/partners/jd.png" alt="jd"></a></li>
+      <li><a href="http://www.zhihu.com" target="_blank"><img src="/static/images/partners/zhihu.png" alt="zhihu"></a></li>
     </ul>
   </div>
 </section>
 <footer>
   <div class="wrap">
-    <p>&copy; 2012 - 2016 nodetpl.com by pillys</p>
+    <p>&copy; 2012 - 2016 nodetpl.com by <a href="javascript:;">pillys</a></p>
     <div class="donate">
       <img src="/static/images/donate.png" />
       打赏作者一杯咖啡

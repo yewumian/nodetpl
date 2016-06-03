@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>NodeTpl - 高效javascript模板引擎</title>
+<link rel="stylesheet" href="/static/css/normalize.css">
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/vdialog.css">
+<link rel="stylesheet" href="/static/css/highlight/prism.css">
+<script type="text/javascript" src="/static/js/highlight/prism.js"></script>
+<script type="text/javascript" src="/static/js/require.js"></script>
+<script type="text/javascript" src="/static/js/require-config.js"></script>
+</head>
+<body id="api">
+<header>
+  <div class="wrap">
+    <div class="logo">
+      <a href="/"><i class="iconfont">&#xe605;</i>NodeTpl</a>
+      <span>一款强大、高效、易用、有趣儿的 JavaScript 模板引擎</span>
+    </div>
+    <nav>
+      <ul class="clearfix">
+        <li><a href="./">首页</a></li>
+        <li><a href="./start.html">开始</a></li>
+        <li><a href="./grammar.html">语法</a></li>
+        <li class="active"><a href="./api.html">API</a></li>
+        <li><a href="./multi.html">多模板</a></li>
+        <li><a href="./compile.html">预编译</a></li>
+        <li><a href="./module.html">模块化</a></li>
+        <li><a href="./node.html">Node</a></li>
+        <li><a href="./changes.html">升级日志</a></li>
+        <li><a href="./faq.html">常见问题</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="language"><a href="../en/">English</a></div>
+</header>
+<div class="fixed-tools">
+  <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
+</div>
+<section class="wrap">
+  <div class="api-list">
+    <h2>nodetpl 方法</h2>
+    <ul>
+      <li><a href="./api-config.html">nodetpl.config</a>：基本配置，非必须</li>
+      <li><a href="./api-get.html">nodetpl.get</a>：获取某个模板或编译后的模板文件</li>
+      <li><a href="./api-render.html">nodetpl.render</a>：渲染某个模板</li>
+      <li><a href="./api-exec.html"><strong>nodetpl.exec</strong></a>：执行模板里面的 js 代码，较少使用</li>
+    </ul>
+    <h2>NodeTplClass 方法</h2>
+    <ul>
+      <li><a href="./api-tplrender.html">tpl.render</a>：渲染模板</li>
+    </ul>
+  </div>
+  <h4>nodetpl.exec(content);</h4>
+  <p>执行 <code>html</code> 中的 <code>JavaScript</code>，该方法在极少数场景下使用（例如原生 <code>innerHTML</code>），因为大多数 <code>js</code> 库已包含自动执行的方法。</p>
+  <p>例如下面一段 <code>HTML</code>，通过常规 <code>innerHTML</code> 添加到某个 <code>DOM</code> 中时，<code>JavaScript</code> 不会执行，在添加完之后手动运行一下 <code>exec</code> 方法即可。</p>
+  <pre><code class="language-javascript">&lt;h1&gt;hello&lt;/h1&gt;
+&lt;script&gt;
+  alert(0);
+&lt;/script&gt;</code></pre>
+  <pre><code class="language-javascript">nodetpl.exec(content);</code></pre>
+</section>
+<footer>
+  <div class="wrap">
+    <p>&copy; 2012 - 2016 nodetpl.com by pillys</p>
+    <div class="donate">
+      <img src="/static/images/donate.png" />
+      打赏作者一杯咖啡
+    </div>
+  </div>
+</footer>
+<script>require(['view/cn/api']);</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?55310397b78e4d3793e8b32711e7c487";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <title>NodeTpl - 高效javascript模板引擎</title>
@@ -32,6 +32,7 @@
       </ul>
     </nav>
   </div>
+  <div class="language"><a href="../en/">English</a></div>
 </header>
 <div class="fixed-tools">
   <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
@@ -40,18 +41,19 @@
   <h2>预编译</h2>
   <p>为了让模板代码在浏览器端运行的更快、更节省内存，同时，我们需要更加方便地管理模板文件，我们通常将模板代码存为一个独立的文件（默认后缀为<code>.tpl</code>，可以根据自身需要进行调整），然后在开发阶段进行预编译。</p>
   <p>预编译后的文件不再是模板代码，它是一个可执行的 <code>.js</code> 文件，浏览器自然可以非常迅速的识别并运行它。</p>
-  <p>模板编译之后，就可以使用 <code>nodetpl.get()</code> 方法引用了。</p>
+  <p>模板编译之后，就可以使用 <code>nodetpl.get()</code> 或 <code>require()</code> 方法引用了。</p>
   <h4>安装</h4>
   <p>预编译工具需要 <code>node.js</code> 环境支持，如果你没有安装 <code>node.js</code> ，请先安装它：<a href="https://nodejs.org/" target="_blank" rel="nofollow">https://nodejs.org/</a>。</p>
   <p>安装完 <code>node.js</code> 之后，在命令行中输入下面的语句，完成安装：</p>
   <pre><code class="language-markup">npm install nodetpl -g</code></pre>
   <h4>语法</h4>
-  <pre><code class="language-markup">nodetpl &lt;path&gt; <!-- -o &lt;relativePath&gt; -->--ext &lt;ext&gt; --look</code></pre>
+  <pre><code class="language-markup">nodetpl &lt;path&gt; <!-- -o &lt;relativePath&gt; -->--extname &lt;extname&gt; --no-strict --watch</code></pre>
   <ul>
     <li><code>&lt;path&gt;</code>：模板文件的路径，或模板所在的目录路径</li>
     <!--li><code>-o</code>：模板文件相对于项目根路径的路径，以 <code>http</code> 或 <code>/</code> 开头，一般情况下不需要设置</li-->
-    <li><code>--ext</code>：模板文件的扩展名，默认为 <code>.tpl</code></li>
-    <li><code>--look</code>：是否监控文件变化，默认为 <code>false</code>，当传递该参数时，修改模板内容会同步自动编译</li>
+    <li><code>--extname</code>：模板文件的扩展名，默认为 <code>.tpl</code></li>
+    <li><code>--no-strict</code>：启用非 <code>strict</code> 模式，不推荐传递该参数</li>
+    <li><code>--watch</code>：是否监控文件变化，默认为 <code>false</code>，当传递该参数时，修改模板内容会同步自动编译</li>
   </ul>
   <h4>示例</h4>
   <p><strong>编译单个文件</strong></p>
@@ -62,7 +64,7 @@
 
 &gt;&gt; dist: auto
 &gt;&gt; extname: .tpl
-&gt;&gt; look mode: false
+&gt;&gt; watch mode: false
 &gt;&gt; from: /usr/local/testproject/tpls/demo/abc.tpl
 &gt;&gt; [1]  file: /usr/local/testproject/tpls/demo/abc.tpl</code></pre>
   <p>我们可以看到，在模板文件同一路径下，生成了一个同名的 <code>.js</code> 文件，该文件就是编译后的可执行文件。</p>
@@ -74,19 +76,19 @@
 
 &gt;&gt; dist: auto
 &gt;&gt; extname: .tpl
-&gt;&gt; look mode: false
+&gt;&gt; watch mode: false
 &gt;&gt; from: /usr/local/testproject/tpls
 &gt;&gt; [1]  file: /usr/local/testproject/tpls/demo/abc.tpl
 &gt;&gt; [2]  file: /usr/local/testproject/tpls/demo/def.tpl</code></pre>
   <h4>高级配置</h4>
   <p><strong>监听文件变化，自动编译模板</strong></p>
-  <pre><code class="language-markup">nodetpl /usr/local/testproject/tpls --look</code></pre>
+  <pre><code class="language-markup">nodetpl /usr/local/testproject/tpls --watch</code></pre>
   <p>运行结果：</p>
   <pre><code class="language-markup">&lt;? Hello, nodetpl is working... ?&gt;
 
 &gt;&gt; dist: auto
 &gt;&gt; extname: .tpl
-&gt;&gt; look mode: false
+&gt;&gt; watch mode: false
 &gt;&gt; from: /usr/local/testproject/tpls
 &gt;&gt; [1]  file: /usr/local/testproject/tpls/demo/abc.tpl
 &gt;&gt; [2]  file: /usr/local/testproject/tpls/demo/def.tpl
@@ -94,21 +96,10 @@
 &gt;&gt; [3]  file: /usr/local/testproject/tpls/demo/abc.tpl
         Mon Nov 23 2015 15:46:20 GMT+0800 (CST)</code></pre>
   <p>当修改并保存某个模板文件时，该文件会被自动编译。</p>
-  <!--p><strong>配置相对路径</strong></p>
-  <p>通常情况下，<code>nodetpl</code> 会自动获取模板文件的引用路径，并用指定 <code>data</code> 进行渲染，但某些特殊的场景下，可能需要手动配置模板文件的引用路径（极少出现这样的情况），这种情况下我们需要配置 <code>-o</code> 属性来告诉编译工具</p>
-  <p>模板引擎的工作原理包含这样的过程：为了保证模板和数据一一对应，并且能够更好的维护缓存，每一个模板文件都会分配自身一个唯一ID，这个ID可以确保该模板在运行过程中全局唯一，模板渲染过程也必然包含 <code>ID</code> 的匹配过程。</p>
-  <p>一般情况下，模板的 <code>ID</code> 不需要我们手动指定，模板引擎会自动根据文件路径为每个模板分配一个 <code>ID</code>。</p>
-  <p>如果我们需要手动指定这个 <code>ID</code>，这里，我们可以人为地使用模板引用的路径来表示，通常为相对于项目根路径的位置（<code>http</code> 开始的路径也是允许的），后缀为我们编译后的 <code>.js</code> 文件。</p>
-  <p>首先，将我们的模板文件保存在某个目录中（通常为 <code>tpls</code>），模板文件扩展名为 <code>.tpl</code></p>
-  <p>假定项目的根路径为：<code>/usr/local/testproject</code>，则文件相对于根路径的位置应为：<code>/tpls/demo/abc.tpl</code></p>
-  <p>编译单个文件：</p>
-  <pre><code class="language-markup">nodetpl /usr/local/testproject/tpls/demo/abc.tpl -o /tpls/demo/abc.js</code></pre>
-  <p>编译多个文件：</p>
-  <pre><code class="language-markup">nodetpl /usr/local/testproject/tpls -o /tpls</code></pre-->
 </section>
 <footer>
   <div class="wrap">
-    <p>&copy; 2012 - 2016 nodetpl.com by pillys</p>
+    <p>&copy; 2012 - 2016 nodetpl.com by <a href="javascript:;">pillys</a></p>
     <div class="donate">
       <img src="/static/images/donate.png" />
       打赏作者一杯咖啡
