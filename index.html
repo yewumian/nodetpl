@@ -3,14 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>NodeTpl</title>
-<script>
-var iszh = (navigator.language || navigator.systemLanguage || '').split('-')[0] === 'zh';
-if(iszh) {
-  location.href = './cn/';
-} else {
-  location.href = './en/';
-}
-</script>
 </head>
 <body>
 <ul>
@@ -18,14 +10,22 @@ if(iszh) {
   <li><a href="./en/">English</a></li>
 </ul>
 <script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?55310397b78e4d3793e8b32711e7c487";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-
+var iszh = (navigator.language || navigator.systemLanguage || '').split('-')[0] === 'zh';
+var url, referer = document.referer || '';
+if(iszh) {
+  url = './cn/';
+} else {
+  url = './en/';
+}
+url += referer ? '?' + referer : '';
+if (/MSIE\s*(\d+\.\d+);/.test(navigator.userAgent)){
+  var referLink = document.createElement('a');
+  referLink.href = url;
+  document.body.appendChild(referLink);
+  referLink.click();
+} else {
+  location.href = url;
+}
 </script>
 </body>
 </html>
