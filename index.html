@@ -3,12 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>NodeTpl</title>
-</head>
-<body>
-<ul>
-  <li><a href="./cn/">简体中文</a></li>
-  <li><a href="./en/">English</a></li>
-</ul>
 <script>
 var iszh = (navigator.language || navigator.systemLanguage || '').split('-')[0] === 'zh';
 var url, referer = document.referer || '';
@@ -18,14 +12,13 @@ if(iszh) {
   url = './en/';
 }
 url += referer ? '?' + referer : '';
-if (/MSIE\s*(\d+\.\d+);/.test(navigator.userAgent)){
-  var referLink = document.createElement('a');
-  referLink.href = url;
-  document.body.appendChild(referLink);
-  referLink.click();
-} else {
-  location.href = url;
-}
+location.href = url;
 </script>
+</head>
+<body>
+<ul>
+  <li><a href="./cn/">简体中文</a></li>
+  <li><a href="./en/">English</a></li>
+</ul>
 </body>
 </html>
