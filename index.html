@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>NodeTpl</title>
 <script>
-var iszh = (navigator.language || '').split('-')[0] === 'zh';
+var iszh = (navigator.language || navigator.systemLanguage || '').split('-')[0] === 'zh';
 if(iszh) {
   location.href = './cn/';
 } else {
