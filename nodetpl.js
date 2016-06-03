@@ -39,6 +39,19 @@
   if (!Array.isArray) Array.isArray = function(vArg) {
     return Object.prototype.toString.call(vArg) === '[object Array]';
   };
+  if (!Array.prototype.indexOf) Array.prototype.indexOf = function(match, fromIndex) {
+    var len = this.length;
+    fromIndex |= 0;
+    if (fromIndex < 0) {
+      fromIndex = Math.max(0, len + fromIndex);
+    }
+    for (; fromIndex < len; fromIndex++) {
+      if (fromIndex in this && this[fromIndex] === match) {
+        return fromIndex;
+      }
+    }
+    return -1;
+  };
   // jshint ignore: end
 
   /**
