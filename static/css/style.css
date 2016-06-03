@@ -53,6 +53,7 @@ header .language a {
   text-decoration: none;
 }
 header .logo {
+  padding: 10px 0;
   opacity: .8;
   text-align: center;
 }
