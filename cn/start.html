@@ -41,7 +41,7 @@
 </div>
 <section class="wrap">
   <h2>基本介绍</h2>
-  <p>当前版本：v4.0.0</p>
+  <p>当前版本：v4.0.4</p>
   <p>项目地址：<a href="https://github.com/pillys/nodetpl" target="_blank">https://github.com/pillys/nodetpl</a></p>
   <p>下载地址：<a href="https://github.com/pillys/nodetpl/archive/master.zip">https://github.com/pillys/nodetpl/archive/master.zip</a></p>
   <p>BUG反馈：<a href="https://github.com/pillys/nodetpl/issues" target="_blank">https://github.com/pillys/nodetpl/issues</a></p>
@@ -49,8 +49,8 @@
     allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20" style="margin-left:10px;vertical-align:middle;"></iframe></p>
   <h2>快速上手</h2>
   <h4>引入文件</h4>
-  <p>下载 <code>nodetpl</code>并解压 <code>nodetpl</code> 包文件</p>
-  <p>常规引用：在页面 <code>head</code> 标签内，引入 <code>nodetpl</code> 客户端文件（压缩包中的 <code>/lib/nodetpl.min.js</code>）：</p>
+  <p>下载 <code>nodetpl</code>并解压 <code>nodetpl</code> 包文件。</p>
+  <p>常规引用，在页面 <code>head</code> 标签内，引入 <code>nodetpl</code> 客户端文件（压缩包中的 <code>nodetpl.min.js</code>）：</p>
   <pre><code class="language-html">&lt;script src="./js/nodetpl.min.js"&gt;&lt;/script&gt;</code></pre>
   <p>AMD/CMD/CommonJs/ES6：</p>
   <pre><code class="language-javascript">var nodetpl = require('nodetpl');</code></pre>
@@ -100,7 +100,8 @@ nodetpl.render(content, data, function(d){
     <li>get()</li>
     <li>render()</li>
     <li>exec()</li>
-    <li>nodetpl ... --watch</li>
+    <li>--watch</li>
+    <li>--no-strict</li>
   </ul>
 </section>
 <footer>
