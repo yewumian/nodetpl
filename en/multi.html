@@ -151,6 +151,16 @@
   &lt;/script&gt;
 &lt;/template&gt;</code></pre>
   <p>From the code above, the master template has no different with normal, bug the sub-template "root element" is no longer used "<code>ROOT</code>", but "<code>SUBROOT</code>".</p>
+  <h2>Communication</h2>
+  <div id="disqus_thread"></div>
+  <script>
+  (function() {
+  var d = document, s = d.createElement('script');
+  s.src = '//nodetpl.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+  </script>
 </section>
 <footer>
   <div class="wrap">

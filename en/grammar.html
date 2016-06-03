@@ -121,6 +121,16 @@ console.log($DATA.title);
   <p>Yes, although here you define a <code>padding</code> variable, but it is not executed in the <code>window</code> object, it will not contaminate the <code>window</code>.</p>
   <p>How? With HTML / CSS / JS, it is not to be able to write what you want?</p>
   <p>Then see if you played O(∩_∩)O</p>
+  <h2>Communication</h2>
+  <div id="disqus_thread"></div>
+  <script>
+  (function() {
+  var d = document, s = d.createElement('script');
+  s.src = '//nodetpl.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+  </script>
 </section>
 <footer>
   <div class="wrap">
