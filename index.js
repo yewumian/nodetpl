@@ -1,1 +1,1 @@
-module.exports = require('./lib/nodetpl');
+module.exports = require('./nodetpl');
