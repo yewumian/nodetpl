@@ -238,11 +238,19 @@ a.btn {
   vertical-align: middle;
   margin-right: .5em;
 }
+#index section.version-view {
+  position: relative;
+}
 #index section.version-view a {
   display: block;
   line-height: 100px;
   text-align: center;
   font-size: 30px;
+}
+#index section.version-view iframe {
+  position: absolute;
+  right: .5em;
+  top: .5em;
 }
 #index section.quick-look table {
   width: 100%;
