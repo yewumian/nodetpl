@@ -45,28 +45,28 @@
     return Math.random().toString().replace('.', '');
   };
   NodeTpl.prototype._initTpls = function() {
-    var that = this;
+    var $NODETPL = this;
     this.tpls = {
       "main": function($DATA, guid) {
         var _ = '';
-        var duid = that.duid();
-        guid = guid || that.guid();
+        var duid = $NODETPL.duid();
+        guid = guid || $NODETPL.guid();
         try {
           _ += '<h1>';
           if (typeof $DATA.title !== 'undefined') {
-            _ += ($DATA.title);
+            _ += $NODETPL.escapeHtml($DATA.title);
           }
 
           _ += '</h1>\n<ul>\n  ';
           for (var i = 0; i < $DATA.favor.length; i++) {
             _ += '\n    <li>';
             if (typeof i !== 'undefined') {
-              _ += (i);
+              _ += $NODETPL.escapeHtml(i);
             }
 
             _ += ': ';
             if (typeof $DATA.favor !== 'undefined') {
-              _ += ($DATA.favor[i]);
+              _ += $NODETPL.escapeHtml($DATA.favor[i]);
             }
 
             _ += '</li>\n  ';
@@ -76,25 +76,28 @@
           console.log(e, e.stack);
         }
         if ($DATA) {
-          that.datas[duid] = $DATA;
+          $NODETPL.datas[duid] = $DATA;
         }
         return _;
       }
     };
-    return that;
+    return $NODETPL;
   };
   NodeTpl.prototype._initScripts = function() {
-    var that = this;
+    var $NODETPL = this;
     this.scripts = {
 
     };
-    return that;
+    return $NODETPL;
   };
   NodeTpl.prototype.duid = function() {
     return 'nodetpl_d_' + this._generate();
   };
   NodeTpl.prototype.guid = function() {
     return 'nodetpl_g_' + this._generate();
+  };
+  NodeTpl.prototype.escapeHtml = function(html) {
+    return html.toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   };
   NodeTpl.prototype.render = function(data, guid) {
     return this.tpls.main(data, guid || this.guid());

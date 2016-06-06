@@ -45,29 +45,29 @@
     return Math.random().toString().replace('.', '');
   };
   NodeTpl.prototype._initTpls = function() {
-    var that = this;
+    var $NODETPL = this;
     this.tpls = {
       "main": function($DATA, guid) {
         var _ = '';
-        var duid = that.duid();
-        guid = guid || that.guid();
+        var duid = $NODETPL.duid();
+        guid = guid || $NODETPL.guid();
         _ += '<style>#' + guid + ' a{  font-size: 12px;}</style>';
         try {
           _ += '<div id="' + guid + '">\n  <h1>';
           if (typeof $DATA.title !== 'undefined') {
-            _ += ($DATA.title);
+            _ += $NODETPL.escapeHtml($DATA.title);
           }
 
           _ += '</h1>\n  <ul>\n    ';
           for (var i = 0; i < $DATA.favor.length; i++) {
             _ += '\n      <li>';
             if (typeof i !== 'undefined') {
-              _ += (i);
+              _ += $NODETPL.escapeHtml(i);
             }
 
             _ += ': ';
             if (typeof $DATA.favor !== 'undefined') {
-              _ += ($DATA.favor[i]);
+              _ += $NODETPL.escapeHtml($DATA.favor[i]);
             }
 
             _ += '</li>\n    ';
@@ -77,13 +77,13 @@
           console.log(e, e.stack);
         }
         if ($DATA) {
-          that.datas[duid] = $DATA;
+          $NODETPL.datas[duid] = $DATA;
         }
         (function(scripts) {
           var cache = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : {};
           cache._nodetpl_ = cache._nodetpl_ || {};
           cache._nodetpl_[guid + '-' + duid] = scripts['main'];
-        })(that.scripts);
+        })($NODETPL.scripts);
         _ += '<script>\n';
         _ += '(function(){\n';
         _ += '  var cache = typeof window !== \'undefined\' ? window : typeof global !== \'undefined\' ? global : {};\n';
@@ -94,26 +94,29 @@
         return _;
       }
     };
-    return that;
+    return $NODETPL;
   };
   NodeTpl.prototype._initScripts = function() {
-    var that = this;
+    var $NODETPL = this;
     this.scripts = {
       "main": function(guid, duid) {
         var ROOT = document.getElementById(guid);
         var SUBROOT = document.getElementById(guid + duid);
-        var $TPLS = that.tpls;
-        var $DATA = that.datas[duid];
+        var $TPLS = $NODETPL.tpls;
+        var $DATA = $NODETPL.datas[duid];
         console.log($(ROOT));
       }
     };
-    return that;
+    return $NODETPL;
   };
   NodeTpl.prototype.duid = function() {
     return 'nodetpl_d_' + this._generate();
   };
   NodeTpl.prototype.guid = function() {
     return 'nodetpl_g_' + this._generate();
+  };
+  NodeTpl.prototype.escapeHtml = function(html) {
+    return html.toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   };
   NodeTpl.prototype.render = function(data, guid) {
     return this.tpls.main(data, guid || this.guid());

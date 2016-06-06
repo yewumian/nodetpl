@@ -41,19 +41,30 @@
 </div>
 <section class="wrap">
   <h2>基本语法</h2>
-  <h4>HTML部分</h4>
-  <p>在模板中的 HTML 部分，使用定界符“<code>&lt;?</code>”和“<code>?&gt;</code>”作为语法的开始和结束。</p>
+  <h3>HTML部分</h3>
+  <h4>在模板中的 HTML 部分，使用定界符“<code>&lt;?</code>”和“<code>?&gt;</code>”作为语法的开始和结束。</h4>
   <p>在定界符内，可以书写<strong>任意</strong><code>JavaScript</code>语句，如：</p>
   <pre><code class="language-html">&lt;?for(var i=0; i<10; i++){?&gt;
   &lt;p&gt;hello, world&lt;/p&gt;
 &lt;?}?&gt;</code></pre>
   <p><a href="javascript:;" class="btn btn-try" id="btn-01">试一试</a><a href="./demo/demo_2.html" class="btn" target="_blank">查看DEMO</a></p>
-  <p>使用等于号“<code>=</code>”来输出对应的值：</p>
+  <h4>使用等于号“<code>=</code>”来输出对应的值：</h4>
   <pre><code class="language-html">&lt;?for(var i=0; i<10; i++){?&gt;
   &lt;p&gt;hello, world, 第 &lt;?=i?&gt; 次&lt;/p&gt;
 &lt;?}?&gt;</code></pre>
   <p><a href="javascript:;" class="btn btn-try" id="btn-02">试一试</a><a href="./demo/demo_3.html" class="btn" target="_blank">查看DEMO</a></p>
-  <p>直接使用“@属性名”来表示传入的对象对应的属性。</p>
+  <p>“<code>=</code>” 默认会经过 <code>XSS</code> 安全过滤，以确保输出到页面中的内容是安全的，例如：</p>
+  <pre><code class="language-javascript">{
+  "title": "&lt;script&gt;alert(0);&lt;/script&gt;",
+}</code></pre>
+  <pre><code class="language-html">&lt;h1&gt;&lt;?=@title?&gt;&lt;/h1&gt;</code></pre>
+  <p>最终编译的结果是：</p>
+  <pre><code class="language-html">&lt;h1&gt;&amp;lt;script&amp;gt;alert(0);&amp;lt;/script&amp;gt;&lt;/h1&gt;</code></pre>
+  <p>如果你不想过滤 <code>XSS</code>，你可以使用 “<code>==</code>” 来代替 “<code>=</code>”，如：</p>
+  <pre><code class="language-html">&lt;h1&gt;&lt;?==@title?&gt;&lt;/h1&gt;</code></pre>
+  <p>将会输出：</p>
+  <pre><code class="language-html">&lt;h1&gt;&lt;script&gt;alert(0);&lt;/script&gt;&lt;/h1&gt;</code></pre>
+  <h4>直接使用“@属性名”来表示传入的对象对应的属性。</h4>
   <p>假如传入的对象为：</p>
   <pre><code class="language-javascript">{
   "title": "我是传入的标题",
@@ -67,7 +78,7 @@
   &lt;?}?&gt;
 &lt;/ul&gt;</code></pre>
   <p><a href="javascript:;" class="btn btn-try" id="btn-03">试一试</a><a href="./demo/demo_4.html" class="btn" target="_blank">查看DEMO</a></p>
-  <h4>CSS部分</h4>
+  <h3>CSS部分</h3>
   <p><code>nodetpl</code> 允许模板定义自身的 <code>CSS</code> 样式，并且你大可不必为命名冲突而担忧，因为 <code>nodetpl</code> 有一套解决样式继承冲突的机制。</p>
   <p>若要书写模板样式，你需要为模板的 <code>HTML</code> 部分定义一个 <code>id</code> 为 “<code>$ROOT</code>” 的根元素，之后直接在模板中书写样式即可：</p>
   <pre><code class="language-html">&lt;style&gt;
@@ -92,7 +103,7 @@
   <pre><code class="language-html">$ROOT {
   border: 1px solid #f00;
 }</code></pre>
-  <h4>JavaScript部分</h4>
+  <h3>JavaScript部分</h3>
   <p><code>nodetpl</code> 允许模板调用自身的 <code>JavaScript</code> 脚本，以方便你做一些事件绑定相关的工作。</p>
   <p>在 <code>JavaScript</code> 代码中，<code>nodetpl</code> 为你预置了下面几个变量：</p>
   <ul>
