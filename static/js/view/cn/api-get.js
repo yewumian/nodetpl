@@ -10,23 +10,22 @@ define(function(require, exports, module) {
       "title": "个人爱好",
       "favor": ["足球", "篮球", "乒乓球", "琉璃球"]
     };
-    // 在非 amd / cmd 模式下，可以使用 nodetpl.get 方式调用，但 amd / cmd 模式下需要用 require
-    /*nodetpl.get('/cn/demo/tpls/1.js', data, function(d) {
+    nodetpl.get('/cn/demo/tpls/1', data, function(d) {
       vDialog({
         title: '运行结果',
         content: d,
         width: 400,
         ok: true
       }).showModal();
-    });*/
-    var tpl = require('/cn/demo/tpls/1.js');
+    });
+    /*var tpl = require('/cn/demo/tpls/1.js');
     var html = tpl.render(data);
     vDialog({
       title: '运行结果',
       content: html,
       width: 400,
       ok: true
-    }).showModal();
+    }).showModal();*/
   });
 
   $('#btn-02').on('click', function() {

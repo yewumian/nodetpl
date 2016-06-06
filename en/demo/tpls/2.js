@@ -35,6 +35,7 @@
   'use strict';
 
   function NodeTpl() {
+    this.version = '4.2.1';
     this.tpls = {};
     this.scripts = {};
     this.datas = {};

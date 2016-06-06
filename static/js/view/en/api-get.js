@@ -15,15 +15,15 @@ define(function(require, exports, module) {
         "Glass ball"
       ]
     };
-    /*nodetpl.get('/en/demo/tpls/1.js', data, function(d) {
+    nodetpl.get('/en/demo/tpls/1', data, function(d) {
       vDialog({
         title: 'Result',
         content: d,
         width: 400,
         ok: true
       }).showModal();
-    });*/
-    var tpl = require('/en/demo/tpls/1.js');
+    });
+    /*var tpl = require('/en/demo/tpls/1.js');
     var html = tpl.render(data);
     vDialog({
       title: 'Result',
@@ -31,7 +31,7 @@ define(function(require, exports, module) {
       width: 400,
       ok: true,
       okValue: 'Ok'
-    }).showModal();
+    }).showModal();*/
   });
 
   $('#btn-02').on('click', function() {

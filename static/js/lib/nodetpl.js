@@ -14,7 +14,7 @@
 }(this, function(require, exports, module) {
   'use strict';
 
-  var version = '4.1.0';
+  var version = '4.2.1';
 
   function NodeTpl(options) {
     this.cache = {};
@@ -138,6 +138,7 @@
       '}(this, function (require, exports, module) {\n' +
       (this.options.strict ? '  \'use strict\';\n' : '') +
       '  function NodeTpl() {\n' +
+      '    this.version = \'' + version + '\';\n' +
       '    this.tpls = {};\n' +
       '    this.scripts = {};\n' +
       '    this.datas = {};\n' +
@@ -616,6 +617,7 @@
    */
   NodeTpl.prototype.get = function(url, data, callback) {
     var that = this;
+    var compiled = false;
     var a = document.createElement('a');
     if (!/^(http|\/{2})/.test(url)) {
       url = that.options.base + url;
@@ -626,19 +628,36 @@
       callback = data;
       data = {};
     }
-    var filename = url.split('?')[0].split(/\/+/).reverse()[0];
-    if (!/\.[a-zA-Z\d]{2,4}$/.test(filename)) {
-      filename = filename + '.js';
-    }
-    if (/\.js$/.test(filename)) {
-      var obj, fn = function() {
+    url = url.replace(/([^\?#]+)/, function(all, $1) {
+      if (!/(\.[a-zA-Z\d]{2,4}|\/)$/.test($1)) {
+        $1 = $1 + '.js';
+      }
+      if (/\.js$/.test($1)) {
+        compiled = true;
+      }
+      return $1;
+    });
+    if (compiled) {
+      var fn = function(cache) {
+        var obj;
+        that.cache[url] = that.cache[url] || cache;
         obj = that.cache[url];
         typeof callback === 'function' && obj && callback(data === false ? obj : obj.render(data));
       };
       if (that.cache[url]) {
         fn();
       } else {
-        that._load(url, fn);
+        if (typeof define === 'function') {
+          if (define.amd) {
+            require([url], fn);
+          } else if (define.cmd && typeof seajs === 'object') {
+            seajs.use([url], fn); // jshint ignore: line
+          } else {
+            throw new Error('[nodetpl] cannot guess what the define means.');
+          }
+        } else {
+          that._load(url, fn);
+        }
       }
     } else {
       that._ajax(url, function(html) {
