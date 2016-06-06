@@ -48,12 +48,13 @@
   <p>After installing <code>node.js</code>, enter the following statement on the command line to complete the installation:</p>
   <pre><code class="language-markup">npm install nodetpl -g</code></pre>
   <h4>Grammar</h4>
-  <pre><code class="language-markup">nodetpl &lt;path&gt; <!-- -o &lt;relativePath&gt; -->--extname &lt;extname&gt; --no-strict --watch</code></pre>
+  <pre><code class="language-markup">nodetpl &lt;path&gt; <!-- -o &lt;relativePath&gt; -->--extname &lt;extname&gt; --encoding &lt;encoding&gt; --no-strict --watch</code></pre>
   <ul>
     <li><code>&lt;path&gt;</code>: the path of the template file or directory path</li>
-    <li><code>--extname</code>: template file extension, by default <code>.tpl</code></li>
-    <li><code>--no-strict</code>: enable <code>no strict</code> mode, this parameter is not recommended to pass</li>
-    <li><code>--watch</code>: whether to monitor file changes, the default is <code>false</code>, when you pass this parameter, modify the template will sync automatically compile it</li>
+    <li><code>--extname</code>: optional, template file extension, by default <code>.tpl</code></li>
+    <li><code>--encoding</code>: optional, the template of the encoding format, the default is <code>ugf-8</code>, optional value: <code>utf-8</code>, <code>gbk</code></li>
+    <li><code>--no-strict</code>: optional, enable <code>no strict</code> mode, this parameter is not recommended to pass</li>
+    <li><code>--watch</code>: optional, whether to monitor file changes, the default is <code>false</code>, when you pass this parameter, modify the template will sync automatically compile it</li>
   </ul>
   <h4>Example</h4>
   <p><strong>Compiling a Single File</strong></p>
@@ -81,6 +82,8 @@
 &gt;&gt; [1]  file: /usr/local/testproject/tpls/demo/abc.tpl
 &gt;&gt; [2]  file: /usr/local/testproject/tpls/demo/def.tpl</code></pre>
   <h4>Advanced Configuration</h4>
+  <p><strong>compile the template with encoding <code>gbk</code></strong></p>
+  <pre><code class="language-markup">nodetpl /usr/local/testproject/tpls --encoding gbk</code></pre>
   <p><strong>Monitor file changes automatically compile templates</strong></p>
   <pre><code class="language-markup">nodetpl /usr/local/testproject/tpls --watch</code></pre>
   <p>The result:</p>
