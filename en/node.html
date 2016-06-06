@@ -42,7 +42,7 @@
   <h2>For Node.js</h2>
   <p><code>nodetpl</code> addition to general <code>web</code> project can also be used in <code>node.js</code>.</p>
   <h4>Installation <code>nodetpl</code></h4>
-  <pre><code class="language-markup">npm install nodetpl -g</code></pre>
+  <pre><code class="language-markup">npm install nodetpl --save</code></pre>
   <h4>The basic syntax</h4>
   <pre><code class="language-markup">var fs = require('fs');
 var nodetpl = require('nodetpl');
@@ -64,18 +64,28 @@ fs.readFile(filepath, 'utf-8', function(err, content) {
 });</code></pre>
 
   <h4>For Express.js</h4>
-  <pre><code class="language-markup">app.set('view engine', 'tpl');
-app.set('views', __dirname + '/views');
-app.engine('tpl', require('nodetpl').express.render);
+  <pre><code class="language-markup">'use strict';
 
-app.get('/', function(req, res){
-  res.render('index', {
-    "user": "Tom",
-    "favor": [ "Apple", "Orange", "Bananer" ]
-  }, function(err, html){
-    res.writeHead(200, { "Content-Type": "text/html" });
-    res.end(html);
+var path = require('path');
+var express = require('express');
+var app = express();
+
+app.set('view engine', 'tpl');
+app.set('views', path.join(__dirname, 'views'));
+app.engine('tpl', require('nodetpl/express'));
+
+app.get('/', function(req, res) {
+  res.render('index', function(err, html) {
+    if (err) {
+      res.send(err.toString());
+    } else {
+      res.send(html);
+    }
   });
+});
+
+app.listen(3000, function() {
+  console.log('listening on port 3000');
 });</code></pre>
   <h2>Communication</h2>
   <div id="disqus_thread"></div>
