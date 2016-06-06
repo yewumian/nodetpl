@@ -43,29 +43,29 @@
   <h2>nodetpl</h2>
   <dl>
     <dt><a href="javascript:;">nodetpl 能运行在哪些平台？</a></dt>
-    <dd>PC浏览器端（包括IE6+、Chrome、Safari、Firefox、Opera等）、手机端浏览器、服务端node.js，理论上讲，只要是支持 js 的地方，都能非常完美地运行起来。</dd>
+    <dd>PC浏览器端（包括 <code>IE6+</code>、<code>Chrome</code>、<code>Safari</code>、<code>Firefox</code>、<code>Opera</code> 等）、手机端浏览器、服务端 <code>node.js</code>，理论上讲，只要是支持 <code>js</code> 的地方，都能非常完美地运行起来。</dd>
   </dl>
   <dl>
-    <dt><a href="javascript:;">nodetpl 的性能如何？</a></dt>
-    <dd>经常听到有些人对模板引擎性能的担忧，由于 nodetpl 处理模板的机制做了非常细致的优化，经历过客户端及服务端高并发的考验，未编译的文件也能够非常高效地通过浏览器解析，编译后的模板文件更是性能超群，几乎不耗浏览器或服务端资源。</dd>
+    <dt><a href="javascript:;"><code>nodetpl</code> 的性能如何？</a></dt>
+    <dd>经常听到有些人对模板引擎性能的担忧，由于 <code>nodetpl</code> 处理模板的机制做了非常细致的优化，经历过客户端及服务端高并发的考验，未编译的文件也能够非常高效地通过浏览器解析，编译后的模板文件更是性能超群，几乎不耗浏览器或服务端资源。</dd>
   </dl>
   <dl>
-    <dt><a href="javascript:;">nodetpl 与业界其他模板引擎相比的优势是什么？</a></dt>
-    <dd>学习成本、性能、多模板、模块化、ES6、node.js、样式沙箱、js沙箱、预编译等等。</dd>
+    <dt><a href="javascript:;"><code>nodetpl</code> 与业界其他模板引擎相比的优势是什么？</a></dt>
+    <dd>学习成本、性能、多模板、模块化、<code>ES6</code>、<code>node.js</code>、样式沙箱、<code>js</code> 沙箱、预编译等等。</dd>
   </dl>
   <dl>
     <dt><a href="javascript:;">模板为什么要进行预编译？</a></dt>
-    <dd>浏览器加载并解析模板是需要耗费一定资源的，而预编译是将模板代码直接编译成原生的 js 文件，从而浏览器可以直接识别，大大提高模板的执行性能。另外，预编译后的文件可以完美运行在 AMD/CMD、Node等项目中。</dd>
+    <dd>浏览器加载并解析模板是需要耗费一定资源的，而预编译是将模板代码直接编译成原生的 <code>js</code> 文件，从而浏览器可以直接识别，大大提高模板的执行性能。另外，预编译后的文件可以完美运行在 <code>AMD/CMD</code>、<code>Node</code> 等项目中。</dd>
   </dl>
   <dl>
-    <dt><a href="javascript:;">如何通过 nodetpl.get 方法跨域获取远程模板文件？</a></dt>
-    <dd>tpl 或 html 模板文件是不允许跨域获取的，但是 js 文件可以，因此我们若希望在跨域的情况下使用 nodetpl，需要将模板文件进行预编译，然后再通过 nodetpl.get 或 require 等方法进行引用。</dd>
+    <dt><a href="javascript:;">如何通过 <code>nodetpl.get</code> 方法跨域获取远程模板文件？</a></dt>
+    <dd><code>tpl</code> 或 <code>html</code> 模板文件是不允许跨域获取的，但是 <code>js</code> 文件可以，因此我们若希望在跨域的情况下使用 <code>nodetpl</code>，需要将模板文件进行预编译，然后再通过 <code>nodetpl.get</code> 或 <code>require</code> 等方法进行引用。</dd>
   </dl>
   <dl>
-    <dt><a href="javascript:;">使用 AMD/CMD/CommonJs/ES6 规范进行前端开发，如何引入 nodetpl 模板？</a></dt>
+    <dt><a href="javascript:;">使用 <code>AMD/CMD/CommonJs/ES6</code> 规范进行前端开发，如何引入 <code>nodetpl</code> 模板？</a></dt>
     <dd>
-      <p>对于 AMD/CMD/CommonJs/ES6，nodetpl 能够给予非常完美的支持，作者推荐对模板进行预编译，这样能大大提高模板执行的效率。</p>
-      <p>引入模板非常方便，直接使用 “require” 引入对应的模板编译文件即可。假如模板文件为 ./tpls/myfavor.tpl，编译后的js文件为：./tpls/myfavor.js：</p>
+      <p>对于 <code>AMD/CMD/CommonJs/ES6</code>，<code>nodetpl</code> 能够给予非常完美的支持，作者推荐对模板进行预编译，这样能大大提高模板执行的效率。</p>
+      <p>引入模板非常方便，直接使用 “<code>require</code>” 引入对应的模板编译文件即可。假如模板文件为 <code>./tpls/myfavor.tpl</code>，编译后的 <code>js</code> 文件为：<code>./tpls/myfavor.js</code>：</p>
       <pre><code class="language-javascript">var tpl = require('./tpls/myfavor'); // 引入模块：./tpls/myfavor.js
 var html = tpl.render({
   title: '个人爱好'
@@ -74,29 +74,29 @@ var html = tpl.render({
     </dd>
   </dl>
   <dl>
-    <dt><a href="javascript:;">AMD/CMD/CommonJs/ES6 项目需要引入 nodetpl.js 文件吗？</a></dt>
+    <dt><a href="javascript:;"><code>AMD/CMD/CommonJs/ES6</code> 项目需要引入 <code>nodetpl.js</code> 文件吗？</a></dt>
     <dd>
       <p>不需要。</p>
-      <p>nodetpl 针对 AMD/CMD/CommonJs/ES6 进行了优化，编译后的文件可以直接使用，而不再依赖 nodetpl 库，所以你可以直接 require 对应的可执行文件即可，如需引用 nodetpl 核心模块。</p>
+      <p><code>nodetpl</code> 针对 <code>AMD/CMD/CommonJs/ES6</code> 进行了优化，编译后的文件可以直接使用，而不再依赖 <code>nodetpl</code> 库，所以你可以直接 <code>require</code> 对应的可执行文件即可，如需引用 <code>nodetpl</code> 核心模块。</p>
     </dd>
   </dl>
   <dl>
-    <dt><a href="javascript:;">业界有的模板引擎可以直接使用数据对象的属性名称进行引用，nodetpl 可以吗？</a></dt>
+    <dt><a href="javascript:;">业界有的模板引擎可以直接使用数据对象的属性名称进行引用，<code>nodetpl</code> 可以吗？</a></dt>
     <dd>
-      <p>对于 v3.x 版本，nodetpl 是支持直接使用属性名来对数据进行引用的，但是考虑到未来 ECMAScript 规范对语法严谨性的要求，nodetpl 从 v4.0 版本开始，默认不再推荐这种写法。</p>
+      <p>对于 <code>v3.x</code> 版本，<code>nodetpl</code> 是支持直接使用属性名来对数据进行引用的，但是考虑到未来 <code>ECMAScript</code> 规范对语法严谨性的要求，<code>nodetpl</code> 从 <code>v4.0</code> 版本开始，默认不再推荐这种写法。</p>
       <p>假如传入的数据为：</p>
       <pre><code class="language-javascript">{
   title: '个人爱好'
 }</code></pre>
-      <p>在 v3.x 版本，可以用下面的语法对数据进行引用：</p>
+      <p>在 <code>v3.x</code> 版本，可以用下面的语法对数据进行引用：</p>
       <pre><code class="language-html">&lt;h2&gt;&lt;?=title?&gt;&lt;/h2&gt;</code></pre>
-      <p>从 v4.0 版本开始，需要在属性名前面添加 “@” 才能引到对应数据：</p>
+      <p>从 <code>v4.0</code> 版本开始，需要在属性名前面添加 “@” 才能引到对应数据：</p>
       <pre><code class="language-html">&lt;h2&gt;&lt;?=@title?&gt;&lt;/h2&gt;</code></pre>
-      <p>若希望 v4.0 仍然支持这种引用方式，需要指定 nodetpl 的 strict 属性为 “false”：</p>
+      <p>若希望 <code>v4.0</code> 仍然支持这种引用方式，需要指定 <code>nodetpl</code> 的 <code>strict</code> 属性为 “<code>false</code>”：</p>
       <pre><code class="language-javascript">nodetpl.config({
   strict: false
 });</code></pre>
-      <p>或者在预编译环节，传递 --no-strict 参数：</p>
+      <p>或者在预编译环节，传递 <code>--no-strict</code> 参数，但是作者并不推荐这么做：</p>
       <pre><code class="language-html">nodetpl ./tpls/ --no-strict</code></pre>
     </dd>
   </dl>
