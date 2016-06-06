@@ -1,6 +1,6 @@
 {
   "name": "nodetpl",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "description": "A powerful, efficient, easy to use, funny JavaScript template engine.",
   "readmeFilename": "README.md",
   "keywords": [
@@ -25,7 +25,8 @@
   "dependencies": {
     "async": "^2.0.0-rc.5",
     "fs-path": "0.0.22",
-    "minimist": "^1.2.0",
-    "js-beautify": "^1.6.2"
+    "iconv-lite": "^0.4.13",
+    "js-beautify": "^1.6.2",
+    "minimist": "^1.2.0"
   }
 }
