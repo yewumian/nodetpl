@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <meta name="format-detection" content="telephone=no, email=no" />
 <script>
-var iszh = (navigator.language || navigator.systemLanguage || '').split('-')[0] === 'zh';
+var iszh = (navigator.browserLanguage || navigator.language || navigator.systemLanguage || navigator.userLanguage || '').split('-')[0] === 'zh';
 var url, referer = document.referrer || '';
 if(iszh) {
   url = './cn/';
