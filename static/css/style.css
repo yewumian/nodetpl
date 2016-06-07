@@ -197,6 +197,9 @@ a.btn {
   margin-top: 20px;
   text-align: center;
 }
+#SOHU_MAIN .module-cmt-notice {
+  display: none !important;
+}
 #index-cover {
   background-color: #eee;
 }
