@@ -137,6 +137,7 @@ footer .donate {
   padding: 2px;
   background-color: #fff;
   color: #666;
+  z-index: 100;
 }
 footer .donate:before, footer .donate:after {
   content: '';
@@ -193,12 +194,14 @@ a.btn {
   font-size: 2em;
   margin-right: -1em;
 }
-#cyReward {
-  margin-top: 20px;
-  text-align: center;
+#ds-thread #ds-reset .ds-comment-body p {
+  white-space: pre;
 }
-#SOHU_MAIN .module-cmt-notice {
-  display: none !important;
+#ds-thread #ds-reset .ds-comment-body p br, #ds-thread #ds-reset .ds-meta, #ds-thread #ds-reset .ds-comments-info, #ds-thread #ds-reset .ds-post-options .ds-sync {
+  display: none;
+}
+#ds-thread #ds-reset li.ds-post:first-child {
+  border-top: 0;
 }
 #index-cover {
   background-color: #eee;
