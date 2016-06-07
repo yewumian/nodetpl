@@ -79,17 +79,29 @@ vDialog.alert(...
 });</code></pre>
   <h4>模板预编译后，无需再引用 nodetpl：</h4>
   <pre><code class="language-javascript">define(function(require, exports, module) {
-  //var nodetpl = require('nodetpl');
-  var tpl = require('./demo/tpls/1');
+  <del>//var nodetpl = require('nodetpl');</del>
   var data = {
     title: '个人爱好',
     favor: ['足球', '篮球', '乒乓球', '琉璃球']
   };
+  var tpl = require('./demo/tpls/1');
   var result = tpl.render(data);
   console.log(result);
 });</code></pre>
   <p><a href="javascript:;" class="btn btn-try" id="btn-01">试一试</a><a href="./demo/demo_require.html" class="btn" target="_blank">查看DEMO</a></p>
+  <p>通过 <code>require</code> 的方式为同步引入，这是执行效率最高的一种方式。若想改为异步引入，你仍需要引入 <code>nodetpl</code> 主文件，然后通过 <code>nodetpl.get</code> 方法引入：</p>
+  <pre><code class="language-javascript">define(function(require, exports, module) {
+  var nodetpl = require('nodetpl');
+  var data = {
+    title: '个人爱好',
+    favor: ['足球', '篮球', '乒乓球', '琉璃球']
+  };
+  var tpl = nodetpl.get('./demo/tpls/1', data, function(d) {
+    console.log(d);
+  });
+});</code></pre>
   <h2>CommonJs（node.js）</h2>
+  <p><code>node.js</code> 调用方式与前面 <code>AMD/CMD</code> 基本一致：</p>
   <pre><code class="language-javascript">var tpl = require('./demo/tpls/1');
 var data = {
   title: '个人爱好',

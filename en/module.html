@@ -83,7 +83,7 @@ vDialog.alert(...
 });</code></pre>
   <h3>After precompiled, nodetpl don't need to be required:</h3>
   <pre><code class="language-javascript">define(function(require, exports, module) {
-  var tpl = require('./demo/tpls/1');
+  //var nodetpl = require('nodetpl');
   var data = {
     "title": "Favor",
     "favor": [
@@ -93,11 +93,29 @@ vDialog.alert(...
       "Glass ball"
     ]
   };
+  var tpl = require('./demo/tpls/1');
   var result = tpl.render(data);
   console.log(result);
 });</code></pre>
   <p><a href="javascript:;" class="btn btn-try" id="btn-02">Have a try</a><a href="./demo/demo_require.html" class="btn" target="_blank">View demo</a></p>
+  <p>Through the <code>require</code> for synchronous requirement, this is a way of execution efficiency is highest. If you want to change to asynchronous requirement, do you still need to require <code>nodetpl</code> lib file, and then use <code>nodetpl.get</code>:</p>
+  <pre><code class="language-javascript">define(function(require, exports, module) {
+  var nodetpl = require('nodetpl');
+  var data = {
+    "title": "Favor",
+    "favor": [
+      "Football",
+      "Basketball",
+      "Table tennis",
+      "Glass ball"
+    ]
+  };
+  var tpl = nodetpl.get('./demo/tpls/1', data, function(d) {
+    console.log(d);
+  });
+});</code></pre>
   <h2>CommonJs（node.js）</h2>
+  <p><code>node.js</code> is almost the same with <code>AMD/CMD</code> above:</p>
   <pre><code class="language-javascript">var tpl = require('./demo/tpls/1');
 var data = {
   "title": "Favor",

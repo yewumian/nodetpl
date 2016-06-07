@@ -117,6 +117,23 @@ section h2 {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
 }
+section h2:before {
+  position: relative;
+  top: -2px;
+  content: '';
+  display: inline-block;
+  width: 4px;
+  background-color: #666;
+  height: .8em;
+  vertical-align: middle;
+  margin-right: .5em;
+}
+section code {
+  border-bottom: 1px dotted #ccc;
+}
+section pre code {
+  border-bottom: none;
+}
 footer {
   margin-top: 20px;
   border-top: 1px solid #ccc;
@@ -181,12 +198,14 @@ a.btn {
   width: 100%;
   left: 0;
   top: 130px;
-  text-align: right;
 }
 .fixed-tools .wrap {
   height: 0;
+  position: relative;
 }
 .fixed-tools a {
+  position: absolute;
+  right: 0;
   color: #999;
   text-decoration: none;
 }
@@ -240,17 +259,6 @@ a.btn {
 }
 #index-cover footer, #index-cover footer a {
   color: #999;
-}
-#index section h2:before {
-  position: relative;
-  top: -2px;
-  content: '';
-  display: inline-block;
-  width: 4px;
-  background-color: #666;
-  height: .8em;
-  vertical-align: middle;
-  margin-right: .5em;
 }
 #index section.version-view {
   position: relative;
