@@ -46,6 +46,16 @@
 <section class="wrap faq-list">
   <h2>nodetpl</h2>
   <dl>
+    <dt><a href="javascript:;">v3.x 版本从哪里下载？</a></dt>
+    <dd>
+      <p>当前版本较 <code>v3.x</code> 版本做了较多的优化，性能及易用性方面都有非常大的提升，建议 <code>v3.x</code> 的用户及时升级到最新版本。</p>
+      <p>若你仍需要使用旧的版本，下面可以找到：</p>
+      <p><a href="https://github.com/pillys/nodetpl/tree/v3.3.3" target="_blank">https://github.com/pillys/nodetpl/tree/v3.3.3</a></p>
+      <p>命令行工具：</p>
+      <pre><code class="language-javascript">$ npm install nodetpl@3.3.3 -g</code></pre>
+    </dd>
+  </dl>
+  <dl>
     <dt><a href="javascript:;">nodetpl 能运行在哪些平台？</a></dt>
     <dd>PC浏览器端（包括 <code>IE6+</code>、<code>Chrome</code>、<code>Safari</code>、<code>Firefox</code>、<code>Opera</code> 等）、手机端浏览器、服务端 <code>node.js</code>，理论上讲，只要是支持 <code>js</code> 的地方，都能非常完美地运行起来。</dd>
   </dl>
@@ -66,11 +76,11 @@
     <dd><code>tpl</code> 或 <code>html</code> 模板文件是不允许跨域获取的，但是 <code>js</code> 文件可以，因此我们若希望在跨域的情况下使用 <code>nodetpl</code>，需要将模板文件进行预编译，然后再通过 <code>nodetpl.get</code> 或 <code>require</code> 等方法进行引用。</dd>
   </dl>
   <dl>
-    <dt><a href="javascript:;">使用 <code>AMD/CMD/CommonJs/ES6</code> 规范进行前端开发，如何引入 <code>nodetpl</code> 模板？</a></dt>
+    <dt><a href="javascript:;">使用 <code>AMD/CMD/CommonJs/ES6</code> 规范进行前端开发，如何同步引入 <code>nodetpl</code> 模板？</a></dt>
     <dd>
       <p>对于 <code>AMD/CMD/CommonJs/ES6</code>，<code>nodetpl</code> 能够给予非常完美的支持，作者推荐对模板进行预编译，这样能大大提高模板执行的效率。</p>
       <p>引入模板非常方便，直接使用 “<code>require</code>” 引入对应的模板编译文件即可。假如模板文件为 <code>./tpls/myfavor.tpl</code>，编译后的 <code>js</code> 文件为：<code>./tpls/myfavor.js</code>：</p>
-      <pre><code class="language-javascript">var tpl = require('./tpls/myfavor'); // 引入模块：./tpls/myfavor.js
+      <pre><code class="language-javascript">var tpl = require('./tpls/myfavor'); // 同步引入模块：./tpls/myfavor.js
 var html = tpl.render({
   title: '个人爱好'
 });
@@ -80,8 +90,20 @@ var html = tpl.render({
   <dl>
     <dt><a href="javascript:;"><code>AMD/CMD/CommonJs/ES6</code> 项目需要引入 <code>nodetpl.js</code> 文件吗？</a></dt>
     <dd>
-      <p>不需要。</p>
-      <p><code>nodetpl</code> 针对 <code>AMD/CMD/CommonJs/ES6</code> 进行了优化，编译后的文件可以直接使用，而不再依赖 <code>nodetpl</code> 库，所以你可以直接 <code>require</code> 对应的可执行文件即可，如需引用 <code>nodetpl</code> 核心模块。</p>
+      <p>不是必须的。</p>
+      <p><code>nodetpl</code> 针对 <code>AMD/CMD/CommonJs/ES6</code> 进行了优化，编译后的文件可以直接使用，而不再依赖 <code>nodetpl</code> 库，所以你可以直接 <code>require</code> 对应的可执行文件即可，不需引用 <code>nodetpl</code> 核心模块。</p>
+    </dd>
+  </dl>
+  <dl>
+    <dt><a href="javascript:;">使用 <code>AMD/CMD/CommonJs/ES6</code> 规范进行前端开发，如何异步引入 <code>nodetpl</code> 模板？</a></dt>
+    <dd>
+      <p>若该模式下仍然希望异步调用模板，则仍然需要引入 <code>nodetpl</code> 核心文件，并通过 <code>nodetpl.get</code> 的方式调用：</p>
+      <pre><code class="language-javascript">var nodetpl = require('nodetpl');
+nodetpl.get('./tpls/myfavor', { // 异步引入模块：./tpls/myfavor.js
+  title: '个人爱好'
+}, function(d) {
+  // d
+});</code></pre>
     </dd>
   </dl>
   <dl>
