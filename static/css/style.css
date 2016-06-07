@@ -386,3 +386,21 @@ a.btn {
 #faq section dl.active dd {
   display: block;
 }
+@media screen and (max-width:800px) {
+  .wrap {
+    padding: 0 10px;
+  }
+  .fixed-tools {
+    top: auto;
+  }
+  .fixed-tools i.iconfont {
+    margin-right: 0;
+  }
+  #index section.introduction ul li {
+    float: none;
+    width: auto;
+  }
+  #index section.introduction ul li dl dd {
+    height: auto;
+  }
+}
