@@ -16,14 +16,23 @@ define(function(require, exports, module) {
     ]
   };
   var template = '\
-    <div>\n\
+    <style>\n\
+      ul li { color: #c00; }\n\
+    </style>\n\
+    \n\
+    <div id="$ROOT">\n\
       <div><?=@title?></div>\n\
       <ul>\n\
         <?for(var i=0; i<@favor.length; i++){?>\n\
           <li><?=i?>：<?=@favor[i]?></li>\n\
         <?}?>\n\
       </ul>\n\
-    </div>';
+    </div>\n\
+    \n\
+    <script>\n\
+      ROOT.style.borderBottom = \'5px dotted #00f\';\n\
+    </script>\n\
+  ';
 
   wrap.find('.code-data').text(JSON.stringify(data, null, 2));
   wrap.find('.code-template').text(template);
