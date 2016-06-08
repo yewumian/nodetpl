@@ -56,17 +56,6 @@
   &lt;p&gt;hello, world, &lt;?=i?&gt;&lt;/p&gt;
 &lt;?}?&gt;</code></pre>
   <p><a href="javascript:;" class="btn btn-try" id="btn-02">Have a try</a><a href="./demo/demo_3.html" class="btn" target="_blank">View demo</a></p>
-  <p>"<code>=</code>" will prevent <code>XSS</code> injection automatically, and some harmful characters will be replaced, eg:</p>
-  <pre><code class="language-javascript">{
-  "title": "&lt;script&gt;alert(0);&lt;/script&gt;",
-}</code></pre>
-  <pre><code class="language-html">&lt;h1&gt;&lt;?=@title?&gt;&lt;/h1&gt;</code></pre>
-  <p>Eventually compile results is:</p>
-  <pre><code class="language-html">&lt;h1&gt;&amp;lt;script&amp;gt;alert(0);&amp;lt;/script&amp;gt;&lt;/h1&gt;</code></pre>
-  <p>If you don't want to filter the <code>XSS</code>, you can use "<code>==</code>" instead of "<code>=</code>", such as:</p>
-  <pre><code class="language-html">&lt;h1&gt;&lt;?==@title?&gt;&lt;/h1&gt;</code></pre>
-  <p>The result will be:</p>
-  <pre><code class="language-html">&lt;h1&gt;&lt;script&gt;alert(0);&lt;/script&gt;&lt;/h1&gt;</code></pre>
   <h4>Directly "@attribute" name to indicate an incoming object corresponding property.</h4>
   <p>If the object passed as follows:</p>
   <pre><code class="language-javascript">{
@@ -86,6 +75,18 @@
   &lt;?}?&gt;
 &lt;/ul&gt;</code></pre>
   <p><a href="javascript:;" class="btn btn-try" id="btn-03">Have a try</a><a href="./demo/demo_4.html" class="btn" target="_blank">View demo</a></p>
+  <h4>XSS injection protection</h4>
+  <p>"<code>=</code>" will prevent <code>XSS</code> injection automatically, and some harmful characters will be replaced, eg:</p>
+  <pre><code class="language-javascript">{
+  "title": "&lt;script&gt;alert(0);&lt;/script&gt;",
+}</code></pre>
+  <pre><code class="language-html">&lt;h1&gt;&lt;?=@title?&gt;&lt;/h1&gt;</code></pre>
+  <p>Eventually compile results is:</p>
+  <pre><code class="language-html">&lt;h1&gt;&amp;lt;script&amp;gt;alert(0);&amp;lt;/script&amp;gt;&lt;/h1&gt;</code></pre>
+  <p>If you don't want to filter the <code>XSS</code>, you can use "<code>==</code>" instead of "<code>=</code>", such as:</p>
+  <pre><code class="language-html">&lt;h1&gt;&lt;?==@title?&gt;&lt;/h1&gt;</code></pre>
+  <p>The result will be:</p>
+  <pre><code class="language-html">&lt;h1&gt;&lt;script&gt;alert(0);&lt;/script&gt;&lt;/h1&gt;</code></pre>
   <h3>CSS</h3>
   <p><code>nodetpl</code> allowed to define it's own templates <code>CSS</code> styles, and you don't worry about naming conflicts, because <code>nodetpl</code> have a mechanism to resolve conflicts style inheritance.</p>
   <p>If write a template <code>CSS</code>, you need to define a root  <code>HTML</code> element with a "<code>$ROOT</code>" <code>id</code>, then write the style directly in the template:</p>
