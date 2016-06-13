@@ -47,9 +47,10 @@ header .language {
   position: absolute;
   right: 2em;
   top: .5em;
+  color: rgba(255, 255, 255, .5);
 }
 header .language a {
-  color: rgba(255, 255, 255, .4);
+  color: rgba(255, 255, 255, .5);
   text-decoration: none;
 }
 header .logo {
