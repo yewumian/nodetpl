@@ -14,7 +14,7 @@
 }(this, function(require, exports, module) {
   'use strict';
 
-  var version = '4.3.0';
+  var version = '4.3.1';
 
   function NodeTpl(options) {
     this.cache = {};

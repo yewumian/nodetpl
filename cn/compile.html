@@ -53,13 +53,13 @@
   <p>安装完 <code>node.js</code> 之后，在命令行中输入下面的语句，完成安装：</p>
   <pre><code class="language-markup">npm install nodetpl -g</code></pre>
   <h4>语法</h4>
-  <pre><code class="language-markup">nodetpl &lt;path&gt; <!-- -o &lt;relativePath&gt; -->--extname &lt;extname&gt; --encoding &lt;encoding&gt; --no-strict --watch</code></pre>
+  <pre><code class="language-markup">nodetpl &lt;path&gt; <!-- -o &lt;relativePath&gt; -->--extname &lt;extname&gt; --encoding &lt;encoding&gt; --nostrict --watch</code></pre>
   <ul>
     <li><code>&lt;path&gt;</code>：必选，模板文件的路径，或模板所在的目录路径</li>
     <!--li><code>-o</code>：模板文件相对于项目根路径的路径，以 <code>http</code> 或 <code>/</code> 开头，一般情况下不需要设置</li-->
     <li><code>--extname</code>：可选，模板文件的扩展名，默认为 <code>.tpl</code></li>
     <li><code>--encoding</code>：可选，模板的编码格式，默认为 <code>utf-8</code>，可选值：<code>utf-8</code>、<code>gbk</code></li>
-    <li><code>--no-strict</code>：可选，启用非 <code>strict</code> 模式，不推荐传递该参数</li>
+    <li><code>--nostrict</code>：可选，启用非 <code>strict</code> 模式，不推荐传递该参数</li>
     <li><code>--watch</code>：可选，是否监控文件变化，默认为 <code>false</code>，当传递该参数时，修改模板内容会同步自动编译</li>
   </ul>
   <h4>示例</h4>
