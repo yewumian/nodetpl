@@ -43,18 +43,25 @@
   <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
 </div>
 <section class="wrap">
+  <h2>Grammar</h2>
+  <h4><code>include(tplname[, tpldata])</code></h4>
+  <p><code>nodetpl</code> use keyword <code>include</code> reference template</p>
+  <ul>
+    <li><code>tplname</code>：<em>string</em> Sub template name</li>
+    <li><code>tpldata</code>：<em>object</em> Incoming sub templates data, optional, if omitted, default incoming the main template data <code>$DATA</code></li>
+  </ul>
   <h2>Multiple Templates</h2>
   <p>Seems learned before, we've been able to do most work we want, but if a template that contains a lot of business scenarios, the amount of template code will appear huge and bloated, in order to solve this problem, <code>nodetpl</code> has a very clever way , we introduced the concept of multiple templates.</p>
   <p><code>nodetpl</code> is defined as multi-template scenario: If a template that contains a lot of business logic and business logic are relatively independent of each piece, then we can put the entire template is divided into multiple blocks, each block represents a business Scenes;</p>
   <ul>
-    <li>Multi-template includes a master template (<code>main</code>) and a plurality of sub-template, the master template is the entrance to the entire template</li>
+    <li>Multi-template includes a main template (<code>main</code>) and a plurality of sub-template, the main template is the entrance to the entire template</li>
     <li>Use <code>&lt;template name=""&gt;&lt;/template&gt;</code> label will wrap each individual template</li>
     <li>Each template references between each other through the <code>include</code> keyword</li>
   </ul>
   <h4>The basic structure of a multi template</h4>
   <p>Like regular templates, multi-template has a main template and several child templates, each template is wraped with a <code>&lt;template&gt;</code> tag:</p>
   <pre><code class="language-markup">&lt;template name="main"&gt;
-  // Master template code
+  // Main template code
 &lt;/template&gt;
 &lt;template name="subname-1"&gt;
   // Sub-template code 1
@@ -64,7 +71,7 @@
 &lt;/template&gt;</code></pre>
   <p>Each template has a <code>name</code> attribute, which is the main entrance to the entire template template, <code>name</code> is <code>main</code>, sub-template <code>name</code> can be named according to your needs.</p>
   <h4>main entrance</h4>
-  <p>Master template <code>name</code> is <code>main</code>, we can write the normal template code in master template.</p>
+  <p>Main template <code>name</code> is <code>main</code>, we can write the normal template code in main template.</p>
   <p>To facilitate understanding, we assume this scenario:</p>
   <ul>
     <li>A card area, by default, displays the personal contact information, which we define as the "Browse" state</li>
@@ -90,6 +97,16 @@
   &lt;script&gt;
   var contentBox = $(ROOT).find('.content');
   var viewHtml = include('view');
+  /* Top row references can also be written as:
+     include ('view', $DATA)
+     Because incoming data here is same with main template data,
+     so the $DATA is omitted.
+     If introduced to other data, can be written as:
+     var subdata = {
+       //...
+     };
+     include('view', subdata)
+  */
   contentBox.html(viewHtml);
   $(ROOT).find('.title a.link-modify').on('click', function(){
     var editHtml = include('edit');
@@ -100,8 +117,8 @@
   <p>In <code>nodetpl</code> using keywords <code>include</code> redistributes a template.</p>
   <p>The above code indicates:</p>
   <ul>
-    <li>When you load the master template (<code>main</code>), it will load the sub-template named "<code>view</code>" into the master template's "<code>contentBox</code>" container, as the "Browse" view</li>
-    <li>When you click the "<code>edit</code>" link, it will load a child template named "edit" to the master template's "<code>contentBox</code>" container, as the "Modify" view.</li>
+    <li>When you load the main template (<code>main</code>), it will load the sub-template named "<code>view</code>" into the main template's "<code>contentBox</code>" container, as the "Browse" view</li>
+    <li>When you click the "<code>edit</code>" link, it will load a child template named "edit" to the main template's "<code>contentBox</code>" container, as the "Modify" view.</li>
   </ul>
   <h4>Subtemplate</h4>
   <p>Similarly, we can write the normal template code in sub-template, but there will be slightly different:</p>
@@ -154,7 +171,7 @@
   });
   &lt;/script&gt;
 &lt;/template&gt;</code></pre>
-  <p>From the code above, the master template has no different with normal, bug the sub-template "root element" is no longer used "<code>ROOT</code>", but "<code>SUBROOT</code>".</p>
+  <p>From the code above, the main template has no different with normal, bug the sub-template "root element" is no longer used "<code>ROOT</code>", but "<code>SUBROOT</code>".</p>
   <h2>Communication</h2>
   <div id="disqus_thread"></div>
   <script>
