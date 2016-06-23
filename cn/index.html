@@ -52,6 +52,7 @@
   <h2>30 秒认识 nodetpl</h2>
   <p>前端模板已经到了“泛滥”的地步，各种模板层出不穷，<code>nodetpl</code> 是怎么做到优雅极致的呢？</p>
   <p><code>nodetpl</code> 约定一个模板是一个独立模块，该模块本身应当能够书写模板级的 <code>css</code> 以及 <code>js</code> 交互，并且不会与外界有任何冲突，这样才能更好地做好分离与复用。</p>
+  <p>与其他几乎所有模板引擎不同的是，<code>nodetpl</code> 提倡 “高内聚”、“低耦合” 的开发模式，模板即是一个完全独立的模块，可以用在任何地方而不受约束，这一点，其他模板引擎很难能够完美支持，这也是为什么国内许多大型互联网站点采用 <code>nodetpl</code> 作为模板引擎的原因。</p>
   <table>
     <thead>
       <tr>
@@ -97,6 +98,7 @@ var html = tpl.render(data);
     </tbody>
   </table>
   <p><a href="javascript:;" class="btn btn-try">试一试</a></p>
+  <p>演示案例中的对话框组件，也是作者的开源项目之一，感兴趣的朋友可以详细了解：<a href="http://vdialog.qque.com/" target="_blank">vdialog</a></p>
 </section>
 <section class="introduction">
   <div class="wrap">
