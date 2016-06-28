@@ -73,4 +73,60 @@ define(function(require, exports, module) {
       }).showModal();
     });
   });
+
+  $('#btn-map-artTemplate').on('click', function() {
+    var data = {
+      admin: true,
+      list: [{
+        user: 'zhangsan'
+      }, {
+        user: 'lisi'
+      }, {
+        user: 'wangwu'
+      }]
+    };
+    var content = [
+      '{{if admin}}',
+      '  <p>admin</p>',
+      '{{else if code > 0}}',
+      '  <p>master</p>',
+      '{{else}}',
+      '  <p>error!</p>',
+      '{{/if}}',
+      '<ul>',
+      '  {{each list as value index}}',
+      '    <li>{{index}} - {{value.user}}</li>',
+      '  {{/each}}',
+      '  {{each list}}',
+      '    <li>{{$index}} - {{$value.user}}</li>',
+      '  {{/each}}',
+      '</ul>'
+    ].join('\n');
+    nodetpl.config({
+      strict: false,
+      openTag: '{{',
+      closeTag: '}}',
+      map: function(str) {
+        // if
+        str = str.replace(/ *else if +(.*)/g, '} else if($1) {').replace(/ *if +(.*)/g, 'if($1) {').replace(/ *else *$/g, '} else {').replace(/ *\/if/g, '}');
+        // each list as value index
+        str = str.replace(/ *each ([^ ]+) as ([^ ]+) *([^ ]+)?/g, function(all, arr, value, index) {
+          return arr + '.forEach(function(' + value + (index ? ',' : '') + (index || '') + ') {';
+        }).replace(/ *each ([^ ]+)/g, function(all, arr) {
+          return arr + '.forEach(function($value, $index) {';
+        }).replace(/\/each/g, '});');
+        // {#
+        str = str.replace(/^([^\s}]+)$/g, '=$1');
+        return str;
+      }
+    });
+    nodetpl.render(content, data, function(d) {
+      vDialog({
+        title: '运行结果',
+        content: d,
+        width: 400,
+        ok: true
+      }).showModal();
+    });
+  });
 });

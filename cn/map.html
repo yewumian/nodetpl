@@ -47,7 +47,7 @@
 <section class="wrap">
   <h2>转换器的概念</h2>
   <p><code>nodetpl</code> 允许自定义任意模板语法，通过传入的 <code>map()</code> 方法来对这些语法进行解释，这里的 <code>map()</code> 方法，我们称之为“转换器”。</p>
-  <p>通过配置合适的转换器，理论上讲，<code>nodetpl</code> 可以解析任何格式的模板，<code>nodetpl</code> 解析其它种类模板代码的过程，我们称之为“降级”。</p>
+  <p>通过配置合适的转换器，理论上讲，<code>nodetpl</code> 可以解析任何格式的模板。</p>
   <h2>juicer 转换器</h2>
   <p>下面是一段 <code>juicer</code> 模板代码：</p>
   <pre><code class="language-html">&lt;ul&gt;
@@ -94,15 +94,47 @@ nodetpl.render(content, data, function(d) {
 });</code></pre>
   <p><a href="javascript:;" class="btn btn-try" id="btn-map-juicer">试一试</a><a href="./demo/demo_map_juicer.html" class="btn" target="_blank">查看DEMO</a></p>
   <h2>artTemplate 转换器</h2>
-  <h2>baiduTemplate 转换器</h2>
-  <h2>doT 转换器</h2>
-  <h2>tmpl 转换器</h2>
-  <h2>handlebars 转换器</h2>
-  <h2>easyTemplate 转换器</h2>
-  <h2>underscoretemplate 转换器</h2>
-  <h2>mustache 转换器</h2>
-  <h2>kissytemplate 转换器</h2>
-  <h2>互动</h2>
+  <p>下面是一段 <code>artTemplate</code> 模板代码：</p>
+  <pre><code class="language-html">{{if admin}}
+  &lt;p&gt;admin&lt;/p&gt;
+{{else if code &gt; 0}}
+  &lt;p&gt;master&lt;/p&gt;
+{{else}}
+  &lt;p&gt;error!&lt;/p&gt;
+{{/if}}
+&lt;ul&gt;
+  {{each list as value index}}
+    &lt;li&gt;{{index}} - {{value.user}}&lt;/li&gt;
+  {{/each}}
+  {{each list}}
+    &lt;li&gt;{{$index}} - {{$value.user}}&lt;/li&gt;
+  {{/each}}
+&lt;/ul&gt;</code></pre>
+  <p>通过下面的转换器，可以让 <code>nodetpl</code> 直接编译该模板：</p>
+  <pre><code class="language-javascript:;">nodetpl.config({
+  strict: false,
+  openTag: '{{',
+  closeTag: '}}',
+  map: function(str) {
+    // if
+    str = str.replace(/ *else if +(.*)/g, '} else if($1) {').replace(/ *if +(.*)/g, 'if($1) {').replace(/ *else *$/g, '} else {').replace(/ *\/if/g, '}');
+    // each list as value index
+    str = str.replace(/ *each ([^ ]+) as ([^ ]+) *([^ ]+)?/g, function(all, arr, value, index) {
+      return arr + '.forEach(function(' + value + (index ? ',' : '') + (index || '') + ') {';
+    }).replace(/ *each ([^ ]+)/g, function(all, arr) {
+      return arr + '.forEach(function($value, $index) {';
+    }).replace(/\/each/g, '});');
+    // {#
+    str = str.replace(/^([^\s}]+)$/g, '=$1');
+    return str;
+  }
+});
+nodetpl.render(content, data, function(d) {
+  console.log(d);
+});</code></pre>
+  <p><a href="javascript:;" class="btn btn-try" id="btn-map-artTemplate">试一试</a><a href="./demo/demo_map_artTemplate.html" class="btn" target="_blank">查看DEMO</a></p>
+  <h2>其它模板语言</h2>
+  <p>其它模板语言的处理方式与上面基本类似，包括 <code>PHP</code>、<code>JSP</code> 代码也一样，这里不再列出，感兴趣的同学可以自己试一下。</p>
   <!-- 多说评论框 start -->
   <div class="ds-thread" data-thread-key="index" data-url="http://www.nodetpl.com/cn/"></div>
   <!-- 多说评论框 end -->
