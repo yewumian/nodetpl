@@ -48,6 +48,7 @@
   <h2>转换器的概念</h2>
   <p><code>nodetpl</code> 允许自定义任意模板语法，通过传入的 <code>map()</code> 方法来对这些语法进行解释，这里的 <code>map()</code> 方法，我们称之为“转换器”。</p>
   <p>通过配置合适的转换器，理论上讲，<code>nodetpl</code> 可以解析任何格式的模板。</p>
+  <p>接下来会简单介绍转换器的基本书写方法，并不针对提及的模板引擎，作者仍然认为这些模板引擎都很优秀，<code>nodetpl</code> 无意也无法完全取代这些引擎，向无私开源的作者们致敬。</p>
   <h2>juicer 转换器</h2>
   <p>下面是一段 <code>juicer</code> 模板代码：</p>
   <pre><code class="language-html">&lt;ul&gt;

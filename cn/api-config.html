@@ -69,6 +69,12 @@
   strict: true,
   map: function(str) {
     return str;
+  },
+  beforeCompile: function(html) {
+    return html;
+  },
+  afterCompile: function(html) {
+    return html;
   }
 });</code></pre>
   <ul>
@@ -76,7 +82,9 @@
     <li>openTag：模板定界符开始标签，默认为：<code>&lt;?</code></li>
     <li>closeTag：模板定界符结束标签，默认为：<code>?&gt;</code></li>
     <li>strict：是否开启严格模式，默认开启</li>
-    <li>map: 传递一个解析函数（转换器），用来解析其他语法，例如 <code>php</code>、<code>jsp</code> 等</li>
+    <li>map：传递一个解析函数（转换器），用来解析其他语法，例如 <code>php</code>、<code>jsp</code> 等</li>
+    <li>beforeCompile：编译前的处理函数</li>
+    <li>afterCompile：编译后的处理函数</li>
   </ul>
   <p>对于参数 strict，如果不启用严格模式，则模板中引用数据时的“@”可以省略，如：</p>
   <pre><code class="language-html">&lt;h2&gt;&lt;?=@title?&gt;&lt;/h2&gt;</code></pre>
