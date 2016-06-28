@@ -74,7 +74,7 @@
     <li>openTag: start tag of template delimiters, by default: <code>&lt;?</code></li>
     <li>closeTag: end tag of template delimiters, by default: <code>?&gt;</code></li>
     <li>strict: wither use strict mode, by default: <code>true</code></li>
-    <li>map: pass an analytic function, and to parse other grammar, such as <code>PHP</code>, <code>JSP</code>, etc</li>
+    <li>map: pass an analytic function(converter), used to resolve other syntax, such as <code>PHP</code>, <code>JSP</code>, etc</li>
   </ul>
   <p>If you do not enable strict mode, then in the template "@" can be omitted, eg:</p>
   <pre><code class="language-html">&lt;h2&gt;&lt;?=@title?&gt;&lt;/h2&gt;</code></pre>
@@ -82,7 +82,7 @@
   <pre><code class="language-html">&lt;h2&gt;&lt;?=title?&gt;&lt;/h2&gt;</code></pre>
   <p>But, with the development of the ES6, we do not recommend this.</p>
   <p>Here most of the default values can be used, so that this method can be omitted. Only in a handful of scenes, you can make adjustments according to your own needs.</p>
-  <h2>Custom syntax: powerful <code>map()</code> method</h2>
+  <h2>Converter: powerful <code>map()</code> method</h2>
   <p><code>nodetpl</code> allows you to pass any grammar you like, you can according to need, pass the <code>map()</code> method, tell <code>nodetpl</code> how to resolve these unconventional statements, the following is a simple example:</p>
   <p>If you have the following template:</p>
   <pre><code class="language-html">&lt;div&gt;

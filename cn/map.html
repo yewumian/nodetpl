@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>nodetpl.render - NodeTpl - 高效javascript模板引擎</title>
+<title>nodetpl.config - NodeTpl - 高效javascript模板引擎</title>
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -16,7 +16,7 @@
 <script type="text/javascript" src="/static/js/require.js"></script>
 <script type="text/javascript" src="/static/js/require-config.js"></script>
 </head>
-<body id="api">
+<body id="map">
 <header>
   <div class="wrap">
     <div class="logo">
@@ -28,9 +28,9 @@
         <li><a href="./">首页</a></li>
         <li><a href="./start.html">开始</a></li>
         <li><a href="./grammar.html">语法</a></li>
-        <li class="active"><a href="./api.html">API</a></li>
+        <li><a href="./api.html">API</a></li>
         <li><a href="./multi.html">多模板</a></li>
-        <li><a href="./map.html">转换器</a></li>
+        <li class="active"><a href="./map.html">转换器</a></li>
         <li><a href="./compile.html">预编译</a></li>
         <li><a href="./module.html">模块化</a></li>
         <li><a href="./node.html">Node</a></li>
@@ -45,54 +45,64 @@
   <div class="wrap"><a href="./demo/demo_0.html" target="_blank"><i class="iconfont">&#xe605;</i></a></div>
 </div>
 <section class="wrap">
-  <div class="api-list">
-    <h2>nodetpl 方法</h2>
-    <ul>
-      <li><a href="./api-config.html">nodetpl.config</a>：基本配置，非必须</li>
-      <li><a href="./api-get.html">nodetpl.get</a>：获取某个模板或编译后的模板文件</li>
-      <li><a href="./api-render.html"><strong>nodetpl.render</strong></a>：渲染某个模板</li>
-      <li><a href="./api-exec.html">nodetpl.exec</a>：执行模板里面的 js 代码，较少使用</li>
-    </ul>
-    <h2>NodeTplClass 方法</h2>
-    <ul>
-      <li><a href="./api-tplrender.html">tpl.render</a>：渲染模板</li>
-    </ul>
-  </div>
-  <h4>nodetpl.render(tplcontent[, data][, callback]);</h4>
-  <p>使用数据 <code>data</code>，直接渲染模板代码 <code>tplcontent</code>。</p>
-  <p>此方法不包含预编译环节，编译过程由浏览器执行，通常用在人为拼接或者 <code>&lt;script type="text/template"...</code> 的场景。</p>
-  <p><code>nodetpl.render</code> 是一个<strong>异步方法</strong>，该方法会在回调函数里给出渲染后的结果，它和 <code><a href="./api-tplrender.html">tpl.render</a></code> 有着本质的区别。</p>
-  <p><code>HTML</code> 部分：</p>
-  <pre><code class="language-html">&lt;script id="favor-tpl" type="text/template"&gt;
-&lt;h1&gt;&lt;?=@title?&gt;&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;?for(var i=0; i&lt;@favor.length; i++){?&gt;
-    &lt;li&gt;&lt;?=i?&gt;：&lt;?=@favor[i]?&gt;&lt;/li&gt;
-  &lt;?}?&gt;
-&lt;/ul&gt;
-&lt;/script&gt;</code></pre>
-  <p><code>JS</code> 部分：</p>
-  <pre><code class="language-javascript">var data = {
-  title: '个人爱好',
-  favor: ['足球', '篮球', '乒乓球', '琉璃球']
-};
-var content = document.getElementById('favor-tpl').innerHTML;
-nodetpl.render(content, data, function(d){
-  console.log(d);
+  <h2>转换器的概念</h2>
+  <p><code>nodetpl</code> 允许自定义任意模板语法，通过传入的 <code>map()</code> 方法来对这些语法进行解释，这里的 <code>map()</code> 方法，我们称之为“转换器”。</p>
+  <p>通过配置合适的转换器，理论上讲，<code>nodetpl</code> 可以解析任何格式的模板，<code>nodetpl</code> 解析其它种类模板代码的过程，我们称之为“降级”。</p>
+  <h2>juicer 转换器</h2>
+  <p>下面是一段 <code>juicer</code> 模板代码：</p>
+  <pre><code class="language-html">&lt;ul&gt;
+  {@each list as it,index}
+    &lt;li&gt;${it.name} (index: ${index})&lt;/li&gt;
+  {@/each}
+  {@each blah as it}
+    &lt;li&gt;
+      num: ${it.num} &lt;br /&gt;
+      {@if it.num==3}
+        {@each it.inner as it2}
+          ${it2.time} &lt;br /&gt;
+        {@/each}
+      {@else if it.num==4}
+        ${it.num}
+      {@/if}
+    &lt;/li&gt;
+  {@/each}
+&lt;/ul&gt;</code></pre>
+  <p>通过下面的转换器，可以让 <code>nodetpl</code> 直接编译该模板：</p>
+  <pre><code class="language-javascript:;">nodetpl.config({
+  strict: false,
+  openTag: '{',
+  closeTag: '}',
+  map: function(str) {
+    console.log(str);
+    // {@each} ... {@/each}
+    str = str.replace(/@each ([^ ]+) as ([^ ,]+)([, ]?)([^ ]+)?/g, function(all, arr, value, dot, index) {
+      return arr + '.forEach(function(' + value + (dot || '') + (index || '') + ') {';
+    }).replace(/@\/each/g, '});');
+    // {@if} ... {@else if} ... {@else} ... {@/if}
+    str = str.replace(/@if (.*)/g, 'if($1){').replace(/@else if (.*)/g, '} else if($1){').replace(/@\/if/g, '}');
+    // {#
+    str = str.replace(/#.*/g, '');
+    return str;
+  },
+  beforeCompile: function(html) {
+    // ${...} => {=...}
+    // $${...} => {==...}
+    return html.replace(/\$\{/g, '{=').replace(/\${2}\{/g, '{==');
+  }
 });
-</code></pre>
-  <p>或者，不写在 <code>HTML</code> 中，直接在 <code>js</code> 中做字符串拼接亦可：</p>
-  <pre><code class="language-javascript">var template = '\
-&lt;script id="favor-tpl" type="text/template"&gt;\
-&lt;h1&gt;&lt;?=@title?&gt;&lt;/h1&gt;\
-&lt;ul&gt;\
-  &lt;?for(var i=0; i&lt;@favor.length; i++){?&gt;\
-    &lt;li&gt;&lt;?=i?&gt;：&lt;?=@favor[i]?&gt;&lt;/li&gt;\
-  &lt;?}?&gt;\
-&lt;/ul&gt;\
-&lt;/script&gt;';
-nodetpl.render(template, ...</code></pre>
-  <p><a href="javascript:;" class="btn btn-try" id="btn-01">试一试</a><a href="./demo/demo_1.html" class="btn" target="_blank">查看DEMO</a></p>
+nodetpl.render(content, data, function(d) {
+  console.log(d);
+});</code></pre>
+  <p><a href="javascript:;" class="btn btn-try" id="btn-map-juicer">试一试</a><a href="./demo/demo_map_juicer.html" class="btn" target="_blank">查看DEMO</a></p>
+  <h2>artTemplate 转换器</h2>
+  <h2>baiduTemplate 转换器</h2>
+  <h2>doT 转换器</h2>
+  <h2>tmpl 转换器</h2>
+  <h2>handlebars 转换器</h2>
+  <h2>easyTemplate 转换器</h2>
+  <h2>underscoretemplate 转换器</h2>
+  <h2>mustache 转换器</h2>
+  <h2>kissytemplate 转换器</h2>
   <h2>互动</h2>
   <!-- 多说评论框 start -->
   <div class="ds-thread" data-thread-key="index" data-url="http://www.nodetpl.com/cn/"></div>
@@ -120,15 +130,7 @@ nodetpl.render(template, ...</code></pre>
     </div>
   </div>
 </footer>
-<script id="favor-tpl" type="text/template">
-<h1><?=@title?></h1>
-<ul>
-  <?for(var i=0; i<@favor.length; i++){?>
-    <li><?=i?>：<?=@favor[i]?></li>
-  <?}?>
-</ul>
-</script>
-<script>require(['view/cn/api-render']);</script>
+<script>require(['view/cn/api-map']);</script>
 <script>
 var _hmt = _hmt || [];
 (function() {
