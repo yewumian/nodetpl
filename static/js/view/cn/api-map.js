@@ -48,7 +48,6 @@ define(function(require, exports, module) {
       openTag: '{',
       closeTag: '}',
       map: function(str) {
-        console.log(str);
         // {@each} ... {@/each}
         str = str.replace(/@each ([^ ]+) as ([^ ,]+)([, ]?)([^ ]+)?/g, function(all, arr, value, dot, index) {
           return arr + '.forEach(function(' + value + (dot || '') + (index || '') + ') {';
