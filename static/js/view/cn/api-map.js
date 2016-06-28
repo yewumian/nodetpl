@@ -115,8 +115,8 @@ define(function(require, exports, module) {
         }).replace(/ *each ([^ ]+)/g, function(all, arr) {
           return arr + '.forEach(function($value, $index) {';
         }).replace(/\/each/g, '});');
-        // {#
-        str = str.replace(/^([^\s}]+)$/g, '=$1');
+        // value
+        str = str.replace(/^([^\s{}]+)$/g, '=$1');
         return str;
       }
     });
