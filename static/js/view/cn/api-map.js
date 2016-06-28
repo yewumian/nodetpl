@@ -62,7 +62,7 @@ define(function(require, exports, module) {
       beforeCompile: function(html) {
         // ${...} => {=...}
         // $${...} => {==...}
-        return html.replace(/\$\{/g, '{=').replace(/\${2}\{/g, '{==');
+        return html.replace(/\${2}\{/g, '{==').replace(/\$\{/g, '{=');
       }
     });
     nodetpl.render(content, data, function(d) {
