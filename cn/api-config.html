@@ -65,13 +65,17 @@
   base: 'http://www.nodetpl.com/static/tpl/',   // 强制指定模板根目录
   openTag: '&lt;?',
   closeTag: '?&gt;',
-  strict: true
+  strict: true,
+  map: function(str) {
+    return str;
+  }
 });</code></pre>
   <ul>
     <li>base：模板所在的根路径，可以省略。若配置该参数，则使用 <code>.get()</code> 方法填写的路径会相对于该路径进行查找</li>
     <li>openTag：模板定界符开始标签，默认为：<code>&lt;?</code></li>
     <li>closeTag：模板定界符结束标签，默认为：<code>?&gt;</code></li>
     <li>strict：是否开启严格模式，默认开启</li>
+    <li>map: 传递一个解析函数，又来解析其他语法，例如 php、jsp 等</li>
   </ul>
   <p>对于参数 strict，如果不启用严格模式，则模板中引用数据时的“@”可以省略，如：</p>
   <pre><code class="language-html">&lt;h2&gt;&lt;?=@title?&gt;&lt;/h2&gt;</code></pre>
@@ -79,6 +83,49 @@
   <pre><code class="language-html">&lt;h2&gt;&lt;?=title?&gt;&lt;/h2&gt;</code></pre>
   <p>但，随着 ES6 的发展，我们并不推荐这样。</p>
   <p>这里大部分是可以采用默认值的，所以该方法可以省略。只是在极少数的场景下，你可能根据自己的需要做调整。</p>
+  <h2>自定义语法：功能强大的 map</h2>
+  <p><code>nodetpl</code> 允许你传递你喜欢的任意语法，你可以根据需要，传递 <code>map()</code> 方法，告诉 <code>nodetpl</code> 该如何解析这些非常规的语句，下面是一个简单的例子：</p>
+  <p>假如有下面的模板：</p>
+  <pre><code class="language-html">&lt;div&gt;
+  &lt;?foreach ($array as $key =&gt; $value):?&gt;
+    hello, &lt;?=$key?&gt; &lt;?=$value?&gt;
+  &lt;?endforeach?&gt;
+  &lt;?for($i=0; $i&lt;=10; $i++):?&gt;
+    hello, &lt;?=$i?&gt;
+  &lt;?endfor?&gt;
+  &lt;?if($age &lt; 20):?&gt;
+    hello, young man.
+  &lt;?endfor?&gt;
+&lt;/div&gt;</code></pre>
+  <p>很显然，<code>nodetpl</code> 并不知道该如何处理这种语法，但是我们可以通过 <code>map()</code> 告诉 <code>nodetpl</code>，遇到这些语句时，该怎么处理：</p>
+  <pre><code class="language-javascript">nodetpl.config({
+  strict: false,
+  map: function(str) {
+    // foreach => arr.forEach
+    str = str
+      .replace(/foreach\s*\(\s*(\$array)\s+as\s+(\$key)\s*=>\s*(\$value)\s*\):/g, function(all, arr, key, value) {
+        return arr.replace(/^\$/g, '') + '.forEach(function(' + value.replace(/^\$/g, '') + ', ' + key.replace(/^\$/g, '') + ') {';
+      })
+      .replace(/endforeach/g, '});');
+    // for
+    str = str
+      .replace(/for\s*\(\s*([^;]+)(.*)\):/g, function(all, vars, conditions) {
+        return 'for(var ' + vars.replace(/\$/g, '') + conditions.replace(/\$/g, '') + ') {';
+      })
+      .replace(/endfor/g, '}');
+    // if
+    str = str
+      .replace(/((?:else\s+)?if)\s*\((.*)\):/g, function(all, elseif, conditions) {
+        return elseif + '(' + conditions.replace(/\$/g, '') + ') {';
+      })
+      .replace(/endif/g, '}');
+    // $name => name
+    str = str.replace(/^\s*=\s*\$/g, '=');
+    return str;
+  }
+});</code></pre>
+  <p>从上面的代码可以看到，<code>map()</code> 方法对语句中的一些规则做了一些替换，最终将特殊的语法替换为 <code>nodetpl</code> 喜欢的书写方式，从而实现最终的语句解析。</p>
+  <p><a href="javascript:;" class="btn btn-try" id="btn-01">试一试</a><a href="./demo/demo_10.html" class="btn" target="_blank">查看DEMO</a></p>
   <h2>互动</h2>
   <!-- 多说评论框 start -->
   <div class="ds-thread" data-thread-key="index" data-url="http://www.nodetpl.com/cn/"></div>
@@ -106,6 +153,7 @@
     </div>
   </div>
 </footer>
+<script>require(['view/cn/api-config']);</script>
 <script>
 var _hmt = _hmt || [];
 (function() {
