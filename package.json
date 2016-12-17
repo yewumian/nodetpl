@@ -1,6 +1,6 @@
 {
   "name": "nodetpl",
-  "version": "4.8.1",
+  "version": "4.8.2",
   "description": "A powerful, efficient, easy to use, funny JavaScript template engine.",
   "readmeFilename": "README.md",
   "keywords": [
@@ -14,13 +14,13 @@
   },
   "author": "pillys@163.com",
   "repository": {
-    "url": "https://github.com/pillys/nodetpl",
+    "url": "https://github.com/liepinteam/nodetpl",
     "type": "git"
   },
   "bugs": {
-    "url": "https://github.com/pillys/nodetpl/issues"
+    "url": "https://github.com/liepinteam/nodetpl/issues"
   },
-  "homepage": "https://github.com/pillys/nodetpl",
+  "homepage": "https://github.com/liepinteam/nodetpl",
   "license": "MIT",
   "dependencies": {
     "async": "^2.0.0-rc.5",

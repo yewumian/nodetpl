@@ -1,7 +1,7 @@
 nodetpl
 ===
 
-[![Build Status](https://secure.travis-ci.org/pillys/nodetpl.png?branch=master)](https://travis-ci.org/pillys/nodetpl)
+[![Build Status](https://secure.travis-ci.org/liepinteam/nodetpl.png?branch=master)](https://travis-ci.org/liepinteam/nodetpl)
 
 A powerful, efficient, easy to use, funny JavaScript template engine.
 
@@ -26,7 +26,7 @@ A powerful, efficient, easy to use, funny JavaScript template engine.
 
 ## Questions?
 
-If you have any questions, please feel free to ask through [New Issue](https://github.com/pillys/nodetpl/issues/new).
+If you have any questions, please feel free to ask through [New Issue](https://github.com/liepinteam/nodetpl/issues/new).
 
 ### License
 
